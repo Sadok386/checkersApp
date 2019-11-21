@@ -13,7 +13,7 @@ https://github.com/Sadok386/checkersApp.git
 cordova platform add browser
 ```
 
-## Install npm
+## Install packages
 
 ```bash
 npm install
