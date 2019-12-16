@@ -54,6 +54,7 @@
 
             //lorsque le formulaire est remplis on l'envoie pour vérif
             $('#formulaire_connexion').click(function(){
+                console.log("les valeurs de toast", $('#toast').val());
                 socket.emit('nouveau_joueur', {identifiant :$('#toast').val(), password:$('#password').val()});
             });
         </script>
