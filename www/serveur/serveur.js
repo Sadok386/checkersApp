@@ -1,26 +1,24 @@
 var io = require("socket.io");
+var user = require("./user/user.js");
 // Chargement de index après connexion
 var server = io.listen(8080);
 
-let authorizedId ="Sélénium";
-let authorizedPassword ="Test";
-let authorizedId2 ="Poussière";
-let authorizedPassword2 ="Poussière";
 console.log("Test");
 server.on("connection", function(socket){
     console.log("Connection");
 
     socket.on("nouveau_joueur", function(data){
-        console.log(data);
-        if((data.identifiant==authorizedId && data.password==authorizedPassword) || (data.identifiant==authorizedId2 && data.password==authorizedPassword2))
-        {
-            socket.pseudo=data.identifiant;
-            socket.emit("nouveau_joueur", {identifiant: data.identifiant, password: data.password});
-            socket.broadcast.emit("nouvel_adversaire", {identifiant: data.identifiant, password: data.password});
-        }
+        user.userVerification(data,socket);
+    })
+
+    socket.on("disconnect", function(){
+        console.log("dans le disconnect côté serveur ",socket.pseudo);
+        user.userDisconnected(socket.pseudo,socket);
     })
 
 });
+
+
 
 /*
 // Quand un client se connecte, on le note dans la console et on envoie un message
