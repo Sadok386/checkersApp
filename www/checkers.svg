@@ -46,7 +46,6 @@
    <circle id="cercleQuiBouge6" cx="25%" cy="450" r="23" stroke="orange" stroke-width="2"  fill="black">
     </circle>
 
-   <rect id ="rectangle3" fill="#FFFFFF" class="checker" x="0%" width="10%" height="10%" y="70%"></rect>
     <circle id="cercleQuiBouge7" cx="45%" cy="450" r="23" stroke="orange" stroke-width="2"  fill="black">
     </circle>
 

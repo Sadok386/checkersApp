@@ -5,52 +5,123 @@
         <title>Socket.io</title>
     </head>
  
-    <body>
+    <body >
 
         <p><input type="button" value="Chercher une partie" id="poke" /></p>
         <button onclick="createCircle()">Create svg</button> 
-        <svg id="svg" width="800" height="800"></svg>
+        <svg id="svg" width="800" height="800" onload="makeDraggable(evt)"></svg>
         <script>
             var svgns = "http://www.w3.org/2000/svg";  
 
 function createCircle()
 {
-var svg = document.getElementById('svg');
-var shape = document.createElementNS(svgns, "circle");
-var rectangle = document.createElementNS(svgns, "rectangle")
+    var svg = document.getElementById('svg');
+    var shape = document.createElementNS(svgns, "circle");
+    var rectangle = document.createElementNS(svgns, "rectangle")
 
 
+    var str = "";
+    for (var i = 0; i < 10; i++) {
+        for (var j = 0; j < 10; j++){
 
+            
 
-rectangle.setAttributeNS(null, "cx", 25);
-rectangle.setAttributeNS(null, "cy", 50);
-rectangle.setAttributeNS(null, "r",  20);
-
-
-shape.setAttributeNS(null, "cx", 25);
-shape.setAttributeNS(null, "cy", 25);
-shape.setAttributeNS(null, "r",  20);
-shape.setAttributeNS(null, "fill", "green");
-
-
-var str = "";
-for (var i = 0; i < 51; i++) {
-    str = str + i;
-    var grid = document.createElementNS(svgns, "rect")
-    grid.setAttributeNS(null, "x",i+20)
-grid.setAttributeNS(null, "y",0+20)
-grid.setAttributeNS(null, 'height', '3%');
-grid.setAttributeNS(null, 'width', '3%');
-grid.setAttributeNS(null, 'fill', '#'+Math.round(0xffffff * Math.random()).toString(16));
-
-console.log(str);
-svg.appendChild(grid);
+            var line1 = document.createElementNS(svgns, "rect")
+            line1.setAttributeNS(null, "x", j*45+50)
+            line1.setAttributeNS(null, "y", i*45)
+            line1.setAttributeNS(null, 'height', '50');
+            line1.setAttributeNS(null, 'width', '50');
+            line1.setAttributeNS(null, 'fill', (i+j)%2 == 0 ? 'blue' : 'orange');
+            line1.setAttribute("class", "playableCell");
+            svg.appendChild(line1);
+        
+        }
+    }
+    createCircle2();
 } 
+function createCircle2()
+{
+    for (var i = 0; i < 10; i++) {
+    for (var j = 0; j < 10; j++){
 
+     if((i+j)%2 == 0 && (i < 2 || i > 7) ){
+        var circles = document.createElementNS(svgns, "circle")
+            
+            circles.setAttribute("cx",j*45+70);
+            if(i < 2){
+            circles.setAttributeNS(null, 'fill','green');
+            circles.setAttribute("cy",i*50+15);
+        }
+            if(i > 7){
+            circles.setAttributeNS(null, 'fill','pink');
+            circles.setAttribute("cy",i*47);
+            circles.setAttribute("class", "draggable");
+            }
+            circles.setAttribute("r",10);
+            
 
+        }
+        svg.appendChild(circles);
+    }
+}
+}
+function makeDraggable(evt) {
+    console.log('Bonjour');
+        var svg = evt.target;
+        svg.addEventListener('mousedown', startDrag, false);
+        svg.addEventListener('mousemove', drag, false);
+        svg.addEventListener('mouseup', endDrag, false);
+        console.log('Bonjour');
+        var selectedElement, dragX, dragY;
+        var reTranslate = /translate\s*\(([-\+\d\.\s,e]+)\)/gi;
 
-}     
+        function startDrag(evt) {
+          if (evt.target.classList.contains('draggable')) {
+            var screenMatrix = svg.getScreenCTM();
+            selectedElement = evt.target;
+            dragX = evt.clientX / screenMatrix.a;
+            dragY = evt.clientY / screenMatrix.d;
 
+            // Parse existing translate transform
+            var transform = selectedElement.getAttributeNS(null, "transform");
+            var translate = reTranslate.exec(transform);
+            if (translate) {
+              var digits = translate[1].split(/\s*[,\s]+/);
+              dragX -= parseFloat(digits[0] || 0);
+              dragY -= parseFloat(digits[1] || 0);
+            } else {
+              // We need to add a translate transform if there isn't already one
+              translate = "translate(0, 0)";
+              if (transform) {
+                selectedElement.setAttributeNS(null, "transform", translate + transform);
+              } else {
+                selectedElement.setAttributeNS(null, "transform", translate);
+              }
+            }
+          }
+        }
+
+        function drag(evt) {
+          if (selectedElement) {
+            var screenMatrix = svg.getScreenCTM();
+            var x = evt.clientX / screenMatrix.a - dragX;
+            var y = evt.clientY / screenMatrix.d - dragY;
+
+            // Remove the existing translate and replace with the new one
+            var transform = selectedElement.getAttributeNS(null, "transform");
+            transform = transform.replace(reTranslate, "translate(" + x  + " " + y + ")");
+            selectedElement.setAttributeNS(null, "transform", transform);
+
+          }
+        }
+
+        function endDrag(evt) {
+            console.dir(selectedElement.transform.baseVal);
+            console.log(Math.floor(parseInt(selectedElement.cx.baseVal.value)/50));
+            console.log(Math.floor(parseInt(selectedElement.cy.baseVal.value)/50));
+          selectedElement = false;
+        }
+      }
         </script>
     </body>
 </html>
