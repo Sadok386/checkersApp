@@ -2,22 +2,27 @@ let authorizedId ="Sélénium";
 let authorizedPassword ="Test";
 let authorizedId2 ="Poussière";
 let authorizedPassword2 ="Poussière";
+let authorizedId3 ="test";
+let authorizedPassword3 ="test";
 var io = require("socket.io");
 
 module.exports = {
 
-    userVerification: function(data,socket)
+    userVerification: function _VérificationUtilisateur(data,socket)
     {
-        console.log(data);
-        if((data.identifiant==authorizedId && data.password==authorizedPassword) || (data.identifiant==authorizedId2 && data.password==authorizedPassword2))
+        if((data.identifiant==authorizedId && data.password==authorizedPassword) || (data.identifiant==authorizedId2 && data.password==authorizedPassword2) || (data.identifiant==authorizedId3 && data.password==authorizedPassword3))
         {
             socket.pseudo=data.identifiant;
             socket.emit("nouveau_joueur", {identifiant: data.identifiant, password: data.password});
             socket.broadcast.emit("nouvel_adversaire", {identifiant: data.identifiant, password: data.password});
         }
+        else
+        {
+            socket.emit("error","Erreur dans l'identifiant ou le mdp");
+        }
     },
 
-    userDisconnected:function(pseudo, socket){
+    userDisconnected:function _DéconnexionClient(pseudo, socket){
         socket.broadcast.emit("deconnexion", pseudo);
         console.log("client disconnected from server ",pseudo);
     },

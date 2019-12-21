@@ -18,7 +18,9 @@
             <input type="button" value="Confirmer" id="formulaire_connexion"/>
         </form>
 
-        <p><input type="button" value="Chercher une partie" id="poke" /></p>
+        <p><input type="button" value="Chercher une partie" id="lookForGame" /></p>
+
+        <section id="zone_jeu"></section>
 
         <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
         <script src="socket.io.js"></script>
@@ -26,15 +28,10 @@
             // Connexion au port d'écoute
             var socket = io.connect('http://localhost:8080');
 
-            //Réception d'un message 
-            socket.on("message", function(message)
-            {
-                alert("le serveur à envoyé un message : "+ message);
-            });
-
             //Lorsque quelqu'un se co, on envoie un texte dans #zone_Chat
             socket.on('nouveau_joueur', function(data) {
                 $('#zone_chat').prepend('<p> Vous êtes connecté en tant que : <em>' + data.identifiant+ '</em></p>');
+                console.log("La co dans index");
             });
 
             //Message recu lorsque quelqu'un se connecte
@@ -42,14 +39,23 @@
                 $('#zone_chat').prepend('<p><em>' + data.identifiant+ '</em> vient de se connecter.</p>');
             });
 
+            socket.on("message", function(id){
+                console.log("On a reçu un truc dans le index");
+                $('#zone_jeu').prepend('<p> On est dans le groupe'+id+'</p>');
+            })
+
+            socket.on("nouveauArticle", function(message){
+                $('#zone_jeu').prepend('<p> Vous avez comme ip'+message+'</p>');
+            })
+
             //Message recu lorsque quelqu'un se déconnecte
             socket.on('deconnexion', function(data){
                 $('#zone_chat').prepend('<p><em>' + data+ '</em> vient de se déconnecter.</p>');
             });
 
-            //Lors du clic sur l'objet on envoie ça
-            $('#poke').click(function () {
-                socket.emit('message', {content :'Test Content' , importance:"lol"});
+            //Lors du clic sur la recherche de bouton on appele la fonction pour se mettre dans une room
+            $('#lookForGame').click(function () {
+                socket.emit('joinGame');
             });
 
             //lorsque le formulaire est remplis on l'envoie pour vérif
