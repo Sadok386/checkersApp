@@ -8,8 +8,12 @@
     <body >
 
         <p><input type="button" value="Chercher une partie" id="poke" /></p>
-        <button onclick="createCircle()">Create svg</button> 
-        <svg id="svg" width="800" height="800" onload="makeDraggable(evt)"></svg>
+        <button onclick="createCircle(), registercb()" onload="" >Create svg</button> 
+        <svg id="svg" width="800" height="800"></svg>
+        <script
+  src="https://code.jquery.com/jquery-3.4.1.js"
+  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+  crossorigin="anonymous"></script>
         <script>
             var svgns = "http://www.w3.org/2000/svg";  
 
@@ -27,10 +31,10 @@ function createCircle()
             
 
             var line1 = document.createElementNS(svgns, "rect")
-            line1.setAttributeNS(null, "x", j*45+50)
-            line1.setAttributeNS(null, "y", i*45)
-            line1.setAttributeNS(null, 'height', '50');
-            line1.setAttributeNS(null, 'width', '50');
+            line1.setAttributeNS(null, "x", j*80)
+            line1.setAttributeNS(null, "y", i*80)
+            line1.setAttributeNS(null, 'height', '80');
+            line1.setAttributeNS(null, 'width', '80');
             line1.setAttributeNS(null, 'fill', (i+j)%2 == 0 ? 'blue' : 'orange');
             line1.setAttribute("class", "playableCell");
             svg.appendChild(line1);
@@ -44,20 +48,21 @@ function createCircle2()
     for (var i = 0; i < 10; i++) {
     for (var j = 0; j < 10; j++){
 
-     if((i+j)%2 == 0 && (i < 2 || i > 7) ){
+     if((i+j)%2 == 0 && (i < 3 || i > 6) ){
         var circles = document.createElementNS(svgns, "circle")
             
-            circles.setAttribute("cx",j*45+70);
-            if(i < 2){
+            circles.setAttribute("cx",j*80+40);
+            if(i < 3){
             circles.setAttributeNS(null, 'fill','green');
-            circles.setAttribute("cy",i*50+15);
+            circles.setAttribute("cy",i*80+40);
+            circles.setAttribute("class", "vert");
         }
-            if(i > 7){
+            if(i > 6){
             circles.setAttributeNS(null, 'fill','pink');
-            circles.setAttribute("cy",i*47);
-            circles.setAttribute("class", "draggable");
+            circles.setAttribute("cy",i*80+40);
+            circles.setAttribute("class", "rose");
             }
-            circles.setAttribute("r",10);
+            circles.setAttribute("r",20);
             
 
         }
@@ -65,63 +70,115 @@ function createCircle2()
     }
 }
 }
-function makeDraggable(evt) {
-    console.log('Bonjour');
-        var svg = evt.target;
-        svg.addEventListener('mousedown', startDrag, false);
-        svg.addEventListener('mousemove', drag, false);
-        svg.addEventListener('mouseup', endDrag, false);
-        console.log('Bonjour');
-        var selectedElement, dragX, dragY;
-        var reTranslate = /translate\s*\(([-\+\d\.\s,e]+)\)/gi;
+var selectedElement = null;
+var prevElement = null;
+var currentX = 0;
+var currentY = 0;
 
-        function startDrag(evt) {
-          if (evt.target.classList.contains('draggable')) {
-            var screenMatrix = svg.getScreenCTM();
-            selectedElement = evt.target;
-            dragX = evt.clientX / screenMatrix.a;
-            dragY = evt.clientY / screenMatrix.d;
+  
 
-            // Parse existing translate transform
-            var transform = selectedElement.getAttributeNS(null, "transform");
-            var translate = reTranslate.exec(transform);
-            if (translate) {
-              var digits = translate[1].split(/\s*[,\s]+/);
-              dragX -= parseFloat(digits[0] || 0);
-              dragY -= parseFloat(digits[1] || 0);
-            } else {
-              // We need to add a translate transform if there isn't already one
-              translate = "translate(0, 0)";
-              if (transform) {
-                selectedElement.setAttributeNS(null, "transform", translate + transform);
-              } else {
-                selectedElement.setAttributeNS(null, "transform", translate);
-              }
+   function registercb(){
+      
+      var startPositionCx = 0
+      var startPositionCy = 0
+      var stopPositionCx = 0
+      var stopPositionCy = 0
+
+      
+        $("#svg > circle").mousedown(function (e) {
+            var a = document.getElementById("svg");
+
+//get the inner DOM of alpha.svg
+var gameBoard = [
+    [0, 1, 0, 1, 0, 1, 0, 1],
+    [1, 0, 1, 0, 1, 0, 1, 0],
+    [0, 1, 0, 1, 0, 1, 0, 1],
+    [0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0],
+    [2, 0, 2, 0, 2, 0, 2, 0],
+    [0, 2, 0, 2, 0, 2, 0, 2],
+    [2, 0, 2, 0, 2, 0, 2, 0]
+  ];
+            boardArray = Array.prototype.slice.call(a.childNodes);
+            b = boardArray.slice(100,129)
+            boardArraySliced.forEach((item, index) => {
+            console.log(index[1]);
+            
+            })
+            
+          console.log("ici")
+            // save the original values
+            currentX = e.clientX;
+            currentY = e.clientY;
+            selectedElement = e.target;
+            startPositionCx = Math.floor(parseInt(selectedElement.cx.baseVal.value)/100)
+            startPositionCy = Math.floor(parseInt(selectedElement.cy.baseVal.value)/100)
+            startPositionCxPixel =  parseInt(selectedElement.getAttribute("cx"))
+            startPositionCyPixel =   parseInt(selectedElement.getAttribute("cy"))
+        }).mousemove(function (e) {    
+            // if there is an active element, move it around            
+            if (selectedElement) {
+                var dx = parseInt(selectedElement.getAttribute("cx")) + e.clientX - currentX;
+                var dy = parseInt(selectedElement.getAttribute("cy")) + e.clientY - currentY;
+                currentX = e.clientX;
+                currentY = e.clientY;
+                selectedElement.setAttribute("cx", dx);
+                selectedElement.setAttribute("cy", dy);
+               
             }
-          }
-        }
+        }).mouseup(function (e) {
+            stopPositionCx = Math.floor(parseInt(selectedElement.cx.baseVal.value)/100)
+            stopPositionCy = Math.floor(parseInt(selectedElement.cy.baseVal.value)/100)
+            couleurPion = selectedElement.className.baseVal;
+            stopPositionCxPixel =  parseInt(selectedElement.getAttribute("cx"))
+            stopPositionCyPixel =   parseInt(selectedElement.getAttribute("cy"))
+            console.log('startPositionCx : '+startPositionCx, 'startPositionCy : '+startPositionCy)
+            // deactivate element after setting it into its new location
+            console.dir(selectedElement);
+           
+            if(couleurPion =='rose')
+                if(startPositionCx+1 == stopPositionCx && startPositionCy-1 == stopPositionCy || startPositionCx-1 == stopPositionCx && startPositionCy-1 == stopPositionCy){
+                    console.log("Mouvement autoriser");
+                //     selectedElement.setAttribute("cx", stopPositionCxPixel+50/2);
+                // selectedElement.setAttribute("cy", stopPositionCyPixel+50/2);
+                }
+                else if(startPositionCx == stopPositionCx && startPositionCy == stopPositionCy){
+                    console.log("Veuillez bouger votre pion");
+                }else{
+                    console.log("Mouvement interdit");
+                    selectedElement.setAttribute("cx", startPositionCxPixel);
+                    selectedElement.setAttribute("cy", startPositionCyPixel);
+                }
+            else{
+                if(startPositionCx-1 == stopPositionCx && startPositionCy+1 == stopPositionCy || startPositionCx+1 == stopPositionCx && startPositionCy+1 == stopPositionCy){
+                    console.log("Mouvement autoriser");
+                }
+                else if(startPositionCx == stopPositionCx && startPositionCy == stopPositionCy){
+                    console.log("Veuillez bouger votre pion");
+                }else{
+                    selectedElement.setAttribute("cx", startPositionCxPixel);
+                    selectedElement.setAttribute("cy", startPositionCyPixel);
+                    console.log("Mouvement interdit");
+                }
 
-        function drag(evt) {
-          if (selectedElement) {
-            var screenMatrix = svg.getScreenCTM();
-            var x = evt.clientX / screenMatrix.a - dragX;
-            var y = evt.clientY / screenMatrix.d - dragY;
+            }
+            
+            //if(startPositionCx+1 == stopPositionCx && startPositionCy-1 == stopPositionCy)
+            
+            console.log('stopPositionCx : '+stopPositionCx, 'stopPositionCy : '+stopPositionCy)
+            console.log();
+            selectedElement = null;  
+           
+        });
+    };
+    
+    function log() {
+        if (window.console && window.console.log)
+            window.console.log('[XXX] ' + Array.prototype.join.call(arguments, ' '));
+    };
+    
 
-            // Remove the existing translate and replace with the new one
-            var transform = selectedElement.getAttributeNS(null, "transform");
-            transform = transform.replace(reTranslate, "translate(" + x  + " " + y + ")");
-            selectedElement.setAttributeNS(null, "transform", transform);
-
-          }
-        }
-
-        function endDrag(evt) {
-            console.dir(selectedElement.transform.baseVal);
-            console.log(Math.floor(parseInt(selectedElement.cx.baseVal.value)/50));
-            console.log(Math.floor(parseInt(selectedElement.cy.baseVal.value)/50));
-          selectedElement = false;
-        }
-      }
+ 
         </script>
     </body>
 </html>
