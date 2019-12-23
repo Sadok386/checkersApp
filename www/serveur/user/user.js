@@ -18,6 +18,7 @@ module.exports = {
         }
         else
         {
+            //Créer un nouvel utilisateur??????????
             socket.emit("error","Erreur dans l'identifiant ou le mdp");
         }
     },

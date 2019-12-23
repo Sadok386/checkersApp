@@ -28,5 +28,6 @@ module.exports = {
             }
         }
         console.log("Les chambres", socket.adapter.rooms);
+        //Changer la visibilité de certains items pour permettre le jeu et l'interraction user/model/user
     }
 }
