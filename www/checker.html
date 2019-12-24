@@ -83,36 +83,42 @@ var currentY = 0;
       var startPositionCy = 0
       var stopPositionCx = 0
       var stopPositionCy = 0
+      var a = document.getElementById("svg");
 
-      
-        $("#svg > circle").mousedown(function (e) {
-            var a = document.getElementById("svg");
-
-//get the inner DOM of alpha.svg
-var gameBoard = [
-    [0, 1, 0, 1, 0, 1, 0, 1],
-    [1, 0, 1, 0, 1, 0, 1, 0],
-    [0, 1, 0, 1, 0, 1, 0, 1],
-    [0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0],
-    [2, 0, 2, 0, 2, 0, 2, 0],
-    [0, 2, 0, 2, 0, 2, 0, 2],
-    [2, 0, 2, 0, 2, 0, 2, 0]
-  ];
-            boardArray = Array.prototype.slice.call(a.childNodes);
-            b = boardArray.slice(100,129)
-            boardArraySliced.forEach((item, index) => {
-            console.log(index[1]);
+      boardArray = Array.prototype.slice.call(a.childNodes);
+            p = boardArray.slice(100,130)
+            var gameBoard = [
+            [p[0], 0, p[1], 0, p[2], 0, p[3], 0, p[4], 0],
+            [0, p[5], 0, p[6], 0, p[7], 0, p[8], 0 ,p[9]],
+            [p[10], 0, p[11], 0, p[12], 0, p[13], 0, p[14], 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, p[15], 0, p[16], 0, p[17], 0, p[18], 0, p[19]],
+            [p[20], 0, p[21], 0, p[22], 0, p[23], 0, p[24], 0],
+            [0, p[25], 0, p[26], 0, p[27], 0, p[28], 0, p[29]]
+        
+        ]; console.log(gameBoard)
             
-            })
+        $("#svg > circle").mousedown(function (e) {
+
+          
+       
+//get the inner DOM of alpha.svg
+
+            // boardArraySliced.forEach((item, index) => {
+            // console.log(index);
+            
+            // })
             
           console.log("ici")
             // save the original values
             currentX = e.clientX;
             currentY = e.clientY;
             selectedElement = e.target;
-            startPositionCx = Math.floor(parseInt(selectedElement.cx.baseVal.value)/100)
-            startPositionCy = Math.floor(parseInt(selectedElement.cy.baseVal.value)/100)
+            startPositionCx = Math.floor(parseInt(selectedElement.cx.baseVal.value)/80)
+            startPositionCy = Math.floor(parseInt(selectedElement.cy.baseVal.value)/80)
             startPositionCxPixel =  parseInt(selectedElement.getAttribute("cx"))
             startPositionCyPixel =   parseInt(selectedElement.getAttribute("cy"))
         }).mousemove(function (e) {    
@@ -127,31 +133,82 @@ var gameBoard = [
                
             }
         }).mouseup(function (e) {
-            stopPositionCx = Math.floor(parseInt(selectedElement.cx.baseVal.value)/100)
-            stopPositionCy = Math.floor(parseInt(selectedElement.cy.baseVal.value)/100)
+            stopPositionCx = Math.floor(parseInt(selectedElement.cx.baseVal.value)/80)
+            stopPositionCy = Math.floor(parseInt(selectedElement.cy.baseVal.value)/80)
             couleurPion = selectedElement.className.baseVal;
             stopPositionCxPixel =  parseInt(selectedElement.getAttribute("cx"))
             stopPositionCyPixel =   parseInt(selectedElement.getAttribute("cy"))
             console.log('startPositionCx : '+startPositionCx, 'startPositionCy : '+startPositionCy)
             // deactivate element after setting it into its new location
-            console.dir(selectedElement);
-           
+            
+            console.log(gameBoard)
             if(couleurPion =='rose')
-                if(startPositionCx+1 == stopPositionCx && startPositionCy-1 == stopPositionCy || startPositionCx-1 == stopPositionCx && startPositionCy-1 == stopPositionCy){
+                if(startPositionCx+1 == stopPositionCx && startPositionCy-1 == stopPositionCy 
+                || startPositionCx-1 == stopPositionCx && startPositionCy-1 == stopPositionCy){
+                    
+                   
+                    if(gameBoard[startPositionCy-1][startPositionCx+1] !=0|| gameBoard[startPositionCy-1][startPositionCx-1] != 0){
+
+                        gameBoard[stopPositionCy-1][stopPositionCx+1]=gameBoard[startPositionCy][startPositionCx]
+                        gameBoard[startPositionCy][startPositionCx]= 0
+                        console.log('---------------------------')
+                        console.log(gameBoard[startPositionCy-1][startPositionCx+1])
+                    selectedElement.setAttribute("cy", (startPositionCy-2)*80+40);
+                    console.log('---------------------------')
+                    console.dir(gameBoard[startPositionCy-1][startPositionCx-1])
+                    gameBoard[stopPositionCy][stopPositionCx].style.display = 'none';
+                    if(startPositionCx-1 == stopPositionCx && startPositionCy-1 == stopPositionCy){
+                        selectedElement.setAttribute("cx", (startPositionCx-2)*80+40);
+                    }else{
+                        selectedElement.setAttribute("cx", (startPositionCx+2)*80+40);
+                    }
+                        
+                    }else{
+                        gameBoard[stopPositionCy][stopPositionCx]=gameBoard[startPositionCy][startPositionCx]
+                        gameBoard[startPositionCy][startPositionCx]= 0
+                    }
+                    
+             
+                    
+                    console.log("Pos+1 : "+ gameBoard[startPositionCy+1][startPositionCx+1])
+
                     console.log("Mouvement autoriser");
-                //     selectedElement.setAttribute("cx", stopPositionCxPixel+50/2);
-                // selectedElement.setAttribute("cy", stopPositionCyPixel+50/2);
                 }
                 else if(startPositionCx == stopPositionCx && startPositionCy == stopPositionCy){
-                    console.log("Veuillez bouger votre pion");
+                    console.log("Veuillez bouger votre pion:");
                 }else{
                     console.log("Mouvement interdit");
                     selectedElement.setAttribute("cx", startPositionCxPixel);
                     selectedElement.setAttribute("cy", startPositionCyPixel);
                 }
             else{
-                if(startPositionCx-1 == stopPositionCx && startPositionCy+1 == stopPositionCy || startPositionCx+1 == stopPositionCx && startPositionCy+1 == stopPositionCy){
+                if(startPositionCx-1 == stopPositionCx && startPositionCy+1 == stopPositionCy 
+                || startPositionCx+1 == stopPositionCx && startPositionCy+1 == stopPositionCy){
+                    
+                    if(gameBoard[startPositionCy+1][startPositionCx-1] !=0 || gameBoard[startPositionCy+1][startPositionCx+1]){
+
+                        gameBoard[stopPositionCy-1][stopPositionCx+1]=gameBoard[startPositionCy][startPositionCx]
+                        gameBoard[startPositionCy][startPositionCx]= 0
+
+                        console.log( gameBoard[stopPositionCy][stopPositionCx])
+                        selectedElement.setAttribute("cy", (startPositionCy+2)*80+40);
+                        console.log('---------------------------')
+                        console.log(gameBoard[stopPositionCy+1][stopPositionCx-1])
+                        gameBoard[stopPositionCy][stopPositionCx].style.display = 'none';
+                        gameBoard[stopPositionCy][stopPositionCx] = 0;
+                        if(startPositionCx-1 == stopPositionCx && startPositionCy-1 == stopPositionCy){
+                        selectedElement.setAttribute("cx", (startPositionCx-2)*80+40);
+                        }else{
+                        selectedElement.setAttribute("cx", (startPositionCx+2)*80+40);
+                        }
+
+                        }else{
+                        gameBoard[stopPositionCy][stopPositionCx]=gameBoard[startPositionCy][startPositionCx]
+                        gameBoard[startPositionCy][startPositionCx]= 0
+                        }
+
                     console.log("Mouvement autoriser");
+                    
                 }
                 else if(startPositionCx == stopPositionCx && startPositionCy == stopPositionCy){
                     console.log("Veuillez bouger votre pion");
