@@ -18,4 +18,9 @@ server.on("connection", function(socket){
     socket.on("joinGame",function(){
         room.socketJoin(socket);
     })
+
+    socket.on("updateGame",function(){
+        console.log("Je m'update");
+        room.updateGame(socket);
+    })
 });
