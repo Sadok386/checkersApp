@@ -142,33 +142,62 @@ var currentY = 0;
             // deactivate element after setting it into its new location
             
             console.log(gameBoard)
+            console.log('-----------DROITE------------')
+            console.log(gameBoard[startPositionCy-1][startPositionCx+1])
+            console.log('-----------GAUCHE------------')
+            console.log(gameBoard[startPositionCy-1][startPositionCx-1])
             if(couleurPion =='rose')
                 if(startPositionCx+1 == stopPositionCx && startPositionCy-1 == stopPositionCy 
                 || startPositionCx-1 == stopPositionCx && startPositionCy-1 == stopPositionCy){
                     
-                   
-                    if(gameBoard[startPositionCy-1][startPositionCx+1] !=0|| gameBoard[startPositionCy-1][startPositionCx-1] != 0){
+                    //Traitement a droite
+                    if(gameBoard[startPositionCy-1][startPositionCx+1] != 0 && gameBoard[startPositionCy-2][startPositionCx+2] == 0  ){
+                        if(gameBoard[startPositionCy-1][startPositionCx+1] !=null){
+                            if(gameBoard[startPositionCy-1][startPositionCx+1].className.baseVal =='vert'){
+                                gameBoard[stopPositionCy-1][stopPositionCx+1]=gameBoard[startPositionCy][startPositionCx]
+                                gameBoard[startPositionCy][startPositionCx]= 0
+                                selectedElement.setAttribute("cy", (startPositionCy-2)*80+40);
+                                gameBoard[stopPositionCy][stopPositionCx].style.display = 'none';
+                                gameBoard[stopPositionCy][stopPositionCx] = 0;
+                                selectedElement.setAttribute("cx", (startPositionCx+2)*80+40);
+                            } 
+                            else{
+                                gameBoard[stopPositionCy][stopPositionCx]=gameBoard[startPositionCy][startPositionCx]
+                                gameBoard[startPositionCy][startPositionCx]= 0
+                            }  
+                        }
+                        else{
+                                gameBoard[stopPositionCy][stopPositionCx]=gameBoard[startPositionCy][startPositionCx]
+                                gameBoard[startPositionCy][startPositionCx]= 0
+                            }  
+                    }
+                    //Traitement à gauche
+                    else if (gameBoard[startPositionCy-1][startPositionCx-1] !=0 && gameBoard[startPositionCy-2][startPositionCx-2] == 0){
+                        if(gameBoard[startPositionCy-1][startPositionCx-1] !=null){
+                            if(gameBoard[startPositionCy-1][startPositionCx-1].className.baseVal =='vert'){
+                                gameBoard[stopPositionCy-1][stopPositionCx-1]=gameBoard[startPositionCy][startPositionCx]
+                                gameBoard[startPositionCy][startPositionCx]= 0
+                                selectedElement.setAttribute("cy", (startPositionCy-2)*80+40);
+                                gameBoard[stopPositionCy][stopPositionCx].style.display = 'none';
+                                gameBoard[stopPositionCy][stopPositionCx] = 0;
+                                selectedElement.setAttribute("cx", (startPositionCx-2)*80+40);
+                            }
+                            else{
+                                gameBoard[stopPositionCy][stopPositionCx]=gameBoard[startPositionCy][startPositionCx]
+                                gameBoard[startPositionCy][startPositionCx]= 0
+                            }  
+                        }
+                        else{
+                            gameBoard[stopPositionCy][stopPositionCx]=gameBoard[startPositionCy][startPositionCx]
+                            gameBoard[startPositionCy][startPositionCx]= 0
+                        } 
+                    }
+                    else{
+                            gameBoard[stopPositionCy][stopPositionCx]=gameBoard[startPositionCy][startPositionCx]
+                            gameBoard[startPositionCy][startPositionCx]= 0
+                        }  
 
-                        gameBoard[stopPositionCy-1][stopPositionCx+1]=gameBoard[startPositionCy][startPositionCx]
-                        gameBoard[startPositionCy][startPositionCx]= 0
-                        console.log('---------------------------')
-                        console.log(gameBoard[startPositionCy-1][startPositionCx+1])
-                    selectedElement.setAttribute("cy", (startPositionCy-2)*80+40);
-                    console.log('---------------------------')
-                    console.dir(gameBoard[startPositionCy-1][startPositionCx-1])
-                    gameBoard[stopPositionCy][stopPositionCx].style.display = 'none';
-                    if(startPositionCx-1 == stopPositionCx && startPositionCy-1 == stopPositionCy){
-                        selectedElement.setAttribute("cx", (startPositionCx-2)*80+40);
-                    }else{
-                        selectedElement.setAttribute("cx", (startPositionCx+2)*80+40);
-                    }
-                        
-                    }else{
-                        gameBoard[stopPositionCy][stopPositionCx]=gameBoard[startPositionCy][startPositionCx]
-                        gameBoard[startPositionCy][startPositionCx]= 0
-                    }
-                    
-             
+                  
                     
                     console.log("Pos+1 : "+ gameBoard[startPositionCy+1][startPositionCx+1])
 
@@ -184,31 +213,59 @@ var currentY = 0;
             else{
                 if(startPositionCx-1 == stopPositionCx && startPositionCy+1 == stopPositionCy 
                 || startPositionCx+1 == stopPositionCx && startPositionCy+1 == stopPositionCy){
-                    
-                    if(gameBoard[startPositionCy+1][startPositionCx-1] !=0 || gameBoard[startPositionCy+1][startPositionCx+1]){
-
-                        gameBoard[stopPositionCy-1][stopPositionCx+1]=gameBoard[startPositionCy][startPositionCx]
-                        gameBoard[startPositionCy][startPositionCx]= 0
-
-                        console.log( gameBoard[stopPositionCy][stopPositionCx])
-                        selectedElement.setAttribute("cy", (startPositionCy+2)*80+40);
-                        console.log('---------------------------')
-                        console.log(gameBoard[stopPositionCy+1][stopPositionCx-1])
-                        gameBoard[stopPositionCy][stopPositionCx].style.display = 'none';
-                        gameBoard[stopPositionCy][stopPositionCx] = 0;
-                        if(startPositionCx-1 == stopPositionCx && startPositionCy-1 == stopPositionCy){
-                        selectedElement.setAttribute("cx", (startPositionCx-2)*80+40);
-                        }else{
-                        selectedElement.setAttribute("cx", (startPositionCx+2)*80+40);
+                    //Traitement à droite
+                    if(gameBoard[startPositionCy+1][startPositionCx-1] != 0  ){
+                        if(gameBoard[startPositionCy+1][startPositionCx-1] !=null && gameBoard[startPositionCy+2][startPositionCx-2] == 0 ){
+                            if(gameBoard[startPositionCy+1][startPositionCx-1].className.baseVal =='rose'){
+                                gameBoard[stopPositionCy+1][stopPositionCx-1]=gameBoard[startPositionCy][startPositionCx]
+                                gameBoard[startPositionCy][startPositionCx]= 0
+                                selectedElement.setAttribute("cy", (startPositionCy+2)*80+40);
+                                gameBoard[stopPositionCy][stopPositionCx].style.display = 'none';
+                                gameBoard[stopPositionCy][stopPositionCx] = 0;
+                                selectedElement.setAttribute("cx", (startPositionCx-2)*80+40);
+                            }  
+                            else{
+                                selectedElement.setAttribute("cx", startPositionCxPixel);
+                                selectedElement.setAttribute("cy", startPositionCyPixel);
+                            } 
                         }
-
-                        }else{
+                        else{
+                            gameBoard[stopPositionCy][stopPositionCx]=gameBoard[startPositionCy][startPositionCx]
+                            gameBoard[startPositionCy][startPositionCx]= 0
+                        } 
+                    }
+                    //Traitement à gauche
+                    else if (gameBoard[startPositionCy+1][startPositionCx+1] !=0){
+                        if(gameBoard[startPositionCy+1][startPositionCx+1] !=null && gameBoard[startPositionCy+2][startPositionCx+2] == 0){
+                            if(gameBoard[startPositionCy+1][startPositionCx+1].className.baseVal =='rose'){
+                                gameBoard[stopPositionCy+1][stopPositionCx+1]=gameBoard[startPositionCy][startPositionCx]
+                                gameBoard[startPositionCy][startPositionCx]= 0
+                                selectedElement.setAttribute("cy", (startPositionCy+2)*80+40);
+                                gameBoard[stopPositionCy][stopPositionCx].style.display = 'none';
+                                gameBoard[stopPositionCy][stopPositionCx] = 0;
+                                selectedElement.setAttribute("cx", (startPositionCx+2)*80+40);
+                            }
+                            else{
+                                gameBoard[stopPositionCy][stopPositionCx]=gameBoard[startPositionCy][startPositionCx]
+                                gameBoard[startPositionCy][startPositionCx]= 0
+                            } 
+                        }
+                        else{
+                            selectedElement.setAttribute("cx", startPositionCxPixel);
+                            selectedElement.setAttribute("cy", startPositionCyPixel);
+                        }       
+                    }
+                    else{
                         gameBoard[stopPositionCy][stopPositionCx]=gameBoard[startPositionCy][startPositionCx]
                         gameBoard[startPositionCy][startPositionCx]= 0
-                        }
+                        }  
+
+                  
+             
+                    
+                    console.log("Pos+1 : "+ gameBoard[startPositionCy+1][startPositionCx+1])
 
                     console.log("Mouvement autoriser");
-                    
                 }
                 else if(startPositionCx == stopPositionCx && startPositionCy == stopPositionCy){
                     console.log("Veuillez bouger votre pion");
