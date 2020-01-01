@@ -3,13 +3,18 @@
     <head>
         <meta charset="utf-8" />
         <title>Socket.io</title>
+        <link rel="stylesheet" href="style.css" />
     </head>
  
     <body >
 
         <p><input type="button" value="Chercher une partie" id="poke" /></p>
-        <button onclick="createCircle(), registercb()" onload="" >Create svg</button> 
-        <svg id="svg" width="800" height="800"></svg>
+        <button onclick="createCircle(), registercb()" onload="" >Create svg</button>
+        </div>
+        <div class="svg-container">
+            <object type="image/svg+xml" data="checkers.svg" width="100%" height="100%" class="svg-content">
+            </object>
+        </div>
         <script
   src="https://code.jquery.com/jquery-3.4.1.js"
   integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
@@ -19,9 +24,8 @@
 
 function createCircle()
 {
-    var svg = document.getElementById('svg');
-
-
+    var svg = document.getElementById('object');
+   
     var str = "";
     for (var i = 0; i < 10; i++) {
         for (var j = 0; j < 10; j++){
@@ -89,7 +93,7 @@ var changeTurn = false;
       var stopPositionCx = 0
       var stopPositionCy = 0
 
-      var a = document.getElementById("svg");
+      var a = document.getElementById("object");
     console.log(a.childNodes);
       boardArray = Array.prototype.slice.call(a.childNodes);
             r = boardArray.slice(0,99)
