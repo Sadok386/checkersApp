@@ -13,7 +13,7 @@
     vertical-align: middle;
     overflow: hidden;
     }
-   object{
+   svg{
      width: 100%;
      height: 50vh; /* aspect ratio */
    }

@@ -2,94 +2,19 @@
 <html>
     <head>
         <meta charset="utf-8" />
-        <title>Socket.io</title>
+        <title>Connexion</title>
+        <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+        <script src="/js/script.js"></script>
     </head>
  
     <body>
-        <h1>Communication avec socket.io !</h1>
+    <form>
+        <p>Pseudo <input type="text" class="username" /></p>
+        <p>Password <input type="password" class="password" /></p>
+        <input type="button" onclick="ConnexionUser()" value="Login"/>
+    </form>
 
-        <section id="zone_chat">
-                    
-        </section>
-
-        <form method="post">
-            <input type="text" name="toast" id="toast" size="50" autofocus />
-            <input type="password" name="password" id="password" size="50" autofocus />
-            <input type="button" value="Confirmer" id="formulaire_connexion"/>
-        </form>
-
-        <p><input type="button" value="Chercher une partie" id="poke" /></p>
-        <button onclick="createCircle()">Create svg</button> 
-        <svg id="svg" width="100%" height="100%"></svg>
-        <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
-        <script src="socket.io.js"></script>
-        <script>
-            // Connexion au port d'écoute
-            var socket = io.connect('http://localhost:8080');
-
-            //Réception d'un message 
-            socket.on("message", function(message)
-            {
-                alert("le serveur à envoyé un message : "+ message);
-            });
-
-            //Lorsque quelqu'un se co, on envoie un texte dans #zone_Chat
-            socket.on('nouveau_joueur', function(data) {
-                $('#zone_chat').prepend('<p> Vous êtes connecté en tant que : <em>' + data.identifiant+ '</em></p>');
-            });
-
-            //Message recu lorsque quelqu'un se connecte
-            socket.on('nouvel_adversaire', function(data) {
-                $('#zone_chat').prepend('<p><em>' + data.identifiant+ '</em> vient de se connecter.</p>');
-            });
-
-            //Message recu lorsque quelqu'un se déconnecte
-            socket.on('deconnexion', function(data){
-                $('#zone_chat').prepend('<p><em>' + data+ '</em> vient de se déconnecter.</p>');
-            });
-
-            //Lors du clic sur l'objet on envoie ça
-            $('#poke').click(function () {
-                socket.emit('message', {content :'Test Content' , importance:"lol"});
-            });
-
-            //lorsque le formulaire est remplis on l'envoie pour vérif
-            $('#formulaire_connexion').click(function(){
-                socket.emit('nouveau_joueur', {identifiant :$('#toast').val(), password:$('#password').val()});
-            });
-        </script>
-        <script>
-            var svgns = "http://www.w3.org/2000/svg";  
-
-function createCircle()
-{
-var svg = document.getElementById('svg');
-var shape = document.createElementNS(svgns, "circle");
-var rectangle = document.createElementNS(svgns, "rectangle")
-var grid = document.createElementNS(svgns, "rect")
-
-grid.setAttributeNS(null, "x",0)
-grid.setAttributeNS(null, "y",0)
-grid.setAttributeNS(null, 'height', '50%');
-grid.setAttributeNS(null, 'width', '30%');
-grid.setAttributeNS(null, 'fill', '#'+Math.round(0xffffff * Math.random()).toString(16));
-
-rectangle.setAttributeNS(null, "cx", 25);
-rectangle.setAttributeNS(null, "cy", 50);
-rectangle.setAttributeNS(null, "r",  20);
-
-
-shape.setAttributeNS(null, "cx", 25);
-shape.setAttributeNS(null, "cy", 25);
-shape.setAttributeNS(null, "r",  20);
-shape.setAttributeNS(null, "fill", "green");
-
-
-svg.appendChild(grid);
-
-}     
-        </script>
+        <p>Vous n'avez pas de compte ? <a href="/creerCompte">Cliquer ici pour créer un compte.</a> </p>
     </body>
 </html>
 
-<!-- mettre les identifiant/passwords dans le petit-nouveau si ils correspondent à des trucs alors connexion-->
