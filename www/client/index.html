@@ -13,12 +13,19 @@
         </section>
 
         <form method="post">
-            <input type="text" name="toast" id="toast" size="50" autofocus />
+            <input type="text" name="Username" id="Username" size="50" autofocus />
             <input type="password" name="password" id="password" size="50" autofocus />
             <input type="button" value="Confirmer" id="formulaire_connexion"/>
         </form>
 
-        <p><input type="button" value="Chercher une partie" id="poke" /></p>
+        <p><input type="button" value="Chercher une partie" id="lookForGame"/></p>
+
+        <section style="display:none" id="zone_jeu" >
+
+            <button id="simulation"> Simulation onclick</button>
+
+        </section>
+
 
         <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
         <script src="socket.io.js"></script>
@@ -26,15 +33,10 @@
             // Connexion au port d'écoute
             var socket = io.connect('http://localhost:8080');
 
-            //Réception d'un message 
-            socket.on("message", function(message)
-            {
-                alert("le serveur à envoyé un message : "+ message);
-            });
-
             //Lorsque quelqu'un se co, on envoie un texte dans #zone_Chat
             socket.on('nouveau_joueur', function(data) {
                 $('#zone_chat').prepend('<p> Vous êtes connecté en tant que : <em>' + data.identifiant+ '</em></p>');
+                console.log("La co dans index");
             });
 
             //Message recu lorsque quelqu'un se connecte
@@ -42,20 +44,47 @@
                 $('#zone_chat').prepend('<p><em>' + data.identifiant+ '</em> vient de se connecter.</p>');
             });
 
+            
+
+            socket.on("nouveauArticle", function(message){
+                console.log("Un test");
+                $('#zone_jeu').prepend('<p> Vous avez comme ip on emit: '+message+'</p>');
+            })
+
             //Message recu lorsque quelqu'un se déconnecte
             socket.on('deconnexion', function(data){
                 $('#zone_chat').prepend('<p><em>' + data+ '</em> vient de se déconnecter.</p>');
             });
 
-            //Lors du clic sur l'objet on envoie ça
-            $('#poke').click(function () {
-                socket.emit('message', {content :'Test Content' , importance:"lol"});
+            //Lors du clic sur la recherche de bouton on appele la fonction pour se mettre dans une room
+            $('#lookForGame').click(function () {
+                socket.emit('joinGame');
+                var suppr = document.getElementById('lookForGame');
+                suppr.parentNode.removeChild(suppr);
             });
 
             //lorsque le formulaire est remplis on l'envoie pour vérif
             $('#formulaire_connexion').click(function(){
-                console.log("les valeurs de toast", $('#toast').val());
-                socket.emit('nouveau_joueur', {identifiant :$('#toast').val(), password:$('#password').val()});
+                socket.emit('nouveau_joueur', {identifiant :$('#Username').val(), password:$('#password').val()});
+            });
+
+            socket.on('showGame',function(){
+                var suppr = document.getElementById('zone_jeu');
+                suppr.style.display="inline";
+            });
+
+            $('#simulation').click(function()
+            {
+                socket.emit('updateGame');
+            });
+
+            socket.on("message", function(id){
+                $('#zone_jeu').prepend('<p> Le broadcast à la room : '+id+'</p>');
+            })
+
+            socket.on('modificationJeu',function(id){
+                console.log("je m'update bien c'est cool");
+                $('#zone_jeu').prepend('Normalement sa up');
             });
         </script>
     </body>
