@@ -53,9 +53,7 @@
             //Message recu lorsque quelqu'un se connecte
             socket.on('nouvel_adversaire', function(data) {
                 $('#zone_chat').prepend('<p><em>' + data.identifiant+ '</em> vient de se connecter.</p>');
-            });
-
-            
+            });            
 
             socket.on("nouveauArticle", function(message){
                 console.log("Un test");
@@ -97,39 +95,30 @@
                 console.log("je m'update bien c'est cool");
                 $('#zone_jeu').prepend('Normalement sa up');
             });
-        </script>
-        <script>
-            var svgns = "http://www.w3.org/2000/svg";  
 
-function createCircle()
-{
-var svg = document.getElementById('svg');
-var shape = document.createElementNS(svgns, "circle");
-var rectangle = document.createElementNS(svgns, "rectangle")
-var grid = document.createElementNS(svgns, "rect")
+            $('#svg').click(function()
+            {
+                console.log("les coordonnées du pion à la fin: ", getX() , getY());
+                console.log("les coordonnées du pion à la finale: ", getFinalX() , getFinalY());
+                console.log("le plateau ", gameBoardShow());
+                console.log("le pion qu'on doit modifier: ", getSelectedElement())
+                //deplacerPion(getSelectedElement(), 5, 5);
+                var test = getSelectedElement();
+                socket.emit('updateGame', test, getX(), getY());
+            });
 
-grid.setAttributeNS(null, "x",0)
-grid.setAttributeNS(null, "y",0)
-grid.setAttributeNS(null, 'height', '50%');
-grid.setAttributeNS(null, 'width', '30%');
-grid.setAttributeNS(null, 'fill', '#'+Math.round(0xffffff * Math.random()).toString(16));
+            socket.on('refreshGame', function(id,getSelectedElement, getX, getY){
+                console.log("Est ce que je peux m'envoyer des merde de nul part: ", getSelectedElement, getX, getY);
+                //console.log("Le refresh game est censé se faire: ", getSelectedElement());
+                //console.log("les coordonnées du pion à la fin: ", getX() , getY());
 
-rectangle.setAttributeNS(null, "cx", 25);
-rectangle.setAttributeNS(null, "cy", 50);
-rectangle.setAttributeNS(null, "r",  20);
+                //deplacerPion(getSelectedElement(), 5, 5);
+            })
 
-
-shape.setAttributeNS(null, "cx", 25);
-shape.setAttributeNS(null, "cy", 25);
-shape.setAttributeNS(null, "r",  20);
-shape.setAttributeNS(null, "fill", "green");
-
-
-svg.appendChild(grid);
-
-}     
         </script>
     </body>
 </html>
 
 <!-- mettre les identifiant/passwords dans le petit-nouveau si ils correspondent à des trucs alors connexion-->
+
+<!-- Chopper événement jeu.js ligne 76-->

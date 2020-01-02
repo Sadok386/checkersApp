@@ -19,8 +19,9 @@ server.on("connection", function(socket){
         room.socketJoin(socket);
     })
 
-    socket.on("updateGame",function(){
-        console.log("Je m'update");
-        room.updateGame(socket);
+    socket.on("updateGame",function(test, getSelectedElement, getX, getY){
+        console.log("Je m'update à partir de la modif d'un pion: ",getSelectedElement, getX, getY);
+        //room.updateGame(socket);
+        room.refresh(socket,getSelectedElement, getX, getY);
     })
 });

@@ -5,7 +5,10 @@ var currentX = 0;
 var currentY = 0;
 pinkPoint = 0
 greenPoint = 0
-var changeTurn = false;  
+var changeTurn = false;
+var lastX = 0;
+var lastY = 0;
+var selectPion;
 
    function registercb(){
        
@@ -58,6 +61,7 @@ var changeTurn = false;
             currentX = e.clientX || e.touches[0].pageX ;
             currentY = e.clientY || e.touches[0].pageY;
             selectedElement = e.target;
+            selectPion = selectedElement;
             startPositionCx = Math.floor(parseInt(selectedElement.cx.baseVal.value)/70)
             startPositionCy = Math.floor(parseInt(selectedElement.cy.baseVal.value)/70)
             startPositionCxPixel =  parseInt(selectedElement.getAttribute("cx"))
@@ -78,9 +82,15 @@ var changeTurn = false;
             
             stopPositionCx = Math.floor(parseInt(selectedElement.cx.baseVal.value)/70)
             stopPositionCy = Math.floor(parseInt(selectedElement.cy.baseVal.value)/70)
+            lastX = startPositionCx;
+            lastY = startPositionCy;
             couleurPion = selectedElement.className.baseVal;
             stopPositionCxPixel =  parseInt(selectedElement.getAttribute("cx"))
             stopPositionCyPixel =   parseInt(selectedElement.getAttribute("cy"))
+
+            finalX = stopPositionCxPixel;
+            finalY = stopPositionCyPixel;
+
             console.log('startPositionCx : '+startPositionCx, 'startPositionCy : '+startPositionCy)
             // deactivate element after setting it into its new location
             
@@ -467,6 +477,43 @@ var changeTurn = false;
         if (window.console && window.console.log)
             window.console.log('[XXX] ' + Array.prototype.join.call(arguments, ' '));
     };
+
+    function getX()
+    {
+        return lastX;
+    };
+
+    function getFinalX()
+    {
+        return finalX;
+    };
+    function getY()
+    {
+        return lastY;
+        
+    };
+    function getFinalY()
+    {
+        return finalX;
+    };
+    function getSelectedElement()
+    {
+        return selectPion;
+    };
+
+    function deplacerPion(selectedElement, x ,y)
+    {
+
+        selectedElement.setAttribute("cx", 385);
+        selectedElement.setAttribute("cy", 385);
+
+    };
+
+    function gameBoardShow()
+    {
+        return gameBoard;
+    }
+
     
 
  

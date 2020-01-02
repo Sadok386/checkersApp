@@ -1,4 +1,5 @@
 var io = require("socket.io");
+var game = require("../../client/plateau");
 
 module.exports = {
     socketJoin: function _socketJoinGame(socket)
@@ -25,6 +26,7 @@ module.exports = {
                     socket.emit('nouveauArticle',socket.id);
                     socket.to("room"+i).emit('message',socket.id);
                     socket.emit('showGame');
+                    socket.to("room"+i).emit('createSVG', socket.id);
                     break;
                 }
             }
@@ -35,7 +37,17 @@ module.exports = {
 
     updateGame: function _updateGame(socket)
     {
+        //Récupération des personnes dans la room de la socket
         var currentRoom = Object.keys(socket.rooms).filter(item => item!=socket.id);
         socket.in(currentRoom).emit('modificationJeu', socket.id);
+    },
+
+    refresh: function _refreshGame(socket,getSelectedElement, getX, getY)
+    {
+        //Récupération des personnes dans la room de la socket
+        console.log("C'est de la merde ce truc.");
+        var element = game.se
+        var currentRoom = Object.keys(socket.rooms).filter(item => item!=socket.id);
+        socket.in(currentRoom).emit('refreshGame', socket.id,getSelectedElement, getX, getY);
     },
 }
