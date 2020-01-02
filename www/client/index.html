@@ -18,7 +18,12 @@
             <input type="button" value="Confirmer" id="formulaire_connexion"/>
         </form>
 
-        <p><input type="button" value="Chercher une partie" id="lookForGame"/></p>
+
+        <p><input type="button" value="Chercher une partie" id="lookForGame" /></p>
+        <button onclick="createCircle(), registercb()" onload="" >Create svg</button> 
+        <div class="svg-container">
+        <svg id="svg" width="1000" height="1000"  class="svg-content" ></svg>
+
 
         <section style="display:none" id="zone_jeu" >
 
@@ -26,9 +31,15 @@
 
         </section>
 
-
-        <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+        <script
+  src="https://code.jquery.com/jquery-3.4.1.js"
+  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+  crossorigin="anonymous"></script>
         <script src="socket.io.js"></script>
+        <script type="text/javascript" src="plateau.js"></script>
+        <script type="text/javascript" src="score.js"></script>
+        <script type="text/javascript" src="checkTurn.js"></script>
+        <script type="text/javascript" src="jeu.js"></script>
         <script>
             // Connexion au port d'écoute
             var socket = io.connect('http://localhost:8080');
@@ -86,6 +97,37 @@
                 console.log("je m'update bien c'est cool");
                 $('#zone_jeu').prepend('Normalement sa up');
             });
+        </script>
+        <script>
+            var svgns = "http://www.w3.org/2000/svg";  
+
+function createCircle()
+{
+var svg = document.getElementById('svg');
+var shape = document.createElementNS(svgns, "circle");
+var rectangle = document.createElementNS(svgns, "rectangle")
+var grid = document.createElementNS(svgns, "rect")
+
+grid.setAttributeNS(null, "x",0)
+grid.setAttributeNS(null, "y",0)
+grid.setAttributeNS(null, 'height', '50%');
+grid.setAttributeNS(null, 'width', '30%');
+grid.setAttributeNS(null, 'fill', '#'+Math.round(0xffffff * Math.random()).toString(16));
+
+rectangle.setAttributeNS(null, "cx", 25);
+rectangle.setAttributeNS(null, "cy", 50);
+rectangle.setAttributeNS(null, "r",  20);
+
+
+shape.setAttributeNS(null, "cx", 25);
+shape.setAttributeNS(null, "cy", 25);
+shape.setAttributeNS(null, "r",  20);
+shape.setAttributeNS(null, "fill", "green");
+
+
+svg.appendChild(grid);
+
+}     
         </script>
     </body>
 </html>
