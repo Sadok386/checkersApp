@@ -6,8 +6,8 @@ var currentY = 0;
 pinkPoint = 0
 greenPoint = 0
 var changeTurn = false;
-var lastX = 0;
-var lastY = 0;
+var startPositionCx;
+var startPositionCy;
 var selectPion;
 
    function registercb(){
@@ -63,7 +63,9 @@ var selectPion;
             selectedElement = e.target;
             selectPion = selectedElement;
             startPositionCx = Math.floor(parseInt(selectedElement.cx.baseVal.value)/70)
+            startPionPositionCx = startPositionCx;
             startPositionCy = Math.floor(parseInt(selectedElement.cy.baseVal.value)/70)
+            startPionPositionCy = startPositionCy;
             startPositionCxPixel =  parseInt(selectedElement.getAttribute("cx"))
             startPositionCyPixel =   parseInt(selectedElement.getAttribute("cy"))
         }).bind('touchmove mousemove',function (e) {    
@@ -80,10 +82,12 @@ var selectPion;
         }).bind('touchend mouseup',function (e) {
 
             
-            stopPositionCx = Math.floor(parseInt(selectedElement.cx.baseVal.value)/70)
-            stopPositionCy = Math.floor(parseInt(selectedElement.cy.baseVal.value)/70)
+            stopPositionCx = Math.floor(parseInt(selectedElement.cx.baseVal.value)/70);
+            stopPositionCy = Math.floor(parseInt(selectedElement.cy.baseVal.value)/70);
+
             lastX = startPositionCx;
             lastY = startPositionCy;
+
             couleurPion = selectedElement.className.baseVal;
             stopPositionCxPixel =  parseInt(selectedElement.getAttribute("cx"))
             stopPositionCyPixel =   parseInt(selectedElement.getAttribute("cy"))
@@ -478,14 +482,28 @@ var selectPion;
             window.console.log('[XXX] ' + Array.prototype.join.call(arguments, ' '));
     };
 
-    function getX()
+    function getstartPositionCx()
+    {
+        return startPionPositionCx;
+    };
+
+    function UntrucAuPifx()
     {
         return lastX;
+    };
+
+    function UntrucAuPify()
+    {
+        return lastY;
     };
 
     function getFinalX()
     {
         return finalX;
+    };
+    function startPionPositionCy()
+    {
+        return startPositionCy;
     };
     function getY()
     {
@@ -494,7 +512,7 @@ var selectPion;
     };
     function getFinalY()
     {
-        return finalX;
+        return finalY;
     };
     function getSelectedElement()
     {
