@@ -66,7 +66,7 @@ function getUser() {
             "</tr>");
         }
      }).error(function(response) {
-         alert("Cannot fetch data. Please try again");
+         alert("Impossible de récupérer les données");
      });
 
 }
@@ -86,7 +86,7 @@ function addItem() {
         }
     }).success(function(response){
         console.log(response);
-        alert("Item successfully added!");
+        alert("Objet ajouteé!");
         //Mettre les donneées dans la table
         ("#itemtable").append("<tr>" +
             "<td>" + response.item._id + "</td>" +

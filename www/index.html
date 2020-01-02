@@ -1,73 +1,194 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-    <head>
-        <meta charset="utf-8" />
-        <title>CheckersApp</title>
-        <link rel="stylesheet" href="style.css" />
-    </head>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=no">
+    <title>Checkers</title>
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <script src="/js/script.js"></script>
+    <script src=”/socket.io/socket.io.js”></script>
+    <link href="http://code.jquery.com/mobile/1.3.0/jquery.mobile-1.3.0.min.css" rel="stylesheet" type="text/css">
+    <link href="../Documents/css/bootstrap-4.3.1.css" rel="stylesheet" type="text/css">
+    <link href="../Documents/jQueryAssets/jquery.ui.core.min.css" rel="stylesheet" type="text/css">
+    <link href="../Documents/jQueryAssets/jquery.ui.theme.min.css" rel="stylesheet" type="text/css">
+    <link href="../Documents/jQueryAssets/jquery.ui.accordion.min.css" rel="stylesheet" type="text/css">
+    <link href="../Documents/jQueryAssets/jquery.ui.button.min.css" rel="stylesheet" type="text/css">
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.3.0/jquery.mobile-1.3.0.min.js"></script>
+    <script src="../Documents/jQueryAssets/jquery-1.11.1.min.js"></script>
+    <script src="../Documents/jQueryAssets/jquery.ui-1.10.4.accordion.min.js"></script>
+    <script src="https://kit.fontawesome.com/078c236eda.js" crossorigin="anonymous"></script>
+    <script src="../Documents/jQueryAssets/jquery.ui-1.10.4.button.min.js"></script>
+</head>
 
-    <body >
+
+<body>
+<div id="home" data-role="page" id="pageUser">
+    <div class="head" id="header" data-role="header" data-position="fixed"><span style="color: #709DCB"></span>
+        <h1 class="ui-title text-center" style="margin-top: 20px;"><strong>Mon compte</strong></span></h1>
+    </div>
+
+    <div data-role="content" data-theme="a">
+        <form>
+            <p>Pseudo <input type="text" class="username" /></p>
+            <p>Password <input type="password" class="password" /></p>
+            <input type="button" onclick="ConnexionUser()" value="Login"/>
+        </form>
+
+        <p>Vous n'avez pas de compte ? <a href="/creerCompte">Cliquer ici pour créer un compte.</a> </p>
+    </div>
+    <div data-role="footer">
+        <h4 class="ui-title text-center"><a href="#pageUser" data-role="button" class="fas fa-user-circle" style="font-size: x-large; margin-left: 200px; color: chocolate;"></a>
+            <a href="#pageSetting" data-role="button" class="fas fa-cog style=" style="font-size: x-large; margin-left: 20px; color: #DABD49;"></a>
+        </h4>
+    </div>
+</div>
+
+<div id="creerCompte" data-role="page">
+    <div class="head" data-role="header" data-position="fixed"><span style="color: #709DCB"></span>
+        <h1 class="ui-title text-center" style="margin-top: 20px;"><strong>Créer un compte</strong></span></h1>
+    </div>
+
+    <div data-role="content" data-theme="a">
+        <p>Création du compte</p>
+
+        <form>
+            <p>Pseudo <input type="text" class="username" /></p>
+            <p>Password <input type="password" class="password" /></p>
+            <input type="button" onclick="creerUser()" value="Créer un compte"/>
+        </form>
+
+        <p><a href="/">Cliquer ici pour revenir en arrière.</a> </p>
+    </div>
+</div>
+
+<div id="login" onload="getUser()" data-role="page" data-theme="a">
+    <div class="head" data-role="header"><span style="color: #709DCB"></span>
+        <div class="row">
+            <div data-role="collapsible-set" class="col-4">
+                <div data-role="collapsible" data-content-theme="a">
+                    <h3><i class="fas fa-bars" style = "font-size: 24px;"></i></h3>
+                    <div class="margesinternes">
+                        <p>Jouer</p>
+                        <p>Apprendre</p>
+                        <p>Membres</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4 offset-0"><img src="checkers.png" alt="logo" width="74" height="70" class="logo"/></div>
+        </div>
+    </div>
+    <p>Hello <span class="username"></span>! </p>
+    <p><a href="/logout">Se déconnecter</a> </p>
+    <form>
+        <p>Ajouter un message a la liste: <input type="text" class="details" /> </p>
+        <p>Publier un resultat d'une partie <input type="checkbox" class="isPublic" /></p>
+        <input type="button" onclick="addItem()" value="Ajouter à la liste"/>
+    </form>
+
+    <table border="1px" width="100%" id="itemtable">
+        <tr>
+            <th>Id</th>
+            <th>Details</th>
+            <th>Post Time</th>
+            <th>Edit Time</th>
+            <th>Edit</th>
+            <th>Delete</th>
+            <th>Public Post</th>
+        </tr>
+    </table>
+    <div data-role="content" data-theme="a">
+        <svg width="300px" viewBox="0 0 700 600" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <pattern id="cell" patternUnits="userSpaceOnUse" width="200" height="200">
+                </pattern>
+            </defs>
+            <svg width="100%" height="100%">
+                <pattern  id="pattern-checkers" x="0" y="0" width="20%" height="20%" patternUnits="userSpaceOnUse">
+                    <rect id ="rectangle1" fill="#CC5822" class="checker" x="0" width="10%" height="10%" y="0">
+                    </rect>
+                    <rect id ="rectangle1" fill="#CC5822" class="checker" x="10%" width="10%" height="10%" y="10%"/>
+                </pattern>
+                <rect stroke-linecap="square" stroke="black" stroke-width="15" x="0" y="0" width="100%" height="100%" fill="url(#pattern-checkers)" />
+                <circle id="cercleQuiBouge" cx="100" cy="570" r="28" stroke="orange" stroke-width="2"  fill="black">
+                    <animate attributeName="cy" attributeType="XML" from="570" to="510" begin="cercleQuiBouge.click" dur="2s" fill="freeze" />
+                    <animate attributeName="cx" attributeType="XML" from="100" to="180" begin="cercleQuiBouge.click" dur="2s" fill="freeze" />
+                </circle>
+                <circle id="cercleQuiBouge2" cx="25" cy="510" r="28" stroke="orange" stroke-width="2"  fill="black">
+                    <animate attributeName="cy" attributeType="XML" from="510" to="450" begin="rectangle1.click" dur="2s" fill="freeze" />
+                    <animate attributeName="cx" attributeType="XML" from="25" to="110" begin="rectangle1.click" dur="2s" fill="freeze" />
+
+                </circle>
+            </svg>
+        </svg>
+        <a href="jouer.html" data-role="button">Jouer</a>
+        <p>&nbsp;</p>
+    </div>
+    <div data-role="footer">
+        <h4 class="ui-title text-center"><a href="#pageUser" data-role="button" class="fas fa-user-circle" style="font-size: x-large; margin-left: 200px; color: #DABD49;"></a>
+            <a href="#pageSetting" data-role="button" class="fas fa-cog style=" style="font-size: x-large; margin-left: 20px; color: #DABD49;"></a>
+        </h4>
+    </div>
+</div>
+
+
+<div id="jeu" data-role="page" >
+    <div class="head" data-role="header" data-position="fixed"><span style="color: #709DCB"></span>
+        <h1 class="ui-title text-center" style="margin-top: 20px;"><strong> Partie </strong></span></h1>
+    </div>
+
+    <div data-role="content" data-theme="a">
         <p><input type="button" value="Chercher une partie" id="poke" /></p>
         <button onclick="createCircle(), registercb()" onload="" >Create svg</button>
         <div class="svg-container">
-            <svg id="svg" class="svg-content" width="100%" height="100%"></svg>
+            <svg id="svg" width="1000" height="1000"  class="svg-content" ></svg>
         </div>
         <script
-  src="https://code.jquery.com/jquery-3.4.1.js"
-  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
-  crossorigin="anonymous">
-
-        </script>
+                src="https://code.jquery.com/jquery-3.4.1.js"
+                integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+                crossorigin="anonymous"></script>
         <script>
-            var svgns = "http://www.w3.org/2000/svg";  
-
+            var svgns = "http://www.w3.org/2000/svg";
 function createCircle()
 {
     var svg = document.getElementById('svg');
-   
     var str = "";
     for (var i = 0; i < 10; i++) {
         for (var j = 0; j < 10; j++){
 
-            
-
             var line1 = document.createElementNS(svgns, "rect")
-            line1.setAttributeNS(null, "x", j*80)
-            line1.setAttributeNS(null, "y", i*80)
-            line1.setAttributeNS(null, 'height', '80');
-            line1.setAttributeNS(null, 'width', '80');
+            line1.setAttributeNS(null, "x", j*70)
+            line1.setAttributeNS(null, "y", i*70)
+            line1.setAttributeNS(null, 'height', '70');
+            line1.setAttributeNS(null, 'width', '70');
             line1.setAttributeNS(null, 'fill', (i+j)%2 == 0 ? '#F885BE' : '#03D2FE');
             line1.setAttribute("class", "playableCell");
             svg.appendChild(line1);
-        
+
         }
     }
     createCircle2();
 }
-
 function createCircle2()
 {
-    var svg = document.getElementById('svg');
-
     for (var i = 0; i < 10; i++) {
     for (var j = 0; j < 10; j++){
-
      if((i+j)%2 == 0 && (i < 3 || i > 6) ){
         var circles = document.createElementNS(svgns, "circle")
-            
-            circles.setAttribute("cx",j*80+40);
+
+            circles.setAttribute("cx",j*70+35);
             if(i < 3){
             circles.setAttributeNS(null, 'fill','#EBFE0C');
-            circles.setAttribute("cy",i*80+40);
+            circles.setAttribute("cy",i*70+35);
             circles.setAttribute("class", "vert");
         }
             if(i > 6){
             circles.setAttributeNS(null, 'fill','white');
-            circles.setAttribute("cy",i*80+40);
+            circles.setAttribute("cy",i*70+35);
             circles.setAttribute("class", "rose");
             }
-            circles.setAttribute("r",20);
-            
+            circles.setAttribute("r",25);
 
         }
         svg.appendChild(circles);
@@ -80,8 +201,7 @@ var currentX = 0;
 var currentY = 0;
 pinkPoint = 0
 greenPoint = 0
-var changeTurn = false;  
-
+var changeTurn = false;
    function registercb(){
     var d = document.createElementNS(svgns, "rect")
             d.setAttributeNS(null, "x", 0)
@@ -94,13 +214,12 @@ var changeTurn = false;
       var startPositionCy = 0
       var stopPositionCx = 0
       var stopPositionCy = 0
-
       var a = document.getElementById("svg");
     console.log(a.childNodes);
       boardArray = Array.prototype.slice.call(a.childNodes);
             r = boardArray.slice(0,99)
             p = boardArray.slice(100,130)
-            
+
             var gameBoard = [
             [p[0], r[1], p[1], r[3], p[2], r[5], p[3], r[7], p[4], r[9]],
             [r[11], p[5], r[13], p[6], r[15], p[7], r[17], p[8], r[19] ,p[9]],
@@ -112,56 +231,52 @@ var changeTurn = false;
             [r[70], p[15], r[72], p[16], r[74], p[17], r[76], p[18], r[78], p[19]],
             [p[20], r[81], p[21], r[83], p[22], r[85], p[23], r[87], p[24], r[89]],
             [r[90], p[25], r[92], p[26], r[94], p[27], r[96], p[28], r[98], p[29]],
-        
+
         ]; console.log(gameBoard)
         tailleMax = gameBoard.length;
-        $("#svg > circle").mousedown(function (e) {
+        $("#svg > circle").bind('touchstart mousedown',function (e) {
 
-          
-       
+
 //get the inner DOM of alpha.svg
-
             // boardArraySliced.forEach((item, index) => {
             // console.log(index);
-            
+
             // })
-            
           console.log("ici")
             // save the original values
-            currentX = e.clientX;
-            currentY = e.clientY;
+            currentX = e.clientX || e.touches[0].pageX ;
+            currentY = e.clientY || e.touches[0].pageY;
             selectedElement = e.target;
-            startPositionCx = Math.floor(parseInt(selectedElement.cx.baseVal.value)/80)
-            startPositionCy = Math.floor(parseInt(selectedElement.cy.baseVal.value)/80)
+            startPositionCx = Math.floor(parseInt(selectedElement.cx.baseVal.value)/70)
+            startPositionCy = Math.floor(parseInt(selectedElement.cy.baseVal.value)/70)
             startPositionCxPixel =  parseInt(selectedElement.getAttribute("cx"))
             startPositionCyPixel =   parseInt(selectedElement.getAttribute("cy"))
-        }).mousemove(function (e) {    
-            // if there is an active element, move it around            
+        }).bind('touchmove mousemove',function (e) {
+            // if there is an active element, move it around
             if (selectedElement) {
-                var dx = parseInt(selectedElement.getAttribute("cx")) + e.clientX - currentX;
-                var dy = parseInt(selectedElement.getAttribute("cy")) + e.clientY - currentY;
-                currentX = e.clientX;
-                currentY = e.clientY;
+                var dx = parseInt(selectedElement.getAttribute("cx")) + (e.clientX || e.touches[0].pageX) - currentX;
+                var dy = parseInt(selectedElement.getAttribute("cy")) + (e.clientY || e.touches[0].pageY) - currentY;
+                currentX = e.clientX || e.touches[0].pageX ;
+                currentY = e.clientY || e.touches[0].pageY;
                 selectedElement.setAttribute("cx", dx);
                 selectedElement.setAttribute("cy", dy);
-               
-            }
-        }).mouseup(function (e) {
 
-            
-            stopPositionCx = Math.floor(parseInt(selectedElement.cx.baseVal.value)/80)
-            stopPositionCy = Math.floor(parseInt(selectedElement.cy.baseVal.value)/80)
+            }
+        }).bind('touchend mouseup',function (e) {
+
+            stopPositionCx = Math.floor(parseInt(selectedElement.cx.baseVal.value)/70)
+            stopPositionCy = Math.floor(parseInt(selectedElement.cy.baseVal.value)/70)
             couleurPion = selectedElement.className.baseVal;
             stopPositionCxPixel =  parseInt(selectedElement.getAttribute("cx"))
             stopPositionCyPixel =   parseInt(selectedElement.getAttribute("cy"))
             console.log('startPositionCx : '+startPositionCx, 'startPositionCy : '+startPositionCy)
             // deactivate element after setting it into its new location
-            
+
             function AddScore(){
-                
+
                 if (couleurPion =='rose'){
                     pinkPoint++
-                   
+
                 }else(
                     greenPoint++
                 )
@@ -176,61 +291,60 @@ var changeTurn = false;
             }
             console.log(gameBoard)
             function checkQueenPink(){
-                checkQueenR = gameBoard[startPositionCy-2][startPositionCx-1] 
+                checkQueenR = gameBoard[startPositionCy-2][startPositionCx-1]
                     checkQueenL = gameBoard[startPositionCy-2][startPositionCx+3]
-                    if((checkQueenR == r[1] || checkQueenR == r[3]|| checkQueenR == r[5] || checkQueenR == r[7] || checkQueenR==r[9]) 
+                    if((checkQueenR == r[1] || checkQueenR == r[3]|| checkQueenR == r[5] || checkQueenR == r[7] || checkQueenR==r[9])
                     || (checkQueenL == r[1]|| checkQueenL== r[3]|| checkQueenL == r[5]|| checkQueenL==r[7] || checkQueenL==r[9])){
                         console.log('CREER DAME')
                     }
             }
             function checkQueenGreen(){
-                checkQueenR = gameBoard[startPositionCy+2][startPositionCx-3] 
+                checkQueenR = gameBoard[startPositionCy+2][startPositionCx-3]
                     checkQueenL = gameBoard[startPositionCy+2][startPositionCx+1]
-                    if((checkQueenR == r[90] || checkQueenR == r[92]|| checkQueenR == r[94] || checkQueenR == r[96] || checkQueenR==r[98]) 
+                    if((checkQueenR == r[90] || checkQueenR == r[92]|| checkQueenR == r[94] || checkQueenR == r[96] || checkQueenR==r[98])
                     || (checkQueenL == r[90]|| checkQueenL== r[92]|| checkQueenL == r[94]|| checkQueenL==r[96] || checkQueenL==r[98])){
                         console.log('CREER DAME')
                     }
             }
             function checkTurnPink(stopPositionRight, stopPositionLeft, stopPositionRightNext, stopPositionLeftNext, stopPositionRightX, stopPositionRightY, stopPositionLeftX,stopPositionLeftY){
-                if(stopPositionRight!= null 
+                if(stopPositionRight!= null
                                         && stopPositionRight.className.baseVal =='vert'
                                         && stopPositionRightX.length<= tailleMax
                                         && stopPositionRightY.length<= tailleMax
                                         && stopPositionRightNext != null
                                         && stopPositionRightNext.className.baseVal == 'playableCell'
                                         ||
-                                        stopPositionLeft!= null 
+                                        stopPositionLeft!= null
                                         && stopPositionLeft.className.baseVal =='vert'
                                         && stopPositionLeftX.length <= tailleMax
-                                        && stopPositionLeftY.length <= tailleMax 
+                                        && stopPositionLeftY.length <= tailleMax
                                         && stopPositionLeft != null
-                                        && stopPositionLeftNext.className.baseVal == 'playableCell' 
+                                        && stopPositionLeftNext.className.baseVal == 'playableCell'
                 ){
                     return true;
-                    
+
                 }
                 console.log(stopPositionRight)
                 console.log(stopPositionRightNext)
                 console.log(stopPositionLeft)
                 console.log(stopPositionLeftNext)
-                
-            
-            }
 
+
+            }
             function checkTurnGreen(stopPositionRight, stopPositionLeft, stopPositionRightNext, stopPositionLeftNext, stopPositionRightX, stopPositionRightY, stopPositionLeftX,stopPositionLeftY){
-                if(stopPositionRight!= null 
-                                        && stopPositionRight.className.baseVal =='rose' 
+                if(stopPositionRight!= null
+                                        && stopPositionRight.className.baseVal =='rose'
                                         && stopPositionRightX.length<= tailleMax
                                         && stopPositionRightY.length<= tailleMax
                                         && stopPositionRightNext != null
                                         && stopPositionRightNext.className.baseVal == 'playableCell'
                                         ||
-                                        stopPositionLeft!= null 
-                                        && stopPositionLeft.className.baseVal =='rose' 
+                                        stopPositionLeft!= null
+                                        && stopPositionLeft.className.baseVal =='rose'
                                         && stopPositionLeftX.length <= tailleMax
-                                        && stopPositionLeftY.length <= tailleMax 
+                                        && stopPositionLeftY.length <= tailleMax
                                         && stopPositionLeftNext != null
-                                        && stopPositionLeftNext.className.baseVal == 'playableCell' 
+                                        && stopPositionLeftNext.className.baseVal == 'playableCell'
                 ){
                     return true;
                 }
@@ -239,55 +353,54 @@ var changeTurn = false;
                 console.log(stopPositionLeft)
                 console.log(stopPositionLeftNext)
                 console.log(gameBoard[stopPositionCy+2][stopPositionCx-1])
-                console.log(stopPositionRight!= null 
-                                        && stopPositionRight.className.baseVal =='vert' 
+                console.log(stopPositionRight!= null
+                                        && stopPositionRight.className.baseVal =='vert'
                                         && stopPositionRightX.length<= tailleMax
                                         && stopPositionRightY.length<= tailleMax
                                         && stopPositionRightNext != null
                                         && stopPositionRightNext.className.baseVal == 'playableCell'
                                         ||
-                                        stopPositionLeft!= null 
-                                        && stopPositionLeft.className.baseVal =='vert' 
+                                        stopPositionLeft!= null
+                                        && stopPositionLeft.className.baseVal =='vert'
                                         && stopPositionLeftX.length <= tailleMax
-                                        && stopPositionLeftY.length <= tailleMax 
+                                        && stopPositionLeftY.length <= tailleMax
                                         && stopPositionLeftNext != null
                                         && stopPositionLeftNext.className.baseVal == 'playableCell' )
             }
-            
-            
+
+
             if(couleurPion =='rose' && changeTurn == false){
-                if(startPositionCx+1 == stopPositionCx && startPositionCy-1 == stopPositionCy 
+                if(startPositionCx+1 == stopPositionCx && startPositionCy-1 == stopPositionCy
                     || startPositionCx-1 == stopPositionCx && startPositionCy-1 == stopPositionCy){
-              
-               
-                        if(gameBoard[startPositionCy-1][startPositionCx+1] ==null 
+
+
+                        if(gameBoard[startPositionCy-1][startPositionCx+1] ==null
                         || gameBoard[startPositionCy-1][startPositionCx-1] ==null ){
                             console.log('NTM')
                         }
                     //Traitement à gauche
-                    if(gameBoard[startPositionCy-1][startPositionCx+1] !=null && gameBoard[startPositionCy-1][startPositionCx+1].className.baseVal != 'playableCell' 
+                    if(gameBoard[startPositionCy-1][startPositionCx+1] !=null && gameBoard[startPositionCy-1][startPositionCx+1].className.baseVal != 'playableCell'
                     || gameBoard[startPositionCy-1][startPositionCx-1] !=null && gameBoard[startPositionCy-1][startPositionCx-1].className.baseVal != 'playableCell' )
                     {
-                        if(gameBoard[startPositionCy-1][startPositionCx+1] !=null 
+                        if(gameBoard[startPositionCy-1][startPositionCx+1] !=null
                         || gameBoard[startPositionCy-1][startPositionCx-1] !=null )
                         {
-                            if(gameBoard[startPositionCy-1][startPositionCx+1]!= null 
-                            && gameBoard[startPositionCy-1][startPositionCx+1].className.baseVal =='vert' 
+                            if(gameBoard[startPositionCy-1][startPositionCx+1]!= null
+                            && gameBoard[startPositionCy-1][startPositionCx+1].className.baseVal =='vert'
                             && gameBoard[startPositionCy-2][startPositionCx+2] != null
                             && gameBoard[startPositionCy-2][startPositionCx+2].className.baseVal == 'playableCell'
                             && gameBoard[stopPositionCy][stopPositionCx] == gameBoard[startPositionCy-1][startPositionCx+1]
                              )
                             {
                                 console.log('BOBOBOB')
-                                
 
                                 gameBoard[stopPositionCy-1][stopPositionCx+1]=gameBoard[startPositionCy][startPositionCx]
-                                
+
                                 gameBoard[startPositionCy][startPositionCx]= r[0]
-                                selectedElement.setAttribute("cy", (startPositionCy-2)*80+40);
+                                selectedElement.setAttribute("cy", (startPositionCy-2)*70+35);
                                 gameBoard[stopPositionCy][stopPositionCx].style.display = 'none';
-                                
-                                selectedElement.setAttribute("cx", (startPositionCx+2)*80+40);
+
+                                selectedElement.setAttribute("cx", (startPositionCx+2)*70+35);
                                 AddScore()
                                 checkScore()
                                 console.log("Score rose :"+pinkPoint);
@@ -295,7 +408,7 @@ var changeTurn = false;
                                     stopPositionRight = gameBoard[stopPositionCy-2][stopPositionCx+2]
                                     stopPositionLeft = gameBoard[stopPositionCy-2][stopPositionCx]
                                     stopPositionRightX = gameBoard[stopPositionCx+3]
-                                    stopPositionRightY = gameBoard[stopPositionCy-3] 
+                                    stopPositionRightY = gameBoard[stopPositionCy-3]
                                     stopPositionRightNext = gameBoard[stopPositionCy-3][stopPositionCx+3]
                                     stopPositionLeftNext = gameBoard[stopPositionCy-3][stopPositionCx-1]
                                     stopPositionLeftX = gameBoard[stopPositionCx-1]
@@ -306,16 +419,18 @@ var changeTurn = false;
                                 }
                                 else{
                                     console.log('TOUR DE lAUTRE')
+                                    changeTurn = true
                                 }
                                 }
-                                
+
                                 else{
                                     console.log('TOUR DE lAUTRE')
+                                    changeTurn = true
                                 }
                                 gameBoard[stopPositionCy][stopPositionCx] = r[0]
                             }
-                            else if(gameBoard[startPositionCy-1][startPositionCx-1]!= null 
-                            && gameBoard[startPositionCy-1][startPositionCx-1].className.baseVal =='vert' 
+                            else if(gameBoard[startPositionCy-1][startPositionCx-1]!= null
+                            && gameBoard[startPositionCy-1][startPositionCx-1].className.baseVal =='vert'
                             && gameBoard[startPositionCy-2][startPositionCx-2]!= null
                             && gameBoard[startPositionCy-2][startPositionCx-2].className.baseVal =='playableCell'
                             && gameBoard[stopPositionCy][stopPositionCx] == gameBoard[startPositionCy-1][startPositionCx-1]
@@ -323,12 +438,12 @@ var changeTurn = false;
                             {
                                 console.log('ZOZOZOZO')
                                 gameBoard[stopPositionCy-1][stopPositionCx-1]=gameBoard[startPositionCy][startPositionCx]
-                                
+
                                 gameBoard[startPositionCy][startPositionCx]= r[0]
-                                selectedElement.setAttribute("cy", (startPositionCy-2)*80+40);
+                                selectedElement.setAttribute("cy", (startPositionCy-2)*70+35);
                                 gameBoard[stopPositionCy][stopPositionCx].style.display = 'none';
                                 gameBoard[stopPositionCy][stopPositionCx] = r[0]
-                                selectedElement.setAttribute("cx", (startPositionCx-2)*80+40);
+                                selectedElement.setAttribute("cx", (startPositionCx-2)*70+35);
                                 AddScore()
                                 checkScore()
                                 console.log("Score rose :"+pinkPoint);
@@ -336,12 +451,12 @@ var changeTurn = false;
                                     stopPositionRight = gameBoard[stopPositionCy-2][stopPositionCx]
                                     stopPositionLeft = gameBoard[stopPositionCy-2][stopPositionCx-2]
                                     stopPositionRightX = gameBoard[stopPositionCx+1]
-                                    stopPositionRightY = gameBoard[stopPositionCx-3] 
+                                    stopPositionRightY = gameBoard[stopPositionCx-3]
                                     stopPositionRightNext = gameBoard[stopPositionCy-3][stopPositionCx+1]
                                     stopPositionLeftNext = gameBoard[stopPositionCy-3][stopPositionCx-3]
                                     stopPositionLeftX = gameBoard[stopPositionCx-3]
                                     stopPositionLeftY = gameBoard[stopPositionCy-3]
-                                    
+
                                     if(checkTurnPink(stopPositionRight, stopPositionLeft, stopPositionRightNext, stopPositionLeftNext,  stopPositionRightX, stopPositionRightY, stopPositionLeftX, stopPositionLeftY) == true ){
                                             console.log('C ENCORE TON TOUR')
                                 }
@@ -354,88 +469,87 @@ var changeTurn = false;
                                     console.log('TOUR DE lAUTRE')
                                     changeTurn = true
                                 }
-                                
+
                             }
                             else if(gameBoard[stopPositionCy][stopPositionCx].className.baseVal !='rose' && gameBoard[stopPositionCy][stopPositionCx].className.baseVal !='vert'){
-                                
+
                                 gameBoard[stopPositionCy][stopPositionCx]=gameBoard[startPositionCy][startPositionCx]
                                 gameBoard[startPositionCy][startPositionCx]= r[0]
-                                selectedElement.setAttribute("cx", stopPositionCx*80+40);
-                                selectedElement.setAttribute("cy", stopPositionCy*80+40);
+                                selectedElement.setAttribute("cx", stopPositionCx*70+35);
+                                selectedElement.setAttribute("cy", stopPositionCy*70+35);
                                 changeTurn = true
-                               
-                            }  
+
+                            }
                             else{
-                                
-                                selectedElement.setAttribute("cx", startPositionCx*80+40);
-                            selectedElement.setAttribute("cy", startPositionCy*80+40);
-                                
-                            } 
+
+                                selectedElement.setAttribute("cx", startPositionCx*70+35);
+                            selectedElement.setAttribute("cy", startPositionCy*70+35);
+
+                            }
                         }
                         else{
-                            
-                            selectedElement.setAttribute("cx", startPositionCx*80+40);
-                            selectedElement.setAttribute("cy", startPositionCy*80+40);
-                        } 
+
+                            selectedElement.setAttribute("cx", startPositionCx*70+35);
+                            selectedElement.setAttribute("cy", startPositionCy*70+35);
+                        }
                     }
                     else{
                         gameBoard[stopPositionCy][stopPositionCx]=gameBoard[startPositionCy][startPositionCx]
                         gameBoard[startPositionCy][startPositionCx]= r[0]
-                        
-                        selectedElement.setAttribute("cx", stopPositionCx*80+40);
-                        selectedElement.setAttribute("cy", stopPositionCy*80+40);
+
+                        selectedElement.setAttribute("cx", stopPositionCx*70+35);
+                        selectedElement.setAttribute("cy", stopPositionCy*70+35);
                         changeTurn = true
-                        }  
-                    
+                        }
+
                     //QUEEN PROCESS
-                    
+
                   checkQueenPink();
-             
-                    
-                    
+
+
 
                     console.log("Mouvement autoriser");
                 }
                 else if(startPositionCx == stopPositionCx && startPositionCy == stopPositionCy){
                     console.log("Veuillez bouger votre pion");
-                    selectedElement.setAttribute("cx", startPositionCx*80+40);
-                    selectedElement.setAttribute("cy", startPositionCy*80+40);
+                    selectedElement.setAttribute("cx", startPositionCx*70+35);
+                    selectedElement.setAttribute("cy", startPositionCy*70+35);
                     console.log("Tour : " +changeTurn)
-                    
-                    
+
+
                 }else{
                     selectedElement.setAttribute("cx", startPositionCxPixel);
                     selectedElement.setAttribute("cy", startPositionCyPixel);
                     console.log("Mouvement interdit");
                 }}
             else if(couleurPion ='vert' && changeTurn == true){
-                if(startPositionCx-1 == stopPositionCx && startPositionCy+1 == stopPositionCy 
+                if(startPositionCx-1 == stopPositionCx && startPositionCy+1 == stopPositionCy
                 || startPositionCx+1 == stopPositionCx && startPositionCy+1 == stopPositionCy){
                     console.log('-----------DROITE------------')
             console.log(gameBoard[startPositionCy+1][startPositionCx-1])
             console.log('-----------GAUCHE------------')
             console.log(gameBoard[startPositionCy+1][startPositionCx+1])
                     //Traitement à gauche
-                    if(gameBoard[startPositionCy+1][startPositionCx-1] !=null && gameBoard[startPositionCy+1][startPositionCx-1].className.baseVal != 'playableCell' 
+                    if(gameBoard[startPositionCy+1][startPositionCx-1] !=null && gameBoard[startPositionCy+1][startPositionCx-1].className.baseVal != 'playableCell'
                     || gameBoard[startPositionCy+1][startPositionCx+1] !=null && gameBoard[startPositionCy+1][startPositionCx+1].className.baseVal != 'playableCell' )
                     {
-                        if(gameBoard[startPositionCy+1][startPositionCx-1] !=null 
+                        if(gameBoard[startPositionCy+1][startPositionCx-1] !=null
                         || gameBoard[startPositionCy+1][startPositionCx+1] !=null )
                         {
-                            if(gameBoard[startPositionCy+1][startPositionCx-1] != null 
+                            if(gameBoard[startPositionCy+1][startPositionCx-1] != null
                             && gameBoard[startPositionCy+1][startPositionCx-1].className.baseVal =='rose'
-                            && gameBoard[startPositionCy+2][startPositionCx-2] != null 
+                            && gameBoard[startPositionCy+2][startPositionCx-2] != null
                             && gameBoard[startPositionCy+2][startPositionCx-2].className.baseVal == 'playableCell'
                             && gameBoard[stopPositionCy][stopPositionCx] == gameBoard[startPositionCy+1][startPositionCx-1]
                              )
                             {
                                 gameBoard[stopPositionCy+1][stopPositionCx-1]=gameBoard[startPositionCy][startPositionCx]
                                 gameBoard[startPositionCy][startPositionCx]= r[0]
-                                selectedElement.setAttribute("cy", (startPositionCy+2)*80+40);
+                                selectedElement.setAttribute("cy", (startPositionCy+2)*70+35);
                                 gameBoard[stopPositionCy][stopPositionCx].style.display = 'none';
                                 gameBoard[stopPositionCy][stopPositionCx] = r[0]
-                                selectedElement.setAttribute("cx", (startPositionCx-2)*80+40);
-                                
+                                selectedElement.setAttribute("cx", (startPositionCx-2)*70+35);
+
                                 AddScore()
                                 checkScore()
                                 console.log("Score vert :"+greenPoint);
@@ -443,23 +557,25 @@ var changeTurn = false;
                                     stopPositionRight = gameBoard[stopPositionCy+2][stopPositionCx]
                                     stopPositionLeft = gameBoard[stopPositionCy+2][stopPositionCx-2]
                                     stopPositionRightX = gameBoard[stopPositionCx+1]
-                                    stopPositionRightY = gameBoard[stopPositionCy+3] 
+                                    stopPositionRightY = gameBoard[stopPositionCy+3]
                                     stopPositionRightNext = gameBoard[stopPositionCy+3][stopPositionCx+1]
                                     stopPositionLeftNext = gameBoard[stopPositionCy+3][stopPositionCx-3]
                                     stopPositionLeftX = gameBoard[stopPositionCx-3]
                                     stopPositionLeftY = gameBoard[stopPositionCy+3]
-                                    
+
                                     if(checkTurnGreen(stopPositionRight, stopPositionLeft, stopPositionRightNext, stopPositionLeftNext,  stopPositionRightX, stopPositionRightY, stopPositionLeftX, stopPositionLeftY) == true ){
                                             console.log('C ENCORE TON TOUR')
                                 }else{
                                 console.log('Tour de lautre')
+                                changeTurn = false;
                             }}else{
                                 console.log('Tour de lautre')
+                                changeTurn = false;
                             }
-                            
+
                             }
-                            else if(gameBoard[startPositionCy+1][startPositionCx+1] !=null 
-                            && gameBoard[startPositionCy+1][startPositionCx+1].className.baseVal =='rose' 
+                            else if(gameBoard[startPositionCy+1][startPositionCx+1] !=null
+                            && gameBoard[startPositionCy+1][startPositionCx+1].className.baseVal =='rose'
                             && gameBoard[startPositionCy+2][startPositionCx+2] != null
                             && gameBoard[startPositionCy+2][startPositionCx+2].className.baseVal =='playableCell'
                             && gameBoard[stopPositionCy][stopPositionCx] == gameBoard[startPositionCy+1][startPositionCx+1]
@@ -467,10 +583,10 @@ var changeTurn = false;
                             {
                                 gameBoard[stopPositionCy+1][stopPositionCx+1]=gameBoard[startPositionCy][startPositionCx]
                                 gameBoard[startPositionCy][startPositionCx]= r[0]
-                                selectedElement.setAttribute("cy", (startPositionCy+2)*80+40);
+                                selectedElement.setAttribute("cy", (startPositionCy+2)*70+35);
                                 gameBoard[stopPositionCy][stopPositionCx].style.display = 'none';
                                 gameBoard[stopPositionCy][stopPositionCx] = r[0]
-                                selectedElement.setAttribute("cx", (startPositionCx+2)*80+40);
+                                selectedElement.setAttribute("cx", (startPositionCx+2)*70+35);
                                 AddScore()
                                 checkScore()
                                 console.log("Score vert :"+ greenPoint);
@@ -478,12 +594,12 @@ var changeTurn = false;
                                     stopPositionRight = gameBoard[stopPositionCy+2][stopPositionCx+2]
                                     stopPositionLeft = gameBoard[stopPositionCy+2][stopPositionCx]
                                     stopPositionRightX = gameBoard[stopPositionCx+1]
-                                    stopPositionRightY = gameBoard[stopPositionCy+3] 
+                                    stopPositionRightY = gameBoard[stopPositionCy+3]
                                     stopPositionRightNext = gameBoard[stopPositionCy+3][stopPositionCx+3]
                                     stopPositionLeftNext = gameBoard[stopPositionCy+3][stopPositionCx-1]
                                     stopPositionLeftX = gameBoard[stopPositionCx-3]
                                     stopPositionLeftY = gameBoard[stopPositionCy+3]
-                                    
+
                                     if(checkTurnGreen(stopPositionRight, stopPositionLeft, stopPositionRightNext, stopPositionLeftNext,  stopPositionRightX, stopPositionRightY, stopPositionLeftX, stopPositionLeftY) == true ){
                                             console.log('C ENCORE TON TOUR')
                                 }else{
@@ -494,81 +610,97 @@ var changeTurn = false;
                                 changeTurn = false;
                             }
                             }
-                            else if(gameBoard[stopPositionCy][stopPositionCx].className.baseVal !='rose' 
+                            else if(gameBoard[stopPositionCy][stopPositionCx].className.baseVal !='rose'
                             && gameBoard[stopPositionCy][stopPositionCx].className.baseVal !='vert')
                             {
-                                
+
                                 gameBoard[stopPositionCy][stopPositionCx]=gameBoard[startPositionCy][startPositionCx]
                                 gameBoard[startPositionCy][startPositionCx]= r[0]
-                                selectedElement.setAttribute("cx", stopPositionCx*80+40);
-                                selectedElement.setAttribute("cy", stopPositionCy*80+40);
+                                selectedElement.setAttribute("cx", stopPositionCx*70+35);
+                                selectedElement.setAttribute("cy", stopPositionCy*70+35);
                                 changeTurn = false;
 
-                               
-                            }  
+                            }
                             else{
-                                
-                                selectedElement.setAttribute("cx", startPositionCx*80+40);
-                            selectedElement.setAttribute("cy", startPositionCy*80+40);
-                                
-                            } 
+
+                                selectedElement.setAttribute("cx", startPositionCx*70+35);
+                            selectedElement.setAttribute("cy", startPositionCy*70+35);
+
+                            }
                         }
                         else{
-                            selectedElement.setAttribute("cx", startPositionCx*80+40);
-                            selectedElement.setAttribute("cy", startPositionCy*80+40);
-                        } 
+                            selectedElement.setAttribute("cx", startPositionCx*70+35);
+                            selectedElement.setAttribute("cy", startPositionCy*70+35);
+                        }
                     }
                     else{
                         gameBoard[stopPositionCy][stopPositionCx]=gameBoard[startPositionCy][startPositionCx]
                         gameBoard[startPositionCy][startPositionCx]= r[0]
-                        selectedElement.setAttribute("cx", stopPositionCx*80+40);
-                        selectedElement.setAttribute("cy", stopPositionCy*80+40);
+                        selectedElement.setAttribute("cx", stopPositionCx*70+35);
+                        selectedElement.setAttribute("cy", stopPositionCy*70+35);
                         changeTurn = false;
-                        }  
+                        }
                         checkQueenGreen()
-                  
-             
-                    
-                    console.log("Pos+1 : "+ gameBoard[startPositionCy+1][startPositionCx+1])
 
+
+
+                    console.log("Pos+1 : "+ gameBoard[startPositionCy+1][startPositionCx+1])
                     console.log("Mouvement autoriser");
                 }
                 else if(startPositionCx == stopPositionCx && startPositionCy == stopPositionCy){
                     console.log("Veuillez bouger votre pion");
-                    selectedElement.setAttribute("cx", startPositionCx*80+40);
-                    selectedElement.setAttribute("cy", startPositionCy*80+40);
+                    selectedElement.setAttribute("cx", startPositionCx*70+35);
+                    selectedElement.setAttribute("cy", startPositionCy*70+35);
                     console.log("Tour : " +changeTurn)
                 }else{
                     selectedElement.setAttribute("cx", startPositionCxPixel);
                     selectedElement.setAttribute("cy", startPositionCyPixel);
                     console.log("Mouvement interdit");
                 }
-
             }
             else{
                     selectedElement.setAttribute("cx", startPositionCxPixel);
                     selectedElement.setAttribute("cy", startPositionCyPixel);
                     console.log("Mouvement interdit");
                 }
-            
+
             //if(startPositionCx+1 == stopPositionCx && startPositionCy-1 == stopPositionCy)
-            
+
             console.log('stopPositionCx : '+stopPositionCx, 'stopPositionCy : '+stopPositionCy)
             console.log(gameBoard[stopPositionCy][stopPositionCx]);
-            selectedElement = null;  
-           
+            selectedElement = null;
+
         });
     };
-    
+
     function log() {
         if (window.console && window.console.log)
             window.console.log('[XXX] ' + Array.prototype.join.call(arguments, ' '));
     };
-    
 
- 
+
         </script>
-    </body>
+        <style>
+    .svg-container {
+display: inline-block;
+position: relative;
+width: 100%;
+padding-bottom: 100%;
+vertical-align: middle;
+overflow: hidden;
+}
+.svg-content {
+display: inline-block;
+position: absolute;
+top: 0;
+left: 0;
+}</style>
+    </div>
+    <div data-role="footer">
+        <h4 class="ui-title text-center"><a href="#pageUser" data-role="button" class="fas fa-user-circle" style="font-size: x-large; margin-left: 200px; color: chocolate;"></a>
+            <a href="#pageSetting" data-role="button" class="fas fa-cog style=" style="font-size: x-large; margin-left: 20px; color: #DABD49;"></a>
+        </h4>
+    </div>
+</div>
+</body>
 </html>
-
-<!-- mettre les identifiant/passwords dans le petit-nouveau si ils correspondent à des trucs alors connexion-->

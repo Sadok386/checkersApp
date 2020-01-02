@@ -26,7 +26,7 @@ app.use(cookieSession({
 }));
 
 /*Connexion à la base de donnée - MongoDB*/
-/*Initialize Passport*/
+/*Initialiser les Passport*/
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -73,7 +73,41 @@ var ItemSchema = new mongoose.Schema({
 var Item = mongoose.model('item', ItemSchema);
 
 /***********
-Et en bas c'est les routes
+Et en bas c'est les root
+***********/
+
+var bcrypt = require('bcrypt-nodejs');
+
+app.get('/', function (req, res, next) {
+    res.sendFile( __dirname + '/index.html');
+});
+
+app.get('/home', loggedIn, function (req, res, next) {
+     res.sendFile( __dirname + '/home.html');
+});
+
+app.get('/user', loggedIn, function (req, res, next) {
+    User.findById({ _id: req.user._id }, function(err, user) {
+    	return res.json(user);
+  	});
+});
+
+app.get('/creerCompte', function (req, res, next) {
+    res.sendFile( __dirname + '/creerCompte.html');
+});
+
+app.get('/logout', function (req, res, next) {
+    req.logout();
+  	res.redirect('/');
+});
+
+app.post('/login', passport.authenticate('local'),
+    function(req, res) {
+        res.redirect('/home');
+});
+
+/*********
+si il parvient a authentifier le passport, donc le login il regarde le mot de passe
 ***********/
 
 passport.use(new LocalStrategy(
@@ -95,6 +129,8 @@ passport.use(new LocalStrategy(
        });
     }
 ));
+// Serialiser et Deserialiser
+
 passport.serializeUser(function(user, done) {
     done(null, user);
 });
@@ -102,27 +138,84 @@ passport.serializeUser(function(user, done) {
 passport.deserializeUser(function(user, done) {
     done(err, user);
 });
-app.post('/creerCompte', function (req, res, next) {
-var bcrypt = require('bcrypt-nodejs');
+
 // on regarde si nos mots de passe sont chiffrés avant d'être enregistrés
 app.post('/creerCompte', function (req, res, next) {
-    var password = bcrypt.hashSync(req.body.password);
-    req.body.password = password;
+	var password = bcrypt.hashSync(req.body.password);
+	req.body.password = password;
+
+    User.create(req.body, function(err, saved) {
+        if(err) {
+            console.log(err);
+            res.json({ message : err });
+        } else {
+            res.json({ message : "Utilisateur bien enregistreé!"});
+        }
+    });
 });
-}
-User.create(req.body, function(err, saved) {
-    if(err) {
-        console.log(err);
-        res.json({ message : err });
-    } else {
-        res.json({ message : "User crée avec succès!"});
-    }
+
+app.post('/add', function (req, res, next) {
+	var item = new Item();
+	item.details = req.body.details;
+	item.isPublic = req.body.isPublic;
+	item.post_time = getDateTime();
+	item.owner = req.user.username;
+
+    Item.create(item, function(err, saved) {
+        if(err) {
+            console.log(err);
+            return res.json({ message : err });
+        } else {
+            return res.json({ message : "Objet bien enregistré!", item: saved});
+        }
+    });
+});
+
+app.post('/edit', loggedIn, function (req, res, next) {
+    Item.findById({ _id: req.body._id }, function(err, item) {
+    	if(err) {
+    		console.log(err);
+            return res.json({ message : err });
+    	} else {
+    		//Modifier les valeurs
+		    item.details = req.body.details;
+		    item.isPublic = req.body.isPublic;
+		    item.edit_time = getDateTime();
+
+		    //Sauver les nouvelles valeures
+    		item.save(function(err){
+    			if(err) {
+		    		console.log(err);
+		            return res.json({ message : err });
+		    	} else {
+		    		return res.json({ message : "Objet bien edité!" });
+		    	}
+    		});
+    	}
+  	});
+});
+
+app.post('/delete', loggedIn, function (req, res, next) {
+    Item.findOneAndRemove({ _id: req.body._id }, function(err, item) {
+    	if(err) {
+    		console.log(err);
+            return res.json({ message : err });
+    	} else {
+    		return res.json({ message : "Objet supprimeé!"});
+    	}
+  	});
 });
 
 app.get('/items', loggedIn, function (req, res, next) {
     Item.find({ owner: req.user.username }, function(err, item) {
-        return res.json(item);
-    });
+    	return res.json(item);
+  	});
+});
+
+app.get('/items/public', function (req, res, next) {
+    Item.find({ isPublic: "true" }, function(err, item) {
+    	return res.json(item);
+  	});
 });
 
 function loggedIn(req, res, next) {
@@ -132,6 +225,25 @@ function loggedIn(req, res, next) {
         res.redirect('/');
     }
 }
+
+item.post_time = getDateTime();
+item.owner = req.user.username;
+
+
+app.post('/add', passport.authenticate('local'),
+    function(req, res) {
+        res.redirect('/home');
+});
+
+
+function loggedIn(req, res, next) {
+    if (req.user) {
+        next();
+    } else {
+        res.redirect('/');
+    }
+}
+
 
 function getDateTime() {
 
@@ -160,50 +272,4 @@ function getDateTime() {
 app.listen(port, '0.0.0.0', function(){
 console.log('le serveur est sur le port '+ port)}
 )
-app.get('/creerCompte', function (req, res, next) {
-    res.sendFile( __dirname + '/creerCompte.html');
-});
-
-app.get('/home', function (req, res, next) {
-    res.sendFile( __dirname + '/creerCompte.html');
-});
-
-app.get('/home', loggedIn, function (req, res, next) {
-     res.sendFile( __dirname + '/home.html');
-});
-
-app.post('/login', passport.authenticate('local'),
-    function(req, res) {
-        res.redirect('/home');
-});
-
-app.post('/creerCompte', function (req, res, next) {
-     console.log('username = ' + req.body.username);
-     console.log('password = ' + req.body.password);
-});
-
-app.get('/user', loggedIn, function (req, res, next) {
-    User.findById({ _id: req.user._id }, function(err, user) {
-        return res.json(user);
-    });
-});
-
-app.get('/logout', function (req, res, next) {
-    req.logout();
-    res.redirect('/');
-});
-
-function loggedIn(req, res, next) {
-    if (req.user) {
-        next();
-    } else {
-        res.redirect('/');
-    }
-}
-
-
-app.get('/logout', function (req, res, next) {
-    req.logout();
-    res.redirect('/');
-});
 
