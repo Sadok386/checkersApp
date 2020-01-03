@@ -8,7 +8,7 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var cookieParser = require('cookie-parser');
 var cookieSession = require('cookie-session');
-
+const { createApolloFetch } =require('apollo-fetch');
 
 app.use(bodyParser.urlencoded)(
 {
