@@ -98,21 +98,13 @@
 
             $('#svg').click(function()
             {
-                //Les coordonnées d'arrivé du pion
-                console.log("les coordonnées du pion à la fin: ", getFinalX() , getFinalY());
-                //les coordonnées de départ à faire *70+35
-                console.log("les coordonnées du pion au début: ", UntrucAuPifx(), UntrucAuPify());
-                let xDepart = UntrucAuPifx() * 70 + 35;
-                let yDepart = UntrucAuPify() * 70 + 35;
-                //console.log("le plateau ", gameBoardShow());
-                console.log("le pion qu'on doit modifier: ", xDepart, yDepart)
-
-                socket.emit('updateGame', xDepart, yDepart, getFinalX(),getFinalY());
+                let CenteredX = Math.round(getFinalX() /70)-1; let CenteredY = Math.round(getFinalY() /70)-1;
+                CenteredX = CenteredX *70 +35; CenteredY = CenteredY *70 +35;
+                let xDepart = UntrucAuPifx() * 70 + 35; let yDepart = UntrucAuPify() * 70 + 35;
+                socket.emit('updateGame', xDepart, yDepart,CenteredX,CenteredY);
             });
 
             socket.on('refreshGame', function(id,DepartX, DepartY, getX, getY){
-                console.log("Est ce que je peux m'envoyer des merde de nul part: ", DepartX, DepartY);
-                console.log("Est ce que je peux m'envoyer des merde de nul part: ", getX, getY);
                 for(let i=0; i<30; i++ )
                 {
                     if(document.getElementsByTagName("circle")[i].cx.baseVal.value == DepartX && document.getElementsByTagName("circle")[i].cy.baseVal.value == DepartY)
@@ -120,18 +112,12 @@
                         console.log("cool on l'a");
                         let ModifiedPion = document.getElementsByTagName("circle")[i];
                         console.log("Le pion à modifier: " ,ModifiedPion);
+                        console.log("Les coordonnées de départs : " ,DepartX, DepartY);
+                        console.log("Les coordonnées d'arrivé  : " ,getX, getY);
                         ModifiedPion.cx.baseVal.value = getX;
                         ModifiedPion.cy.baseVal.value = getY;
                     }
                 }
-                //let pionModifier = document.getElementsByTagName("circle")[8].cx;
-                //30
-                //let pionModifier = document.getElementsByTagName("circle")[0].cx.baseVal.value= DepartX;
-                //console.log("Le pion à modifier: ", pionModifier);
-                //console.log("Le refresh game est censé se faire: ", getSelectedElement());
-                //console.log("les coordonnées du pion à la fin: ", getX() , getY());
-
-                //deplacerPion(getSelectedElement(), 5, 5);
             })
 
         </script>

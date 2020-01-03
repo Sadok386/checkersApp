@@ -92,8 +92,8 @@ var selectPion;
             stopPositionCxPixel =  parseInt(selectedElement.getAttribute("cx"))
             stopPositionCyPixel =   parseInt(selectedElement.getAttribute("cy"))
 
-            finalX = stopPositionCxPixel;
-            finalY = stopPositionCyPixel;
+            finalX = Math.floor(parseInt(selectedElement.cx.baseVal.value));
+            finalY = Math.floor(parseInt(selectedElement.cy.baseVal.value));
 
             console.log('startPositionCx : '+startPositionCx, 'startPositionCy : '+startPositionCy)
             // deactivate element after setting it into its new location
