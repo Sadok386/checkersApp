@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Socket.io</title>
+    </head>
+ 
+    <body >
+
+        <p><input type="button" value="Chercher une partie" id="poke" /></p>
+        <button onclick="createCircle(), registercb()" onload="" >Create svg</button> 
+        <div class="svg-container">
+        <svg id="svg" width="1000" height="1000"  class="svg-content" ></svg>
+        
+    </div>
+        <script
+  src="https://code.jquery.com/jquery-3.4.1.js"
+  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+  crossorigin="anonymous"></script>
+
+  <script type="text/javascript" src="plateau.js"></script>
+  <script type="text/javascript" src="score.js"></script>
+  <script type="text/javascript" src="checkTurn.js"></script>
+  <script type="text/javascript" src="jeu.js"></script>
+
+    </body>
+    <style>
+    .svg-container {
+display: inline-block;
+position: relative;
+width: 100%;
+padding-bottom: 100%;
+vertical-align: middle;
+overflow: hidden;
+}
+.svg-content {
+display: inline-block;
+position: absolute;
+top: 0;
+left: 0;
+}</style>
+</html>
+
+<!-- mettre les identifiant/passwords dans le petit-nouveau si ils correspondent à des trucs alors connexion-->
