@@ -246,7 +246,7 @@ var changeTurn = false;
                                     }
                                     
                                 }
-                                //Condition si le mouvement est interdit
+                                //Condition si le mouvement est interdit jaune
                                 else
                                 {
                                     //Ici on change la position du cercle sur le svg
