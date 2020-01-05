@@ -5,7 +5,6 @@ var room = require("./room/room.js");
 var server = io.listen(8080);
 
 server.on("connection", function(socket){
-    console.log("Connection");
 
     socket.on("nouveau_joueur", function(data){
         user.userVerification(data,socket);
@@ -13,14 +12,14 @@ server.on("connection", function(socket){
 
     socket.on("disconnect", function(){
         user.userDisconnected(socket.pseudo,socket);
+        room.userDisconnected(socket);
     })
 
     socket.on("joinGame",function(){
         room.socketJoin(socket);
     })
 
-    socket.on("updateGame",function(){
-        console.log("Je m'update");
-        room.updateGame(socket);
+    socket.on("updateGame",function(DepartX, DepartY, getX, getY){
+        room.refresh(socket, DepartX, DepartY, getX, getY);
     })
 });

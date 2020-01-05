@@ -7,6 +7,7 @@ whitePoint = 0
 yellowPoint = 0
 var changeTurn = false;  
 
+
    function registercb(){
     
     //Ici on créer un rectangle qui remplira les changements de position 
@@ -72,10 +73,13 @@ var changeTurn = false;
 
             //On récupère la position x et y de l'élement selectionner, on le divise par 70 car dans plateau.js on créer des élements de 70px
             //Ainsi on peux recuperé un nombre entier x et y
+
             startPositionCx = Math.floor(parseInt(selectedElement.cx.baseVal.value)/70)
+            startPionPositionCx = startPositionCx;
             startPositionCy = Math.floor(parseInt(selectedElement.cy.baseVal.value)/70)
 
             //On réupère aussi la position x et y en entier de l'élement
+
             startPositionCxPixel =  parseInt(selectedElement.getAttribute("cx"))
             startPositionCyPixel =   parseInt(selectedElement.getAttribute("cy"))
         
@@ -98,15 +102,28 @@ var changeTurn = false;
         }).bind('touchend mouseup',function (e) {
 
             
+
             stopPositionCx = Math.floor(parseInt(selectedElement.cx.baseVal.value)/70)
             stopPositionCy = Math.floor(parseInt(selectedElement.cy.baseVal.value)/70)
 
             //Permet de récuperer la couleur du pion selectionné
+
+
+            lastX = startPositionCx;
+            lastY = startPositionCy;
+
             couleurPion = selectedElement.className.baseVal;
 
             //Permet de récuperer la position de fin de l'élement selectionné
             stopPositionCxPixel =  parseInt(selectedElement.getAttribute("cx"))
             stopPositionCyPixel =   parseInt(selectedElement.getAttribute("cy"))
+
+            finalX = Math.floor(parseInt(selectedElement.cx.baseVal.value));
+            finalY = Math.floor(parseInt(selectedElement.cy.baseVal.value));
+
+            console.log('startPositionCx : '+startPositionCx, 'startPositionCy : '+startPositionCy)
+            // deactivate element after setting it into its new location
+
             
            
             console.log(gameBoard)
@@ -390,10 +407,10 @@ var changeTurn = false;
                     }
                 }
             }
+
             //Condition de verification pour le changement de tour des dames
             if (couleurPion =='queen' && changeTurn == false){
-                queenProcess();
-               
+                queenProcess();            
                 changeTurn = true
             }else if (couleurPion =='queenEnnemy' && changeTurn == true){
                 queenProcess();
@@ -720,6 +737,57 @@ var changeTurn = false;
         if (window.console && window.console.log)
             window.console.log('[XXX] ' + Array.prototype.join.call(arguments, ' '));
     };
+
+    function getstartPositionCx()
+    {
+        return startPionPositionCx;
+    };
+
+    function UntrucAuPifx()
+    {
+        return lastX;
+    };
+
+    function UntrucAuPify()
+    {
+        return lastY;
+    };
+
+    function getFinalX()
+    {
+        return finalX;
+    };
+    function startPionPositionCy()
+    {
+        return startPositionCy;
+    };
+    function getY()
+    {
+        return lastY;
+        
+    };
+    function getFinalY()
+    {
+        return finalY;
+    };
+    function getSelectedElement()
+    {
+        return selectPion;
+    };
+
+    function deplacerPion(selectedElement, x ,y)
+    {
+
+        selectedElement.setAttribute("cx", 385);
+        selectedElement.setAttribute("cy", 385);
+
+    };
+
+    function gameBoardShow()
+    {
+        return gameBoard;
+    }
+
     
 
  
