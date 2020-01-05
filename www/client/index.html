@@ -20,14 +20,13 @@
 
 
         <p><input type="button" value="Chercher une partie" id="lookForGame" /></p>
-        <button onclick="createCircle(), registercb()" onload="" >Create svg</button> 
+        <button onclick="createRect(), registercb()" onload="" >Create svg</button> 
         <div class="svg-container">
         <svg id="svg" width="1000" height="1000"  class="svg-content" ></svg>
 
-
         <section style="display:none" id="zone_jeu" >
-
-            <button id="simulation"> Simulation onclick</button>
+          
+            <button id="simulation" onclick='createCircle()'> Simulation onclick</button>
 
         </section>
 
@@ -42,12 +41,34 @@
         <script type="text/javascript" src="jeu.js"></script>
         <script>
             // Connexion au port d'écoute
-            var socket = io.connect('http://localhost:8080');
+            var socket = io.connect('http://localhost:8080', {
+                'reconnection': true,
+                'reconnectionDelay':500,
+                'reconnectionAttempts': 10,
+                'forceNew': false
+            });
+
+            //liste des sockets
+            var allClients = [];
+
+            //liste des rooms avec les sockets à l'intérieur?
+            var allRooms = [];
+            // Si une personne se reconnecte avec les mêmes identifiants alors on lui donne la même id de socket, du coup
+            //Il faudra faire des vérifs de sockets à droite à gauche
+
+            //en cas de deconnexion d'une personne on check toutes les rooms si il est présent:
+            // 1) On attend un certains moment puis on dit que l'autre à gagné
+            // 2) On dit à l'autre qu'il à gagner par forfait
+
+            //Si il est pas là: Baaaah c'est cool c'est plus mon problème
 
             //Lorsque quelqu'un se co, on envoie un texte dans #zone_Chat
             socket.on('nouveau_joueur', function(data) {
                 $('#zone_chat').prepend('<p> Vous êtes connecté en tant que : <em>' + data.identifiant+ '</em></p>');
-                console.log("La co dans index");
+            });
+
+            socket.on("nouveau_Compte", function(data, message){
+                $('#zone_chat').prepend('<p>' +message+' : <em>' + data.identifiant+ '</em></p>');
             });
 
             //Message recu lorsque quelqu'un se connecte
@@ -56,7 +77,6 @@
             });            
 
             socket.on("nouveauArticle", function(message){
-                console.log("Un test");
                 $('#zone_jeu').prepend('<p> Vous avez comme ip on emit: '+message+'</p>');
             })
 
@@ -80,6 +100,7 @@
             socket.on('showGame',function(){
                 var suppr = document.getElementById('zone_jeu');
                 suppr.style.display="inline";
+                
             });
 
             $('#simulation').click(function()
@@ -92,47 +113,35 @@
             })
 
             socket.on('modificationJeu',function(id){
-                console.log("je m'update bien c'est cool");
                 $('#zone_jeu').prepend('Normalement sa up');
+                createCircle();
+                registercb();
             });
+
 
             $('#svg').click(function()
             {
-                //Les coordonnées d'arrivé du pion
-                console.log("les coordonnées du pion à la fin: ", getFinalX() , getFinalY());
-                //les coordonnées de départ à faire *70+35
-                console.log("les coordonnées du pion au début: ", UntrucAuPifx(), UntrucAuPify());
-                let xDepart = UntrucAuPifx() * 70 + 35;
-                let yDepart = UntrucAuPify() * 70 + 35;
-                //console.log("le plateau ", gameBoardShow());
-                console.log("le pion qu'on doit modifier: ", xDepart, yDepart)
+                let CenteredX = (getFinalX() /70); let CenteredY = (getFinalY() /70);
 
-                socket.emit('updateGame', xDepart, yDepart, getFinalX(),getFinalY());
+                CenteredX = Math.floor(CenteredX); CenteredY = Math.floor(CenteredY);
+
+                CenteredX = CenteredX *70 +35; CenteredY = CenteredY *70 +35;
+                let xDepart = UntrucAuPifx() * 70 + 35; let yDepart = UntrucAuPify() * 70 + 35;
+                socket.emit('updateGame', xDepart, yDepart,CenteredX,CenteredY);
             });
 
             socket.on('refreshGame', function(id,DepartX, DepartY, getX, getY){
-                console.log("Est ce que je peux m'envoyer des merde de nul part: ", DepartX, DepartY);
-                console.log("Est ce que je peux m'envoyer des merde de nul part: ", getX, getY);
                 for(let i=0; i<30; i++ )
                 {
                     if(document.getElementsByTagName("circle")[i].cx.baseVal.value == DepartX && document.getElementsByTagName("circle")[i].cy.baseVal.value == DepartY)
                     {
-                        console.log("cool on l'a");
                         let ModifiedPion = document.getElementsByTagName("circle")[i];
-                        console.log("Le pion à modifier: " ,ModifiedPion);
                         ModifiedPion.cx.baseVal.value = getX;
                         ModifiedPion.cy.baseVal.value = getY;
                     }
                 }
-                //let pionModifier = document.getElementsByTagName("circle")[8].cx;
-                //30
-                //let pionModifier = document.getElementsByTagName("circle")[0].cx.baseVal.value= DepartX;
-                //console.log("Le pion à modifier: ", pionModifier);
-                //console.log("Le refresh game est censé se faire: ", getSelectedElement());
-                //console.log("les coordonnées du pion à la fin: ", getX() , getY());
-
-                //deplacerPion(getSelectedElement(), 5, 5);
             })
+
 
         </script>
     </body>

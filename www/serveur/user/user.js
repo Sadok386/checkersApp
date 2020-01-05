@@ -1,5 +1,5 @@
-let authorizedId ="Sélénium";
-let authorizedPassword ="Test";
+let authorizedId ="lol";
+let authorizedPassword ="lol";
 let authorizedId2 ="Poussière";
 let authorizedPassword2 ="Poussière";
 let authorizedId3 ="test";
@@ -18,13 +18,13 @@ module.exports = {
         }
         else
         {
-            //Créer un nouvel utilisateur??????????
-            socket.emit("error","Erreur dans l'identifiant ou le mdp");
+            socket.emit("nouveau_Compte", {identifiant: data.identifiant, password: data.password},"Un compte vient de vous être crée avec ses identifiants");
+            socket.broadcast.emit("nouvel_adversaire", {identifiant: data.identifiant, password: data.password});
         }
     },
 
     userDisconnected:function _DéconnexionClient(pseudo, socket){
-        socket.broadcast.emit("deconnexion", pseudo);
-        console.log("client disconnected from server ",pseudo);
+        if(pseudo != undefined)
+            socket.broadcast.emit("deconnexion", pseudo);
     },
 }

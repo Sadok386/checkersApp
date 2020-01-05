@@ -1,6 +1,8 @@
 
- var svgns = "http://www.w3.org/2000/svg";  
-function createCircle()
+ var svgns = "http://www.w3.org/2000/svg";
+
+//Fonction qui créer le plateau de jeu
+function createRect()
 {
     var svg = document.getElementById('svg');
 
@@ -8,9 +10,6 @@ function createCircle()
     var str = "";
     for (var i = 0; i < 10; i++) {
         for (var j = 0; j < 10; j++){
-
-            
-
             var line1 = document.createElementNS(svgns, "rect")
             line1.setAttributeNS(null, "x", j*70)
             line1.setAttributeNS(null, "y", i*70)
@@ -19,13 +18,13 @@ function createCircle()
             line1.setAttributeNS(null, 'fill', (i+j)%2 == 0 ? '#F885BE' : '#03D2FE');
             line1.setAttribute("class", "playableCell");
             svg.appendChild(line1);
-        
         }
     }
-    createCircle2();
+    createCircle();
     createBoard()
-} 
-function createCircle2()
+}
+//Fonction qui créer les pions sur le plateau de jeu
+function createCircle()
 {
     for (var i = 0; i < 10; i++) {
         for (var j = 0; j < 10; j++){
@@ -37,22 +36,21 @@ function createCircle2()
                 if(i < 3){
                 circles.setAttributeNS(null, 'fill','#EBFE0C');
                 circles.setAttribute("cy",i*70+35);
-                circles.setAttribute("class", "vert");
+                circles.setAttribute("class", "yellow");
             }
                 if(i > 6){
                 circles.setAttributeNS(null, 'fill','white');
                 circles.setAttribute("cy",i*70+35);
-                circles.setAttribute("class", "rose");
+                circles.setAttribute("class", "white");
                 }
                 circles.setAttribute("r",25);
-                
-
             }
             svg.appendChild(circles);
         }
     }
 }
-function createBoard(){
+
+ function createBoard(){
     var d = document.createElementNS(svgns, "rect")
     d.setAttributeNS(null, "x", 0)
     d.setAttributeNS(null, "y", 0)
@@ -60,14 +58,14 @@ function createBoard(){
     d.setAttributeNS(null, 'width', '80');
     d.setAttributeNS(null, 'fill', 'orange');
     d.setAttribute("class", "dame");
-    
+
 
 var a = document.getElementById("svg");
     console.log(a.childNodes);
     boardArray = Array.prototype.slice.call(a.childNodes);
     r = boardArray.slice(0,99)
     p = boardArray.slice(100,130)
-    
+
     var gameBoard = [
     [p[0], r[1], p[1], r[3], p[2], r[5], p[3], r[7], p[4], r[9]],
     [r[11], p[5], r[13], p[6], r[15], p[7], r[17], p[8], r[19] ,p[9]],

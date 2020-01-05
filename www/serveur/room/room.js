@@ -50,4 +50,12 @@ module.exports = {
         var currentRoom = Object.keys(socket.rooms).filter(item => item!=socket.id);
         socket.in(currentRoom).emit('refreshGame', socket.id, DepartX, DepartY, getX, getY);
     },
+    userDisconnected: function _CheckUserInRoom(socket)
+    {
+        //Récupération des personnes dans la room de la socket
+        var currentRoom = Object.keys(socket.rooms).filter(item => item!=socket.id);
+        //socket.in(currentRoom).emit('modificationJeu', socket.id);
+        console.log("La room current :", socket.id);
+        console.log("socket.adapter.rooms : ", socket.adapter.rooms)   
+    }
 }
