@@ -1,13 +1,13 @@
-function checkTurnPink(stopPositionRight, stopPositionLeft, stopPositionRightNext, stopPositionLeftNext, stopPositionRightX, stopPositionRightY, stopPositionLeftX,stopPositionLeftY){
+function checkTurnWhite(stopPositionRight, stopPositionLeft, stopPositionRightNext, stopPositionLeftNext, stopPositionRightX, stopPositionRightY, stopPositionLeftX,stopPositionLeftY){
     if(stopPositionRight!= null 
-                            && stopPositionRight.className.baseVal =='vert'
+                            && stopPositionRight.className.baseVal =='yellow'
                             && stopPositionRightX.length<= tailleMax
                             && stopPositionRightY.length<= tailleMax
                             && stopPositionRightNext != null
                             && stopPositionRightNext.className.baseVal == 'playableCell'
                             ||
                             stopPositionLeft!= null 
-                            && stopPositionLeft.className.baseVal =='vert'
+                            && stopPositionLeft.className.baseVal =='yellow'
                             && stopPositionLeftX.length <= tailleMax
                             && stopPositionLeftY.length <= tailleMax 
                             && stopPositionLeft != null
@@ -16,24 +16,21 @@ function checkTurnPink(stopPositionRight, stopPositionLeft, stopPositionRightNex
         return true;
         
     }
-    console.log(stopPositionRight)
-    console.log(stopPositionRightNext)
-    console.log(stopPositionLeft)
-    console.log(stopPositionLeftNext)
+
     
 
 }
 
-function checkTurnGreen(stopPositionRight, stopPositionLeft, stopPositionRightNext, stopPositionLeftNext, stopPositionRightX, stopPositionRightY, stopPositionLeftX,stopPositionLeftY){
+function checkTurnYellow(stopPositionRight, stopPositionLeft, stopPositionRightNext, stopPositionLeftNext, stopPositionRightX, stopPositionRightY, stopPositionLeftX,stopPositionLeftY){
     if(stopPositionRight!= null 
-                            && stopPositionRight.className.baseVal =='rose' 
+                            && stopPositionRight.className.baseVal =='white' 
                             && stopPositionRightX.length<= tailleMax
                             && stopPositionRightY.length<= tailleMax
                             && stopPositionRightNext != null
                             && stopPositionRightNext.className.baseVal == 'playableCell'
                             ||
                             stopPositionLeft!= null 
-                            && stopPositionLeft.className.baseVal =='rose' 
+                            && stopPositionLeft.className.baseVal =='white' 
                             && stopPositionLeftX.length <= tailleMax
                             && stopPositionLeftY.length <= tailleMax 
                             && stopPositionLeftNext != null
@@ -41,21 +38,5 @@ function checkTurnGreen(stopPositionRight, stopPositionLeft, stopPositionRightNe
     ){
         return true;
     }
-    console.log(stopPositionRight)
-    console.log(stopPositionRightNext)
-    console.log(stopPositionLeft)
-    console.log(stopPositionLeftNext)
-    console.log(stopPositionRight!= null 
-                            && stopPositionRight.className.baseVal =='vert' 
-                            && stopPositionRightX.length<= tailleMax
-                            && stopPositionRightY.length<= tailleMax
-                            && stopPositionRightNext != null
-                            && stopPositionRightNext.className.baseVal == 'playableCell'
-                            ||
-                            stopPositionLeft!= null 
-                            && stopPositionLeft.className.baseVal =='vert' 
-                            && stopPositionLeftX.length <= tailleMax
-                            && stopPositionLeftY.length <= tailleMax 
-                            && stopPositionLeftNext != null
-                            && stopPositionLeftNext.className.baseVal == 'playableCell' )
+
 }

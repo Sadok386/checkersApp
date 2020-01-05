@@ -24,10 +24,9 @@
         <div class="svg-container">
         <svg id="svg" width="1000" height="1000"  class="svg-content" ></svg>
 
-
         <section style="display:none" id="zone_jeu" >
-
-            <button id="simulation"> Simulation onclick</button>
+          
+            <button id="simulation" onclick='createCircle()'> Simulation onclick</button>
 
         </section>
 
@@ -101,6 +100,7 @@
             socket.on('showGame',function(){
                 var suppr = document.getElementById('zone_jeu');
                 suppr.style.display="inline";
+                
             });
 
             $('#simulation').click(function()
@@ -114,7 +114,10 @@
 
             socket.on('modificationJeu',function(id){
                 $('#zone_jeu').prepend('Normalement sa up');
+                createCircle();
+                registercb();
             });
+
 
             $('#svg').click(function()
             {
@@ -138,6 +141,7 @@
                     }
                 }
             })
+
 
         </script>
     </body>
