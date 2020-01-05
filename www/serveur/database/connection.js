@@ -1,22 +1,45 @@
-const mongoose = require('mongoose');
-const uri = 'mongodb://localhost/checkersData';
-const db = mongoose.createConnection(uri);
+/*
+    ==========================================
+      Connexion à la base de données MongoDB
+    ==========================================
+*/
 
-const testSchema = new Schema({
-    name: String,
-    password: String,
-  });
-  
-  const Collection = db.model('user', testSchema)
-  
-  const newCollection = new Collection({ name: 'Poussière', password: 'Poussière' })
-  
+/// -----------
+/// Dépendances
+/// -----------
 
-db.once('connected', function (err) {
-    if (err) { return console.error(err) }
-    Collection.create(newCollection, function (err, doc) {
-      if (err) { return console.error(err) }
-      console.log(doc)
-      return db.close()
-    }) 
+const mongoose = require("mongoose");
+
+/// ----------------------
+/// Mongoose configuration
+/// ----------------------
+
+const url = 'mongodb://localhost:27017/database'
+
+// 1. Connexion à la base de données
+mongoose.connect(url, {useNewUrlParser: true }, function(err) {
+  if (err) {
+      console.log('[ERROR] Erreur de connexion à la base de données : ', err);
+  } else {
+      console.log('[INFO] Connexion à la base de données établie');
+  }
 });
+
+// 2. Définition des schémas
+// L'id est automatiquement créé par MongoDB
+const userSchema = new mongoose.Schema({
+  pseudo: { type: String, unique: true },
+  password: String
+});
+
+// 3. Compiler les schémas en modèles
+const User = mongoose.model('User', userSchema);
+
+// 4. Instanciation de modèles (jeu de données d'initialisation - fixtures)
+const poussiere = new User ({
+  pseudo: 'Poussière',
+  password: 'Poussière'
+});
+
+// 5. Enregistrer les modèles dans la base de données
+poussiere.save().then(() => console.log('[INFO] L\'utilisateur "' + poussiere.pseudo + '" a été ajouté dans la base de donnée'));
