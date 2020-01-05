@@ -164,7 +164,7 @@ var selectPion;
             }
         }
             
-            if(couleurPion =='rose' && changeTurn == false || couleurPion=='queen'){
+            if(couleurPion =='rose' && changeTurn == false){
                 
                   queenProcess();
                  
