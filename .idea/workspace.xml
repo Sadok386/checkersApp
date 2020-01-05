@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2634f5b2-4f90-45e3-97d3-382f60ce6079" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/www/js/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/www/js/script.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/www/serveur/serveur.js" beforeDir="false" afterPath="$PROJECT_DIR$/www/serveur/serveur.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -15,51 +16,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/www/client/index.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret selection-end-line="705" selection-end-column="7" />
-              <folding>
-                <element signature="e#5154#5176#0" expanded="true" />
-                <element signature="e#5226#5251#0" expanded="true" />
-                <element signature="e#5672#5737#0" expanded="true" />
-                <element signature="e#5823#5885#0" expanded="true" />
-                <element signature="e#3081#3103#0" expanded="true" />
-                <element signature="e#3153#3178#0" expanded="true" />
-                <element signature="e#3060#3082#0" expanded="true" />
-                <element signature="e#3293#3319#0" expanded="true" />
-                <element signature="e#5546#5552#1" expanded="true" />
-                <element signature="e#5704#5767#0" expanded="true" />
-                <element signature="e#5853#5915#0" expanded="true" />
-                <element signature="e#7107#7129#0" expanded="true" />
-                <element signature="e#7179#7204#0" expanded="true" />
-                <element signature="e#7797#7862#0" expanded="true" />
-                <element signature="e#7948#8010#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/node_modules/cordova-android/test/app/src/main/java/org/apache/cordova/unittests/TestActivity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="165">
-              <caret line="52" column="32" selection-start-line="52" selection-start-column="32" selection-end-line="52" selection-end-column="32" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/www/client/socket.io.js">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/www/serveur/serveur.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="9" column="36" selection-start-line="9" selection-start-column="36" selection-end-line="9" selection-end-column="36" />
+            <state relative-caret-position="1751">
+              <caret line="149" column="15" selection-start-line="149" selection-start-column="15" selection-end-line="149" selection-end-column="15" />
             </state>
           </provider>
         </entry>
@@ -67,17 +28,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/package.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="282">
-              <caret line="30" column="14" lean-forward="true" selection-start-line="30" selection-start-column="14" selection-end-line="30" selection-end-column="14" />
+            <state relative-caret-position="585">
+              <caret line="39" column="1" selection-start-line="39" selection-start-column="1" selection-end-line="39" selection-end-column="1" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/www/js/script.js">
+        <entry file="file://$PROJECT_DIR$/www/client/socket.io.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1335">
-              <caret line="89" column="43" selection-start-line="89" selection-start-column="43" selection-end-line="89" selection-end-column="43" />
+            <state relative-caret-position="120">
+              <caret line="8" column="37" selection-start-line="8" selection-start-column="37" selection-end-line="8" selection-end-column="37" />
             </state>
           </provider>
         </entry>
@@ -85,31 +46,23 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/www/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="477">
-              <caret line="705" column="7" selection-start-line="705" selection-start-column="7" selection-end-line="705" selection-end-column="7" />
-              <folding>
-                <element signature="e#1678#1700#0" expanded="true" />
-                <element signature="e#1750#1775#0" expanded="true" />
-                <element signature="e#2368#2433#0" expanded="true" />
-                <element signature="e#2519#2581#0" expanded="true" />
-                <element signature="e#2729#2751#0" expanded="true" />
-                <element signature="e#2801#2826#0" expanded="true" />
-                <element signature="e#3412#3434#0" expanded="true" />
-                <element signature="e#3645#3671#0" expanded="true" />
-                <element signature="e#6570#6576#1" expanded="true" />
-                <element signature="e#6728#6791#0" expanded="true" />
-                <element signature="e#6877#6939#0" expanded="true" />
-                <element signature="e#7081#7103#0" expanded="true" />
-                <element signature="e#7153#7178#0" expanded="true" />
-                <element signature="e#38966#39031#0" expanded="true" />
-                <element signature="e#39117#39179#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="2115">
+              <caret line="141" column="4" selection-start-line="141" selection-start-column="4" selection-end-line="141" selection-end-column="4" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/www/js/index.js">
+        <entry file="file://$PROJECT_DIR$/node_modules/cordova-android/bin/templates/project/Activity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="285">
+              <caret line="37" column="32" selection-start-line="37" selection-start-column="32" selection-end-line="37" selection-end-column="32" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/www/client/index.html">
           <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
@@ -162,8 +115,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -186,6 +137,18 @@
               <item name="checkersApp" type="b2602c69:ProjectViewProjectNode" />
               <item name="checkersApp" type="462c0819:PsiDirectoryNode" />
               <item name="www" type="462c0819:PsiDirectoryNode" />
+              <item name="css" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="checkersApp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="checkersApp" type="462c0819:PsiDirectoryNode" />
+              <item name="www" type="462c0819:PsiDirectoryNode" />
+              <item name="img" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="checkersApp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="checkersApp" type="462c0819:PsiDirectoryNode" />
+              <item name="www" type="462c0819:PsiDirectoryNode" />
               <item name="js" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -198,6 +161,8 @@
           <select />
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -241,18 +206,18 @@
     <editor active="true" />
     <layout>
       <window_info id="Captures" order="0" weight="0.25" />
-      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.15715292" />
+      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.32980973" />
       <window_info id="Structure" order="2" side_tool="true" />
       <window_info id="Image Layers" order="3" />
       <window_info id="Designer" order="4" />
       <window_info id="Resources Explorer" order="5" />
       <window_info id="Capture Tool" order="6" />
       <window_info id="Favorites" order="7" side_tool="true" />
-      <window_info anchor="bottom" id="Find" weight="0.32891566" />
       <window_info anchor="bottom" id="Version Control" order="0" />
       <window_info anchor="bottom" id="TODO" order="1" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="2" visible="true" weight="0.32891566" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="2" visible="true" weight="0.32771084" />
       <window_info anchor="bottom" id="Event Log" order="3" side_tool="true" />
+      <window_info anchor="bottom" id="Find" order="4" weight="0.32891566" />
       <window_info anchor="right" id="Capture Analysis" order="0" />
       <window_info anchor="right" id="Theme Preview" order="1" />
       <window_info anchor="right" id="Assistant" order="2" weight="0.33982036" />
@@ -293,13 +258,7 @@
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/www/style.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="14" column="5" selection-start-line="14" selection-start-column="5" selection-end-line="14" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/www/style.css" />
     <entry file="file://$PROJECT_DIR$/config.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
@@ -307,46 +266,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/www/client/creerCompte.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="16" selection-start-line="7" selection-end-line="16" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/www/client/creerCompte.html" />
     <entry file="file://$PROJECT_DIR$/www/client/socket.io.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/www/client/home.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="372">
-          <caret line="27" selection-start-line="10" selection-end-line="27" />
+        <state relative-caret-position="120">
+          <caret line="8" column="37" selection-start-line="8" selection-start-column="37" selection-end-line="8" selection-end-column="37" />
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/www/client/home.html" />
     <entry file="file://$PROJECT_DIR$/www/client/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret selection-end-line="705" selection-end-column="7" />
-          <folding>
-            <element signature="e#5154#5176#0" expanded="true" />
-            <element signature="e#5226#5251#0" expanded="true" />
-            <element signature="e#5672#5737#0" expanded="true" />
-            <element signature="e#5823#5885#0" expanded="true" />
-            <element signature="e#3081#3103#0" expanded="true" />
-            <element signature="e#3153#3178#0" expanded="true" />
-            <element signature="e#3060#3082#0" expanded="true" />
-            <element signature="e#3293#3319#0" expanded="true" />
-            <element signature="e#5546#5552#1" expanded="true" />
-            <element signature="e#5704#5767#0" expanded="true" />
-            <element signature="e#5853#5915#0" expanded="true" />
-            <element signature="e#7107#7129#0" expanded="true" />
-            <element signature="e#7179#7204#0" expanded="true" />
-            <element signature="e#7797#7862#0" expanded="true" />
-            <element signature="e#7948#8010#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/node_modules/cordova-android/test/app/src/main/java/org/apache/cordova/unittests/TestActivity.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -357,25 +287,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/www/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="477">
-          <caret line="705" column="7" selection-start-line="705" selection-start-column="7" selection-end-line="705" selection-end-column="7" />
-          <folding>
-            <element signature="e#1678#1700#0" expanded="true" />
-            <element signature="e#1750#1775#0" expanded="true" />
-            <element signature="e#2368#2433#0" expanded="true" />
-            <element signature="e#2519#2581#0" expanded="true" />
-            <element signature="e#2729#2751#0" expanded="true" />
-            <element signature="e#2801#2826#0" expanded="true" />
-            <element signature="e#3412#3434#0" expanded="true" />
-            <element signature="e#3645#3671#0" expanded="true" />
-            <element signature="e#6570#6576#1" expanded="true" />
-            <element signature="e#6728#6791#0" expanded="true" />
-            <element signature="e#6877#6939#0" expanded="true" />
-            <element signature="e#7081#7103#0" expanded="true" />
-            <element signature="e#7153#7178#0" expanded="true" />
-            <element signature="e#38966#39031#0" expanded="true" />
-            <element signature="e#39117#39179#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="2115">
+          <caret line="141" column="4" selection-start-line="141" selection-start-column="4" selection-end-line="141" selection-end-column="4" />
         </state>
       </provider>
     </entry>
@@ -391,15 +304,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/package.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="282">
-          <caret line="30" column="14" lean-forward="true" selection-start-line="30" selection-start-column="14" selection-end-line="30" selection-end-column="14" />
+        <state relative-caret-position="585">
+          <caret line="39" column="1" selection-start-line="39" selection-start-column="1" selection-end-line="39" selection-end-column="1" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/www/serveur/serveur.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="36" selection-start-line="9" selection-start-column="36" selection-end-line="9" selection-end-column="36" />
+        <state relative-caret-position="1751">
+          <caret line="149" column="15" selection-start-line="149" selection-start-column="15" selection-end-line="149" selection-end-column="15" />
         </state>
       </provider>
     </entry>

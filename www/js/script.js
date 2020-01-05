@@ -1,6 +1,6 @@
 var url = "http://localhost:8888";
 
-function creerUser() {
+function creerUser() { // creer un utilisateur 
      var username = document.getElementsByClassName("username");
      var password = document.getElementsByClassName("password");
 
@@ -46,7 +46,7 @@ function getUser() {
         alert("Impossible de charger les donneées. Essayer encore");
     });
     $.ajax({
-        url: url + "/items",
+        url: url + "/parties",
         method: "get"
     }).success(function(response) {
 
@@ -56,13 +56,11 @@ function getUser() {
 
             //Display owner items data in the table
             $("#itemtable").append("<tr>" +
-                "<td>" + item._id + "</td>" +
-                "<td>" + item.details + "</td>" +
-                "<td>" + item.post_time + "</td>" +
-                "<td>" + item.edit_time + "</td>" +
+                "<td>" + partie._id + "</td>" +
+                "<td>" + partie.score + "</td>" +
+                "<td>" + partie.post_time + "</td>" +
                 '<td><a href="">edit</a></td>' +
                 '<td><a href="">delete</a></td>' +
-                "<td>" + item.isPublic + "</td>" +
             "</tr>");
         }
      }).error(function(response) {
@@ -71,11 +69,8 @@ function getUser() {
 
 }
 
-function addItem() {
-    var details = document.getElementsByClassName("details")[0];
-    var isPublic = document.getElementsByClassName("isPublic")[0];
-
-    console.log(isPublic.checked);
+function addParties() {
+    var details = document.getElementsByClassName("score")[0];
 
     $.ajax({
         url: url + "/add",
@@ -88,14 +83,11 @@ function addItem() {
         console.log(response);
         alert("Objet ajouteé!");
         //Mettre les donneées dans la table
-        ("#itemtable").append("<tr>" +
-            "<td>" + response.item._id + "</td>" +
-            "<td>" + response.item.details + "</td>" +
-            "<td>" + response.item.post_time + "</td>" +
-            "<td>" + response.item.edit_time + "</td>" +
-            '<td><a href="">edit</a></td>' +
-            '<td><a href="">delete</a></td>' +
-            "<td>" + response.item.isPublic + "</td>" +
+        $("#itemtable").append("<tr>" +
+        "<td>" + partie._id + "</td>" +
+        "<td>" + partie.score + "</td>" +
+        "<td>" + partie.post_time + "</td>" +
+    '<td><a href="">delete</a></td>' +
             "</tr>");
 
     }).error(function(response) {
