@@ -24,10 +24,9 @@
         <div class="svg-container">
         <svg id="svg" width="1000" height="1000"  class="svg-content" ></svg>
 
-
         <section style="display:none" id="zone_jeu" >
-
-            <button id="simulation"> Simulation onclick</button>
+          
+            <button id="simulation" onclick='createCircle()'> Simulation onclick</button>
 
         </section>
 
@@ -82,6 +81,7 @@
             socket.on('showGame',function(){
                 var suppr = document.getElementById('zone_jeu');
                 suppr.style.display="inline";
+                
             });
 
             $('#simulation').click(function()
@@ -96,38 +96,11 @@
             socket.on('modificationJeu',function(id){
                 console.log("je m'update bien c'est cool");
                 $('#zone_jeu').prepend('Normalement sa up');
+                createCircle();
+                registercb();
             });
         </script>
-        <script>
-            var svgns = "http://www.w3.org/2000/svg";  
 
-function createCircle()
-{
-var svg = document.getElementById('svg');
-var shape = document.createElementNS(svgns, "circle");
-var rectangle = document.createElementNS(svgns, "rectangle")
-var grid = document.createElementNS(svgns, "rect")
-
-grid.setAttributeNS(null, "x",0)
-grid.setAttributeNS(null, "y",0)
-grid.setAttributeNS(null, 'height', '50%');
-grid.setAttributeNS(null, 'width', '30%');
-grid.setAttributeNS(null, 'fill', '#'+Math.round(0xffffff * Math.random()).toString(16));
-
-rectangle.setAttributeNS(null, "cx", 25);
-rectangle.setAttributeNS(null, "cy", 50);
-rectangle.setAttributeNS(null, "r",  20);
-
-
-shape.setAttributeNS(null, "cx", 25);
-shape.setAttributeNS(null, "cy", 25);
-shape.setAttributeNS(null, "r",  20);
-shape.setAttributeNS(null, "fill", "green");
-
-
-svg.appendChild(grid);
-
-}     
         </script>
     </body>
 </html>

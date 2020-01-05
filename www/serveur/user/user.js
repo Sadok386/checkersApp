@@ -1,5 +1,5 @@
-let authorizedId ="Sélénium";
-let authorizedPassword ="Test";
+let authorizedId ="lol";
+let authorizedPassword ="lol";
 let authorizedId2 ="Poussière";
 let authorizedPassword2 ="Poussière";
 let authorizedId3 ="test";

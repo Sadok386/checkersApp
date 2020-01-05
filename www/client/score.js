@@ -1,17 +1,19 @@
-function AddScore(){
-                
-    if (couleurPion =='rose'){
-        pinkPoint++
-       
-    }else(
-        greenPoint++
-    )
-}
-function checkScore(){
-    if(pinkPoint == 15){
-        console.log('Pink won the game')
+//Fonction d'ajout de score
+function AddScore(){             
+    if (couleurPion =='white' || couleurPion =='queen'){
+        whitePoint++
+       console.log('Point blanc :' + whitePoint);
+    }else if (couleurPion =='yellow' || couleurPion =='queenEnnemy'){
+        yellowPoint++
+        console.log('Point jaune :' + yellowPoint);
     }
-    else if (greenPoint == 15){
-        console.log("Green won the game")
+}
+//Fuction qui vérifie si nous avons un gagnant
+function checkScore(){
+    if(whitePoint == 15){
+        console.log('white won the game')
+    }
+    else if (yellowPoint == 15){
+        console.log("yellow won the game")
     }
 }
