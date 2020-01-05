@@ -1,4 +1,4 @@
-var url = "http://localhost:8888";
+var url = "http://localhost:8080";
 
 function creerUser() { // creer un utilisateur 
      var username = document.getElementsByClassName("username");
@@ -59,7 +59,6 @@ function getUser() {
                 "<td>" + partie._id + "</td>" +
                 "<td>" + partie.score + "</td>" +
                 "<td>" + partie.post_time + "</td>" +
-                '<td><a href="">edit</a></td>' +
                 '<td><a href="">delete</a></td>' +
             "</tr>");
         }
@@ -70,7 +69,7 @@ function getUser() {
 }
 
 function addParties() {
-    var details = document.getElementsByClassName("score")[0];
+    var score = document.getElementsByClassName("score")[0];
 
     $.ajax({
         url: url + "/add",
@@ -81,7 +80,7 @@ function addParties() {
         }
     }).success(function(response){
         console.log(response);
-        alert("Objet ajouteé!");
+        alert("partie ajouteé!");
         //Mettre les donneées dans la table
         $("#itemtable").append("<tr>" +
         "<td>" + partie._id + "</td>" +
@@ -91,7 +90,7 @@ function addParties() {
             "</tr>");
 
     }).error(function(response) {
-        alert("Impossible d'ajouter l'objet, essayer encore");
+        alert("Impossible d'ajouter la partie, essayer encore");
     });
 }
 

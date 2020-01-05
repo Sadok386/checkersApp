@@ -190,7 +190,7 @@ app.post('/delete', loggedIn, function (req, res, next) { // supprimer l'afficha
 });
 
 
-app.get('/items', loggedIn, function (req, res, next) { 
+app.get('/parties', loggedIn, function (req, res, next) {
     //Nous voulons que les données (les parties) soient affichées chaque fois que nous chargeons la page , ca fait la liaison avec le script.js
     Parties.find({ user: req.user.username }, function(err, item) {
     	return res.json(item);

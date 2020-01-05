@@ -24,7 +24,8 @@
 
 
 <body>
-<div id="home" data-role="page" id="pageUser">
+
+<div id="home" data-role="page">
     <div class="head" id="header" data-role="header" data-position="fixed"><span style="color: #709DCB"></span>
         <h1 class="ui-title text-center" style="margin-top: 20px;"><strong>Mon compte</strong></span></h1>
     </div>
@@ -36,14 +37,15 @@
             <input type="button" onclick="ConnexionUser()" value="Login"/>
         </form>
 
-        <p>Vous n'avez pas de compte ? <a href="/creerCompte">Cliquer ici pour créer un compte.</a> </p>
+        <p>Vous n'avez pas de compte ? <a href="#creerCompte">Cliquer ici pour créer un compte.</a> </p>
     </div>
     <div data-role="footer">
-        <h4 class="ui-title text-center"><a href="#pageUser" data-role="button" class="fas fa-user-circle" style="font-size: x-large; margin-left: 200px; color: chocolate;"></a>
-            <a href="#pageSetting" data-role="button" class="fas fa-cog style=" style="font-size: x-large; margin-left: 20px; color: #DABD49;"></a>
+        <h4 class="ui-title text-center"><a href="#login" data-role="button" class="fas fa-user-circle" style="font-size: x-large; margin-left: 200px; color: chocolate;"></a>
+            <a href="#" data-role="button" class="fas fa-cog style=" style="font-size: x-large; margin-left: 20px; color: #DABD49;"></a>
         </h4>
     </div>
 </div>
+
 
 <div id="creerCompte" data-role="page">
     <div class="head" data-role="header" data-position="fixed"><span style="color: #709DCB"></span>
@@ -64,6 +66,7 @@
 </div>
 
 <div id="login" onload="getUser()" data-role="page" data-theme="a">
+
     <div class="head" data-role="header"><span style="color: #709DCB"></span>
         <div class="row">
             <div data-role="collapsible-set" class="col-4">
@@ -79,23 +82,19 @@
             <div class="col-4 offset-0"><img src="checkers.png" alt="logo" width="74" height="70" class="logo"/></div>
         </div>
     </div>
+
     <p>Hello <span class="username"></span>! </p>
     <p><a href="/logout">Se déconnecter</a> </p>
     <form>
-        <p>Ajouter un message a la liste: <input type="text" class="details" /> </p>
-        <p>Publier un resultat d'une partie <input type="checkbox" class="isPublic" /></p>
-        <input type="button" onclick="addItem()" value="Ajouter à la liste"/>
+        <p>Ajouter un score a la partie : <input type="text" class="score" /> </p>
+        <input type="button" onclick="addParties()" value="Ajouter à la liste une Partie "/>
     </form>
 
     <table border="1px" width="100%" id="itemtable">
         <tr>
             <th>Id</th>
-            <th>Details</th>
+            <th>Score</th>
             <th>Post Time</th>
-            <th>Edit Time</th>
-            <th>Edit</th>
-            <th>Delete</th>
-            <th>Public Post</th>
         </tr>
     </table>
     <div data-role="content" data-theme="a">
@@ -122,12 +121,12 @@
                 </circle>
             </svg>
         </svg>
-        <a href="jouer.html" data-role="button">Jouer</a>
+        <a href="#jeu" data-role="button">Jouer</a>
         <p>&nbsp;</p>
     </div>
     <div data-role="footer">
-        <h4 class="ui-title text-center"><a href="#pageUser" data-role="button" class="fas fa-user-circle" style="font-size: x-large; margin-left: 200px; color: #DABD49;"></a>
-            <a href="#pageSetting" data-role="button" class="fas fa-cog style=" style="font-size: x-large; margin-left: 20px; color: #DABD49;"></a>
+        <h4 class="ui-title text-center"><a href="#login" data-role="button" class="fas fa-user-circle" style="font-size: x-large; margin-left: 200px; color: #DABD49;"></a>
+            <a href="#" data-role="button" class="fas fa-cog style=" style="font-size: x-large; margin-left: 20px; color: #DABD49;"></a>
         </h4>
     </div>
 </div>
