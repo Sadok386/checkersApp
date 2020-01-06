@@ -15,7 +15,7 @@ mongoose.set('useCreateIndex', true);
 /// Mongoose configuration
 /// ----------------------
 
-const url = 'mongodb://localhost:27017/test'
+const url = 'mongodb://localhost:27017/database'
 
 // 1. Connexion à la base de données
 mongoose.connect(url, {useNewUrlParser: true }, function(err) {
