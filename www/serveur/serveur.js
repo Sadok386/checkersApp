@@ -19,7 +19,7 @@ server.on("connection", function(socket){
         room.socketJoin(socket);
     })
 
-    socket.on("updateGame",function(DepartX, DepartY, getX, getY){
-        room.refresh(socket, DepartX, DepartY, getX, getY);
+    socket.on("updateGame",function(DepartX, DepartY, getX, getY, mangeX, mangeY, boardGame){
+        room.refresh(socket, DepartX, DepartY, getX, getY, mangeX, mangeY, boardGame);
     })
 });

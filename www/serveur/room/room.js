@@ -42,13 +42,15 @@ module.exports = {
         socket.in(currentRoom).emit('modificationJeu', socket.id);
     },
 
-    refresh: function _refreshGame(socket,DepartX, DepartY, getX, getY)
+    refresh: function _refreshGame(socket,pionStartX, pionStartY,pionEndX,pionEndY, mangeX, mangeY, chibre)
     {
         //Récupération des personnes dans la room de la socket
         console.log("C'est de la merde ce truc.");
         var element = game.se
         var currentRoom = Object.keys(socket.rooms).filter(item => item!=socket.id);
-        socket.in(currentRoom).emit('refreshGame', socket.id, DepartX, DepartY, getX, getY);
+        console.log('X :'+pionEndX+' Y:'+pionEndY)
+        console.log('Mange X :'+mangeX+' Mange Y:'+mangeY)
+        socket.in(currentRoom).emit('refreshGame', socket.id, pionStartX, pionStartY,pionEndX,pionEndY, mangeX, mangeY, chibre);
     },
     userDisconnected: function _CheckUserInRoom(socket)
     {
