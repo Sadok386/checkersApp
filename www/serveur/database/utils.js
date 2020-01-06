@@ -8,8 +8,38 @@ const { User } = require("./connection.js")
 // Hachage des passwords (chiffrage)
 const bcrypt = require('bcrypt-nodejs');
 
-
 module.exports = {
+
+  /**
+   * Login
+   */
+  login: (pseudo, password, done ) => {
+    User.findOne({ pseudo: pseudo }, function(err, user) {
+      if (err) { return done(err); }
+
+      if (!user) {
+        console.log("L'utilisateur n'existe pas!");
+        return done(null, false);
+      }
+
+      const isPasswordCorrect = bcrypt.compareSync(password, user.password);
+      if (!isPasswordCorrect) {
+        console.log("Password incorrect!");
+        return done(null, false);
+      }
+      
+      console.log("Pseudo et password correct!");
+      return done(null, user);
+    });
+  },
+
+  /**
+   * Logout
+   */
+  logout: (req, res) => {
+    req.logout();
+    res.redirect('/home');
+  },
 
   /**
    * Crée et enregistre un utilisateur dans la base de données
@@ -33,7 +63,5 @@ module.exports = {
 
     // Enregistre le modèle dans la base de données
     user.save().then(() => console.log('[INFO] L\'utilisateur "' + user.pseudo + '" a été ajouté dans la base de donnée'));
-  },
-
-
+  }
 }
