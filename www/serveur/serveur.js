@@ -4,8 +4,21 @@ var room = require("./room/room.js");
 // Chargement de index après connexion
 var server = io.listen(8080);
 
-const database = require("./database/connection.js")
+// Init express
+const express = require('express');
+const bodyParser = require ('body-parser'); // Ce module body-parser analyse les données codées JSON
+const app = express();
 
+// Parse request to json
+app.use(express.json());
+
+// Init database module
+require("./database/connection.js");
+require("./database/routes.js")(app)
+
+/// ------------------------------
+/// Socket
+/// ------------------------------
 server.on("connection", function(socket){
 
     socket.on("nouveau_joueur", function(data){
@@ -24,4 +37,19 @@ server.on("connection", function(socket){
     socket.on("updateGame",function(DepartX, DepartY, getX, getY){
         room.refresh(socket, DepartX, DepartY, getX, getY);
     })
+});
+
+/// ------------------------------
+/// Express
+/// ------------------------------
+
+app.use(bodyParser.urlencoded({ extended: true }))
+
+// Route de test
+app.get('/', (req, res) => {
+    res.json({"message": "Le serveur démarre et écoute le port 3000"});
+});
+
+app.listen(3000, () => {
+    console.log("[INFO] Le serveur démarre et écoute le port 3000");
 });

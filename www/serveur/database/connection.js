@@ -9,12 +9,13 @@
 /// -----------
 
 const mongoose = require("mongoose");
+mongoose.set('useCreateIndex', true);
 
 /// ----------------------
 /// Mongoose configuration
 /// ----------------------
 
-const url = 'mongodb://localhost:27017/database'
+const url = 'mongodb://localhost:27017/test'
 
 // 1. Connexion à la base de données
 mongoose.connect(url, {useNewUrlParser: true }, function(err) {
@@ -43,3 +44,10 @@ const poussiere = new User ({
 
 // 5. Enregistrer les modèles dans la base de données
 poussiere.save().then(() => console.log('[INFO] L\'utilisateur "' + poussiere.pseudo + '" a été ajouté dans la base de donnée'));
+
+/// ----------------------
+/// Exports
+/// ----------------------
+module.exports = {
+  User: mongoose.model('User', userSchema)
+}
