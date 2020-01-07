@@ -193,6 +193,8 @@ var changeTurn = false;
                             //Traitement pour la diagonal haute droite
                                 //On vérifie si le deplacement est bien diagonal
                                 if(startPositionCx+j == stopPositionCx && startPositionCy-i == stopPositionCy){
+
+                                    //-------
                                 //On vérifie aussi si la diagonal ne depasse pas la range max du tableau    
                                 if(gameBoard[startPositionCy-i] != null && gameBoard[startPositionCx+j] != null)
                                 {
@@ -433,10 +435,10 @@ var changeTurn = false;
                         {
                             //Condition qui permet de detecter un ennemi en haut à droite
                             if(gameBoard[startPositionCy-1][startPositionCx+1]!= null 
-                            && gameBoard[startPositionCy-1][startPositionCx+1].className.baseVal =='yellow' || gameBoard[startPositionCy-1][startPositionCx+1].className.baseVal =='queenEnnemy' 
-                            && gameBoard[startPositionCy-2][startPositionCx+2] != null
-                            && gameBoard[startPositionCy-2][startPositionCx+2].className.baseVal == 'playableCell'
-                            && gameBoard[stopPositionCy][stopPositionCx] == gameBoard[startPositionCy-1][startPositionCx+1])
+                            && (gameBoard[startPositionCy-1][startPositionCx+1].className.baseVal =='yellow' || gameBoard[startPositionCy-1][startPositionCx+1].className.baseVal =='queenEnnemy') 
+                            && (gameBoard[startPositionCy-2][startPositionCx+2] != null)
+                            && (gameBoard[startPositionCy-2][startPositionCx+2].className.baseVal == 'playableCell')
+                            && (gameBoard[stopPositionCy][stopPositionCx] == gameBoard[startPositionCy-1][startPositionCx+1]))
                             {
                                 console.log('BOBOBOB')
                                 //Ici on change de position du pion dans notre gameBoard ainsi la position d'arrivé, stopPosition devient le pion
@@ -488,10 +490,10 @@ var changeTurn = false;
                             }
                             //Condition qui permet de detecter un ennemi en haut à gauche
                             else if(gameBoard[startPositionCy-1][startPositionCx-1]!= null 
-                            && gameBoard[startPositionCy-1][startPositionCx-1].className.baseVal =='yellow' || gameBoard[startPositionCy-1][startPositionCx-1].className.baseVal =='queenEnnemy'  
-                            && gameBoard[startPositionCy-2][startPositionCx-2]!= null
-                            && gameBoard[startPositionCy-2][startPositionCx-2].className.baseVal =='playableCell'
-                            && gameBoard[stopPositionCy][stopPositionCx] == gameBoard[startPositionCy-1][startPositionCx-1])
+                            && (gameBoard[startPositionCy-1][startPositionCx-1].className.baseVal =='yellow' || gameBoard[startPositionCy-1][startPositionCx-1].className.baseVal =='queenEnnemy')
+                            && (gameBoard[startPositionCy-2][startPositionCx-2]!= null)
+                            && (gameBoard[startPositionCy-2][startPositionCx-2].className.baseVal =='playableCell')
+                            && (gameBoard[stopPositionCy][stopPositionCx] == gameBoard[startPositionCy-1][startPositionCx-1]))
                             {
                                 console.log('ZOZOZOZO')
                                 gameBoard[stopPositionCy-1][stopPositionCx-1]=gameBoard[startPositionCy][startPositionCx]
@@ -597,10 +599,10 @@ var changeTurn = false;
                         || gameBoard[startPositionCy+1][startPositionCx+1] !=null )
                         {
                             if(gameBoard[startPositionCy+1][startPositionCx-1] != null 
-                            && gameBoard[startPositionCy+1][startPositionCx-1].className.baseVal =='white' || gameBoard[startPositionCy+1][startPositionCx-1].className.baseVal =='queen'
-                            && gameBoard[startPositionCy+2][startPositionCx-2] != null 
-                            && gameBoard[startPositionCy+2][startPositionCx-2].className.baseVal == 'playableCell'
-                            && gameBoard[stopPositionCy][stopPositionCx] == gameBoard[startPositionCy+1][startPositionCx-1])
+                            && (gameBoard[startPositionCy+1][startPositionCx-1].className.baseVal =='white' || gameBoard[startPositionCy+1][startPositionCx-1].className.baseVal =='queen')
+                            && (gameBoard[startPositionCy+2][startPositionCx-2] != null)
+                            && (gameBoard[startPositionCy+2][startPositionCx-2].className.baseVal == 'playableCell')
+                            && (gameBoard[stopPositionCy][stopPositionCx] == gameBoard[startPositionCy+1][startPositionCx-1]))
                             {
                                 gameBoard[stopPositionCy+1][stopPositionCx-1]=gameBoard[startPositionCy][startPositionCx]
                                 gameBoard[startPositionCy][startPositionCx]= r[0]
@@ -638,10 +640,10 @@ var changeTurn = false;
                             
                             }
                             else if(gameBoard[startPositionCy+1][startPositionCx+1] !=null 
-                            && gameBoard[startPositionCy+1][startPositionCx+1].className.baseVal =='white' || gameBoard[startPositionCy+1][startPositionCx+1].className.baseVal =='queen'
-                            && gameBoard[startPositionCy+2][startPositionCx+2] != null
-                            && gameBoard[startPositionCy+2][startPositionCx+2].className.baseVal =='playableCell'
-                            && gameBoard[stopPositionCy][stopPositionCx] == gameBoard[startPositionCy+1][startPositionCx+1])
+                            && (gameBoard[startPositionCy+1][startPositionCx+1].className.baseVal =='white' || gameBoard[startPositionCy+1][startPositionCx+1].className.baseVal =='queen')
+                            && (gameBoard[startPositionCy+2][startPositionCx+2] != null)
+                            && (gameBoard[startPositionCy+2][startPositionCx+2].className.baseVal =='playableCell')
+                            && (gameBoard[stopPositionCy][stopPositionCx] == gameBoard[startPositionCy+1][startPositionCx+1]))
                             {
                                 gameBoard[stopPositionCy+1][stopPositionCx+1]=gameBoard[startPositionCy][startPositionCx]
                                 gameBoard[startPositionCy][startPositionCx]= r[0]
@@ -773,14 +775,6 @@ var changeTurn = false;
     function getSelectedElement()
     {
         return selectPion;
-    };
-
-    function deplacerPion(selectedElement, x ,y)
-    {
-
-        selectedElement.setAttribute("cx", 385);
-        selectedElement.setAttribute("cy", 385);
-
     };
 
     function gameBoardShow()
