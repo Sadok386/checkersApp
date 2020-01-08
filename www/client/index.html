@@ -27,7 +27,7 @@
         <section style="display:none" id="zone_jeu" >
           
             <button id="simulation" onclick='createRect()'> Simulation onclick</button>
-
+            <button id="surrender"> Se rendre </button>
         </section>
 
         <script
@@ -58,12 +58,6 @@
             // Si une personne se reconnecte avec les mêmes identifiants alors on lui donne la même id de socket, du coup
             //Il faudra faire des vérifs de sockets à droite à gauche
 
-            //en cas de deconnexion d'une personne on check toutes les rooms si il est présent:
-            // 1) On attend un certains moment puis on dit que l'autre à gagné
-            // 2) On dit à l'autre qu'il à gagner par forfait
-
-            //Si il est pas là: Baaaah c'est cool c'est plus mon problème
-
             //Lorsque quelqu'un se co, on envoie un texte dans #zone_Chat
             socket.on('nouveau_joueur', function(data) {
                 $('#zone_chat').prepend('<p> Vous êtes connecté en tant que : <em>' + data.identifiant+ '</em></p>');
@@ -91,7 +85,7 @@
             $('#lookForGame').click(function () {
                 socket.emit('joinGame');
                 var suppr = document.getElementById('lookForGame');
-                suppr.parentNode.removeChild(suppr);
+                suppr.style.display="none";
             });
 
             //lorsque le formulaire est remplis on l'envoie pour vérif
@@ -105,13 +99,28 @@
                 
             });
 
+            socket.on('gameFinished',function(){
+                var suppr = document.getElementById('zone_jeu');
+                suppr.style.display="none";
+                suppr = document.getElementById('lookForGame');
+                suppr.style.display="inline";
+                suppr = document.getElementById("svg");
+                suppr.style.display="none";
+            })
+
             $('#simulation').click(function()
             {
                 socket.emit('updateGame');
+                test = socket.emit('getList');
+                
             });
 
             socket.on("message", function(id){
-                $('#zone_jeu').prepend('<p> Le broadcast à la room : '+id+'</p>');
+                $('#zone_jeu').prepend('<p> le message qui à était envoyé '+id+'</p>');
+            })
+
+            socket.on("messageGagnant", function(id){
+                alert(id);
             })
 
             socket.on('modificationJeu',function(id){
@@ -123,25 +132,21 @@
 
             $('#svg').click(function()
             {
-                console.log(getJoueurUn().pionStart.cy);
-                pionStartX = getJoueurUn().pionStart.cx; pionStartY = getJoueurUn().pionStart.cy
-                pionEndX = getJoueurUn().pionEnd.cx; pionEndY = getJoueurUn().pionEnd.cy
-                console.log('JE MANGEEEEEEEEEEEE')
+                pionStartX = getJoueurUn().pionStart.cx; pionStartY = getJoueurUn().pionStart.cy;
+                pionEndX = getJoueurUn().pionEnd.cx; pionEndY = getJoueurUn().pionEnd.cy;
                
                     
-                mangeX = getJoueurUn().mange.cx; mangeY = getJoueurUn().mange.cy
-               
-                console.log('X :'+pionEndX+' Y:'+pionEndY)
-                console.log('Mange X :'+mangeX+' Mange Y:'+mangeY)
-                boardGame = getJoueurUn().board
+                mangeX = getJoueurUn().mange.cx; mangeY = getJoueurUn().mange.cy;
+                boardGame = getJoueurUn().board;
                 socket.emit('updateGame', pionStartX, pionStartY,pionEndX,pionEndY, mangeX, mangeY, getChibre());
             });
 
+            $('#surrender').click(function()
+            {
+                socket.emit('Surrender');
+            });
+
             socket.on('refreshGame', function(id,pionStartX, pionStartY,pionEndX,pionEndY, mangeX, mangeY, chibre){
-                console.log('X :'+pionEndX+' Y:'+pionEndY)
-                console.log('Mange X :'+mangeX+' Mange Y:'+mangeY)
-                console.log(chibre)
-                console.log(getChibre())
                 gameBoard = getChibre();
                 for(let i=0; i<30; i++ )
                 {
@@ -160,17 +165,12 @@
                     
                     
                     if(document.getElementsByTagName("circle")[i].cx.baseVal.value == mangeX && document.getElementsByTagName("circle")[i].cy.baseVal.value == mangeY)
-                    {   
-                        
-                        console.log('OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO')
-                        console.log(document.getElementsByTagName("circle")[i])
+                    {
                         mangeYint = Math.floor(parseInt(mangeY)/70)
                         mangeXint = Math.floor(parseInt(mangeX)/70)
                         gameBoard[mangeYint][mangeXint] = r[0]
                         let RemovePion = document.getElementsByTagName("circle")[i];
                         RemovePion.style.display = 'none';
-                       
-
                     }
 
                 }
@@ -201,6 +201,16 @@
             // //     }
             // // }
             // )
+
+            //Tout les 100 secondes on vérifie l'état de la room de la personne
+            setInterval(function() { ragequit();}, 100000);
+
+            function ragequit()
+            {
+                console.log("Je suis dans le ragequit");
+                socket.emit("checkRagequit");
+            }
+
         </script>
     </body>
 </html>
