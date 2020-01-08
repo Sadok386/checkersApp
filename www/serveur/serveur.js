@@ -34,7 +34,7 @@ server.on("connection", function(socket){
         room.getListRoom();
     })
 
-    socket.on("updateGame",function(DepartX, DepartY, getX, getY, mangeX, mangeY, boardGame){
-        room.refresh(socket, DepartX, DepartY, getX, getY, mangeX, mangeY, boardGame);
+    socket.on("updateGame",function(DepartX, DepartY, getX, getY, mangeX, mangeY, boardGame, makeQueen, changeQueenClass){
+        room.refresh(socket, DepartX, DepartY, getX, getY, mangeX, mangeY, boardGame, makeQueen, changeQueenClass);
     })
 });
