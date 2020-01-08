@@ -23,7 +23,28 @@ const joueurUn = {
             cy: null,
     },
     board: null,
-            };
+    makeQueen: false,
+    changeColorQueen: null,
+    turn: changeTurn
+    };
+    function getTurn()
+    {
+         return changeTurn
+    }
+    function updateTurn(turnUpdate)
+    {
+        if(turnUpdate == false){
+            changeTurn = true
+            firstPlayer = 'white'
+        }else{
+            changeTurn = false
+            secondPlayer = 'yellow'
+        }
+        
+        
+    }
+   
+
    function registercb(){
  
     //Ici on créer un rectangle qui remplira les changements de position 
@@ -70,6 +91,8 @@ const joueurUn = {
         // On initialise une variable pour connaitre la taille max du tableau
         // Cette variable servire à ne pas sortir du tableau lors des prochains traitements
         tailleMax = gameBoard.length;
+
+        //On attribue les class queen à ce pion uniquement pour tester cela evite de devoir ramener un pion vers la rangée du haut ou du bas
         p[16].setAttribute ('class','queen')
         p[16].setAttribute("stroke", 'black');
         p[16].setAttribute("stroke-width", 10);
@@ -119,12 +142,13 @@ const joueurUn = {
         }).bind('touchend mouseup',function (e) {
             console.log('Joueur 1')
 
+
             stopPositionCx = Math.floor(parseInt(selectedElement.cx.baseVal.value)/70)
             stopPositionCy = Math.floor(parseInt(selectedElement.cy.baseVal.value)/70)
 
             //Permet de récuperer la couleur du pion selectionné
-
-
+            console.log('TOUUUUUUUUUUUUUUUUUUUUUUUUR')
+            console.log(changeTurn)
             lastX = startPositionCx;
             lastY = startPositionCy;
 
@@ -144,6 +168,9 @@ const joueurUn = {
            
             console.log(gameBoard)
 
+            
+
+
             //Fonction permettant de crée un dame à partir des Pion blanc
             function checkQueenWhite(){
                 //On donne au variable la position d'arriver R = right L= left
@@ -161,6 +188,11 @@ const joueurUn = {
                     //On change la bordure du pion pour le reperer visuellement sur le plateau
                     selectedElement.setAttribute("stroke", 'black');
                     selectedElement.setAttribute("stroke-width", 10);
+                    joueurUn.makeQueen = true;
+                    joueurUn.changeColorQueen = 'queen'
+                }else{
+                    joueurUn.makeQueen = false;
+                    joueurUn.changeColorQueen = null
                 }
             }
             //Fonction permettant de crée un dame à partir des Pion jaune
@@ -173,13 +205,14 @@ const joueurUn = {
                     selectedElement.setAttribute("class", 'queenEnnemy');
                     selectedElement.setAttribute("stroke", 'black');
                     selectedElement.setAttribute("stroke-width", 10);
+                    joueurUn.makeQueen = true;
+                    joueurUn.changeColorQueen = 'queenEnnemy'
+                }else{
+                    joueurUn.makeQueen = false;
+                    joueurUn.changeColorQueen = null
                 }
             }
 
-            //Méthode pour le comportement d'une dame
-            let queenColor
-            let queenEnnemyColor
-            
             //Condition de verification pour le changement de tour des dames
             if (couleurPion =='queen' && changeTurn == false){
                 queenProcess(startPositionCx, startPositionCy,stopPositionCx, stopPositionCy, gameBoard, couleurPion);            
@@ -650,7 +683,7 @@ const joueurUn = {
     function getMoveCy(){
         return pionMoveCy;
     }
-    
+
     function getJoueurUn(){
         return joueurUn;
     }
@@ -659,21 +692,7 @@ const joueurUn = {
         return startPionPositionCx;
     };
 
-    function UntrucAuPifx()
-    {
-        return lastX;
-    };
-
-    function UntrucAuPify()
-    {
-        return lastY;
-    };
-
-    function getFinalX()
-    {
-        return finalX;
-    };
-    function getChibre()
+    function getBoard()
     {
         return board;
     }
@@ -685,10 +704,6 @@ const joueurUn = {
     {
         return lastY;
         
-    };
-    function getFinalY()
-    {
-        return finalY;
     };
     function getSelectedElement()
     {

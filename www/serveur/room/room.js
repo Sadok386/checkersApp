@@ -118,11 +118,11 @@ module.exports = {
         socket.in(currentRoom).emit('modificationJeu', socket.id);
     },
 
-    refresh: function _refreshGame(socket,pionStartX, pionStartY,pionEndX,pionEndY, mangeX, mangeY, chibre)
+    refresh: function _refreshGame(socket,pionStartX, pionStartY,pionEndX,pionEndY, mangeX, mangeY, board, makeQueen, changeQueenClass)
     {
         var element = game.se
         var currentRoom = Object.keys(socket.rooms).filter(item => item!=socket.id);
-        socket.in(currentRoom).emit('refreshGame', socket.id, pionStartX, pionStartY,pionEndX,pionEndY, mangeX, mangeY, chibre);
+        socket.in(currentRoom).emit('refreshGame', socket.id, pionStartX, pionStartY,pionEndX,pionEndY, mangeX, mangeY, board, makeQueen, changeQueenClass);
     },
 
     checkForLeaver: function _CheckForLeaver(socket)
