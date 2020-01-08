@@ -6,20 +6,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=no">
         <title>Checkers</title>
             <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
-        <script src="/js/script.js"></script>
-        <script src=”/socket.io/socket.io.js”></script>
-        <link href="http://code.jquery.com/mobile/1.3.0/jquery.mobile-1.3.0.min.css" rel="stylesheet" type="text/css">
-        <link href="../Documents/css/bootstrap-4.3.1.css" rel="stylesheet" type="text/css">
-        <link href="../Documents/jQueryAssets/jquery.ui.core.min.css" rel="stylesheet" type="text/css">
-        <link href="../Documents/jQueryAssets/jquery.ui.theme.min.css" rel="stylesheet" type="text/css">
-        <link href="../Documents/jQueryAssets/jquery.ui.accordion.min.css" rel="stylesheet" type="text/css">
-        <link href="../Documents/jQueryAssets/jquery.ui.button.min.css" rel="stylesheet" type="text/css">
-        <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
-        <script src="http://code.jquery.com/mobile/1.3.0/jquery.mobile-1.3.0.min.js"></script>
-        <script src="../Documents/jQueryAssets/jquery-1.11.1.min.js"></script>
-        <script src="../Documents/jQueryAssets/jquery.ui-1.10.4.accordion.min.js"></script>
-        <script src="https://kit.fontawesome.com/078c236eda.js" crossorigin="anonymous"></script>
-        <script src="../Documents/jQueryAssets/jquery.ui-1.10.4.button.min.js"></script>
+        <script src="../../js/script.js"></script>
+        <script src=”socket.io.js”></script>
     </head>
  
     <body>
@@ -31,8 +19,8 @@
 
     <div data-role="content" data-theme="a">
         <form>
-            <p>Pseudo <input type="text" class="username" name="Username" id="Username" size="50" autofocus /></p>
-            <p>Password <input type="password" class="password" name="password" id="password" size="50" autofocus/></p>
+            <p>Pseudo <input type="text" class="username" name="Username"  size="50" autofocus /></p>
+            <p>Password <input type="password" class="password" name="password" size="50" autofocus/></p>
             <input type="button" onclick="ConnexionUser()" value="Login"/>
         </form>
 
@@ -53,9 +41,7 @@
 
     <div data-role="content" data-theme="a">
         <p>Création du compte</p>
-        <section id="zone_chat">
-                    
-        </section>
+
         <form method="post">
             <p>Pseudo <input type="text" class="username" name="Username" id="Username" size="50" autofocus /></p>
             <p>Password <input type="password" class="password" name="password" id="password" size="50" autofocus /></p>
@@ -270,6 +256,19 @@ left: 0;
     </div>
 </div>
     </body>
+    <link href="http://code.jquery.com/mobile/1.3.0/jquery.mobile-1.3.0.min.css" rel="stylesheet" type="text/css">
+    <link href="../client/jQueryCss/bootstrap-4.3.1.css" rel="stylesheet" type="text/css">
+    <link href="../client/jQueryCss/jquery.ui.core.min.css" rel="stylesheet" type="text/css">
+    <link href="../client/jQueryCss/jquery.ui.theme.min.css" rel="stylesheet" type="text/css">
+    <link href="../client/jQueryCss/jquery.ui.accordion.min.css" rel="stylesheet" type="text/css">
+    <link href="../client/jQueryCss/jquery.ui.button.min.css" rel="stylesheet" type="text/css">
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.3.0/jquery.mobile-1.3.0.min.js"></script>
+    <script src="../client/jQueryCss/jquery-mobile/jquery-1.11.1.min.js"></script>
+    <script src="../client/jQueryCss/jquery.ui-1.10.4.accordion.min.js"></script>
+    <script src="https://kit.fontawesome.com/078c236eda.js" crossorigin="anonymous"></script>
+    <script src="../client/jQueryCss/jquery.ui-1.10.4.button.min.js"></script>
+
 </html>
 
 <!-- mettre les identifiant/passwords dans le petit-nouveau si ils correspondent à des trucs alors connexion-->

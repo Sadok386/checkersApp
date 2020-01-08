@@ -2,6 +2,42 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2634f5b2-4f90-45e3-97d3-382f60ce6079" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/checkersApp.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/www/client/checkers.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/www/client/jQueryCss/bootstrap-4.3.1.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/www/client/jQueryCss/images/animated-overlay.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/www/client/jQueryCss/images/ui-bg_diagonals-thick_18_b81900_40x40.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/www/client/jQueryCss/images/ui-bg_diagonals-thick_20_666666_40x40.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/www/client/jQueryCss/images/ui-bg_flat_10_000000_40x100.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/www/client/jQueryCss/images/ui-bg_glass_100_f6f6f6_1x400.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/www/client/jQueryCss/images/ui-bg_glass_100_fdf5ce_1x400.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/www/client/jQueryCss/images/ui-bg_gloss-wave_35_f6a828_500x100.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/www/client/jQueryCss/images/ui-bg_highlight-soft_100_eeeeee_1x100.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/www/client/jQueryCss/images/ui-bg_highlight-soft_75_ffe45c_1x100.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/www/client/jQueryCss/images/ui-icons_228ef1_256x240.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/www/client/jQueryCss/images/ui-icons_ef8c08_256x240.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/www/client/jQueryCss/images/ui-icons_ffd27a_256x240.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/www/client/jQueryCss/images/ui-icons_ffffff_256x240.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/www/client/jQueryCss/jquery-1.11.1.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/www/client/jQueryCss/jquery-mobile/images/ajax-loader.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/www/client/jQueryCss/jquery-mobile/images/icons-18-black.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/www/client/jQueryCss/jquery-mobile/images/icons-18-white.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/www/client/jQueryCss/jquery-mobile/images/icons-36-black.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/www/client/jQueryCss/jquery-mobile/images/icons-36-white.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/www/client/jQueryCss/jquery-mobile/images/ui-icons_222222_256x240.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/www/client/jQueryCss/jquery-mobile/jquery-1.11.1.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/www/client/jQueryCss/jquery-mobile/jquery.mobile-1.3.0.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/www/client/jQueryCss/jquery-mobile/jquery.mobile.structure-1.3.0.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/www/client/jQueryCss/jquery.ui-1.10.4.accordion.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/www/client/jQueryCss/jquery.ui-1.10.4.button.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/www/client/jQueryCss/jquery.ui.accordion.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/www/client/jQueryCss/jquery.ui.button.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/www/client/jQueryCss/jquery.ui.core.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/www/client/jQueryCss/jquery.ui.theme.min.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/www/client/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/www/client/index.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -15,49 +51,53 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/www/serveur/serveur.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-402">
-              <caret line="5" selection-start-line="5" selection-end-line="5" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/package.json">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="465">
-              <caret line="31" column="1" selection-start-line="31" selection-start-column="1" selection-end-line="31" selection-end-column="1" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/www/client/socket.io.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="8" column="37" selection-start-line="8" selection-start-column="37" selection-end-line="8" selection-end-column="37" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/www/index.html">
+        <entry file="file://$PROJECT_DIR$/www/client/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="268">
-              <caret line="33" column="17" selection-end-line="43" selection-end-column="111" />
+            <state relative-caret-position="318">
+              <caret line="44" selection-start-line="44" selection-end-line="44" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/node_modules/cordova-android/bin/templates/project/Activity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
-              <caret line="37" column="32" selection-start-line="37" selection-start-column="32" selection-end-line="37" selection-end-column="32" />
-            </state>
-          </provider>
+        <entry file="file://$PROJECT_DIR$/www/client/jQueryCss/jquery.ui-1.10.4.accordion.min.js">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/www/client/jQueryCss/jquery.ui-1.10.4.button.min.js">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/www/client/jQueryCss/jquery-1.11.1.min.js">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/www/client/jQueryCss/jquery-mobile/jquery-1.11.1.min.js">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/www/client/jQueryCss/jquery.ui.button.min.css">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/www/client/jQueryCss/jquery.ui.core.min.css">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/www/client/jQueryCss/jquery.ui.theme.min.css">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/www/js/script.js">
+          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
     </leaf>
@@ -73,6 +113,8 @@
       <find>parties</find>
       <find>/user</find>
       <find>creer</find>
+      <find>ui-icons_222222_256x240.png</find>
+      <find>bois</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -88,22 +130,15 @@
         <option value="$PROJECT_DIR$/www/client/script.js" />
         <option value="$PROJECT_DIR$/www/client/creerCompte.html" />
         <option value="$PROJECT_DIR$/www/client/home.html" />
-        <option value="$PROJECT_DIR$/www/client/index.html" />
         <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/www/js/script.js" />
         <option value="$PROJECT_DIR$/www/serveur/serveur.js" />
         <option value="$PROJECT_DIR$/www/index.html" />
+        <option value="$PROJECT_DIR$/www/client/index.html" />
       </list>
     </option>
   </component>
-  <component name="ProjectConfigurationFiles">
-    <option name="files">
-      <list>
-        <option value="$PROJECT_DIR$/.idea/misc.xml" />
-      </list>
-    </option>
-  </component>
-  <component name="ProjectFrameBounds" extendedState="6" fullScreen="true">
+  <component name="ProjectFrameBounds" fullScreen="true">
     <option name="width" value="1440" />
     <option name="height" value="900" />
   </component>
@@ -112,6 +147,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -129,6 +165,30 @@
               <item name="checkersApp" type="462c0819:PsiDirectoryNode" />
               <item name="www" type="462c0819:PsiDirectoryNode" />
               <item name="client" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="checkersApp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="checkersApp" type="462c0819:PsiDirectoryNode" />
+              <item name="www" type="462c0819:PsiDirectoryNode" />
+              <item name="client" type="462c0819:PsiDirectoryNode" />
+              <item name="jQueryCss" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="checkersApp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="checkersApp" type="462c0819:PsiDirectoryNode" />
+              <item name="www" type="462c0819:PsiDirectoryNode" />
+              <item name="client" type="462c0819:PsiDirectoryNode" />
+              <item name="jQueryCss" type="462c0819:PsiDirectoryNode" />
+              <item name="jquery-mobile" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="checkersApp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="checkersApp" type="462c0819:PsiDirectoryNode" />
+              <item name="www" type="462c0819:PsiDirectoryNode" />
+              <item name="client" type="462c0819:PsiDirectoryNode" />
+              <item name="jQueryCss" type="462c0819:PsiDirectoryNode" />
+              <item name="jquery-mobile" type="462c0819:PsiDirectoryNode" />
+              <item name="images" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="checkersApp" type="b2602c69:ProjectViewProjectNode" />
@@ -159,17 +219,24 @@
         </subPane>
       </pane>
       <pane id="PackagesPane" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="android.sdk.path" value="$USER_HOME$/Library/Android/sdk" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/www/client/jQueryCss" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/www/client/jQueryCss" />
+      <recent name="$PROJECT_DIR$/www/client/jQueryCss/jquery-mobile/images" />
+      <recent name="$PROJECT_DIR$/www/client" />
+      <recent name="$PROJECT_DIR$/www/jQueryCss" />
+      <recent name="$PROJECT_DIR$/www/jQueryAssets" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/www/client" />
       <recent name="$PROJECT_DIR$/www/js" />
     </key>
   </component>
@@ -200,6 +267,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Captures" order="0" weight="0.25" />
       <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.32980973" />
@@ -276,7 +344,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/www/serveur/serveur.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-402">
+        <state relative-caret-position="75">
           <caret line="5" selection-start-line="5" selection-end-line="5" />
         </state>
       </provider>
@@ -302,20 +370,47 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/www/client/index.html">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/www/js/script.js">
+    <entry file="file://$PROJECT_DIR$/www/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1230">
-          <caret line="82" column="21" selection-start-line="82" selection-start-column="21" selection-end-line="82" selection-end-column="21" />
+        <state relative-caret-position="495">
+          <caret line="33" column="17" selection-end-line="43" selection-end-column="111" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/www/index.html">
+    <entry file="file://$PROJECT_DIR$/www/client/jQueryCss/bootstrap-4.3.1.css">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/client/jQueryCss/jquery.ui.button.min.css">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/client/jQueryCss/jquery.ui.core.min.css">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/client/jQueryCss/jquery.ui.theme.min.css">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/js/script.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/client/jQueryCss/jquery.ui-1.10.4.button.min.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/client/jQueryCss/jquery-mobile/jquery-1.11.1.min.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/client/jQueryCss/jquery.ui-1.10.4.accordion.min.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/client/jQueryCss/jquery-mobile/images/ui-icons_222222_256x240.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/client/jQueryCss/jquery-1.11.1.min.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/client/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="268">
-          <caret line="33" column="17" selection-end-line="43" selection-end-column="111" />
+        <state relative-caret-position="318">
+          <caret line="44" selection-start-line="44" selection-end-line="44" />
         </state>
       </provider>
     </entry>
