@@ -159,6 +159,7 @@
            
 
             socket.on('refreshGame', function(id,pionStartX, pionStartY,pionEndX,pionEndY, mangeX, mangeY, board, makeQueen, changeQueenClass){
+                console.log("Je viens de recevoir un coup.")
                 console.log('X :'+pionEndX+' Y:'+pionEndY)
                 console.log('Mange X :'+mangeX+' Mange Y:'+mangeY)
                 gameBoard = getBoard();

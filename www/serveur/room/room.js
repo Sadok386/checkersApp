@@ -20,6 +20,7 @@ function localGetListRoom()
 
 function socketJoinGame(socket)
     {
+        
         for(var i=0; i<10; i++)
         {
             //Si la room est vide (undefined) ou ne contient qu'une personne on rentre sinon, on choisit une autre room
@@ -72,12 +73,13 @@ module.exports = {
 
     socketCheck: function _CheckSocketAlreadyInRoom(socket)
     {
+        console.log("ma socket : " , socket.id);
         if(listRoom.length != 0){
             for(let i=0; i<listRoom.length; i++)
             {
+                console.log("Les autres id : ", listRoom[i].J1, " ", listRoom[i].J2)
                 if(socket.id == listRoom[i].J1 || socket.id == listRoom[i].J2)
                 {
-                    //On lui fait rejoindre la room donc
                     socket.join(listRoom[i].nomPiece);
                     break;
                 }
@@ -120,7 +122,7 @@ module.exports = {
 
     refresh: function _refreshGame(socket,pionStartX, pionStartY,pionEndX,pionEndY, mangeX, mangeY, board, makeQueen, changeQueenClass)
     {
-        var element = game.se
+        var element = game.se;
         var currentRoom = Object.keys(socket.rooms).filter(item => item!=socket.id);
         socket.in(currentRoom).emit('refreshGame', socket.id, pionStartX, pionStartY,pionEndX,pionEndY, mangeX, mangeY, board, makeQueen, changeQueenClass);
     },
@@ -140,7 +142,6 @@ module.exports = {
                     {
                         socket.emit("messageGagnant","Votre adversaire s'est déconnecté depuis trop longtemps")
                         socket.emit('gameFinished');
-                        console.log("le current room : ", currentRoom);
                         listRoom.splice(i);
                     }
                 }
