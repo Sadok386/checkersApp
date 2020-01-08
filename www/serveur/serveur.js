@@ -15,10 +15,13 @@ server.on("connection", function(socket){
         room.userDisconnected(socket);
     })
 
+    socket.on("JoueurGagnant", function(){
+        room.joueurGagnant(socket);
+    })
+
     socket.on("joinGame",function(){
         room.socketCheck(socket);
         //room.socketJoin(socket);
-        
     })
 
     socket.on("checkRagequit", function(){

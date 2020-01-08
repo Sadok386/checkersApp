@@ -3,8 +3,8 @@ var selectedElement = null;
 var prevElement = null;
 var currentX = 0;
 var currentY = 0;
-whitePoint = 0
-yellowPoint = 0
+whitePoint = 0;
+yellowPoint = 0;
 var changeTurn = false;  
 let pionMoveCy
 let pionMoveCx
@@ -713,7 +713,17 @@ const joueurUn = {
     function gameBoardShow()
     {
         return gameBoard;
-    }
+    };
+
+    function getWhitePoint()
+    {
+        return whitePoint;
+    };
+
+    function getYellowPoint()
+    {
+        return yellowPoint;
+    };
 
     
 

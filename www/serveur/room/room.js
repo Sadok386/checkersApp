@@ -29,7 +29,7 @@ function socketJoinGame(socket)
             {
                 console.log("La room n'est pas encore créé");
                 socket.join("room"+i);
-                socket.emit('nouveauArticle',socket.id);
+                socket.emit('nouveauArticle',"blanc");
                 socket.emit('showGame');
                 var currentRoom = Object.keys(socket.rooms);
                 console.log("current room : ",currentRoom);
@@ -44,7 +44,7 @@ function socketJoinGame(socket)
                 if(socket.adapter.rooms['room'+i].length<2)
                 {
                     socket.join("room"+i);
-                    socket.emit('nouveauArticle',socket.id);
+                    socket.emit('nouveauArticle',"jaune");
                     socket.to("room"+i).emit('message',socket.id);
                     socket.emit('showGame');
                     socket.to("room"+i).emit('createSVG', socket.id);
@@ -69,6 +69,21 @@ module.exports = {
         console.log("La liste ds rooms : ", listRoom );
         return listRoom;
         
+    },
+
+    joueurGagnant:function sendMessageWhenWinner(socket)
+    {
+        socket.emit("messageGagnant","Vous avez un score suffisant et avez gagné");
+        socket.emit('gameFinished');
+        for(let i=0; i<listRoom.length; i++)
+            {
+                if(socket.id == listRoom[i].J1 || socket.id == listRoom[i].J2)
+                {
+                    socket.to(listRoom[i].nomPiece).emit('messageGagnant'," Vous avez perdu.");
+                    socket.to(listRoom[i].nomPiece).emit('gameFinished');
+                    listRoom.splice(i);
+                }
+            }
     },
 
     socketCheck: function _CheckSocketAlreadyInRoom(socket)
@@ -101,7 +116,7 @@ module.exports = {
         for(let i=0; i<listRoom.length; i++)
             {
                 if(socket.id == listRoom[i].J1 || socket.id == listRoom[i].J2)
-                socket.to(listRoom[i].nomPiece).emit('messageGagnant'," Vous avez gagné");
+                socket.to(listRoom[i].nomPiece).emit('messageGagnant'," Vous avez gagné car votre adversaire s'est déconnecté.");
                 socket.emit('gameFinished');
                 socket.to(listRoom[i].nomPiece).emit('gameFinished');
                 //On retire la Partie de la liste des rooms utilisées
