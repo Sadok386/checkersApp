@@ -27,22 +27,22 @@ const joueurUn = {
     changeColorQueen: null,
     turn: changeTurn
     };
-    function getTurn()
-    {
-         return changeTurn
-    }
-    function updateTurn(turnUpdate)
-    {
-        if(turnUpdate == false){
-            changeTurn = true
-            firstPlayer = 'white'
-        }else{
-            changeTurn = false
-            secondPlayer = 'yellow'
-        }
+    // function getTurn()
+    // {
+    //      return changeTurn
+    // }
+    // function updateTurn(turnUpdate)
+    // {
+    //     if(turnUpdate == false){
+    //         changeTurn = true
+    //         firstPlayer = 'white'
+    //     }else{
+    //         changeTurn = false
+    //         secondPlayer = 'yellow'
+    //     }
         
         
-    }
+    // }
    
 
    function registercb(){
@@ -450,7 +450,7 @@ const joueurUn = {
                 }
             }
             //Condition de comportement pour les pions blanc
-            else if(couleurPion ='yellow' && changeTurn == true){
+            else if(couleurPion =='yellow' && changeTurn == true){
                 if(startPositionCx-1 == stopPositionCx && startPositionCy+1 == stopPositionCy 
                 || startPositionCx+1 == stopPositionCx && startPositionCy+1 == stopPositionCy)
                 {
@@ -571,13 +571,14 @@ const joueurUn = {
                             else if(gameBoard[stopPositionCy][stopPositionCx].className.baseVal !='white'
                             && gameBoard[stopPositionCy][stopPositionCx].className.baseVal !='queen'
                             && gameBoard[stopPositionCy][stopPositionCx].className.baseVal !='queenEnnemy'  
-                            && gameBoard[stopPositionCy][stopPositionCx].className.baseVal !='yellow')
+                            && gameBoard[stopPositionCy][stopPositionCx].className.baseVal !='yellow'
+                            )
                             {
                                 gameBoard[stopPositionCy][stopPositionCx]=gameBoard[startPositionCy][startPositionCx]
                                 gameBoard[startPositionCy][startPositionCx]= r[0]
                                 selectedElement.setAttribute("cx", stopPositionCx*70+35);
                                 selectedElement.setAttribute("cy", stopPositionCy*70+35);
-
+                                console.log('NIQUE T MORT')
                                 joueurUn.pionEnd.cx = gameBoard[stopPositionCy][stopPositionCx].cx.baseVal.value;
                                 joueurUn.pionEnd.cy = gameBoard[stopPositionCy][stopPositionCx].cy.baseVal.value;
                                 joueurUn.pionStart.cy = startPositionCyPixel
