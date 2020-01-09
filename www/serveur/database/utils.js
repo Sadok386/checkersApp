@@ -63,5 +63,6 @@ module.exports = {
 
     // Enregistre le modèle dans la base de données
     user.save().then(() => console.log('[INFO] L\'utilisateur "' + user.pseudo + '" a été ajouté dans la base de donnée'));
-  }
+  },
+
 }
