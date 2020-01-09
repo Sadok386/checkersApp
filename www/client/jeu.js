@@ -33,20 +33,12 @@ const joueurUn = {
     }
     function updateTurn(turnUpdate)
     {
-        if(turnUpdate == false){
-            changeTurn = true
-            firstPlayer = 'white'
-        }else{
-            changeTurn = false
-            secondPlayer = 'yellow'
-        }
-        
-        
+        changeTurn = turnUpdate   
     }
    
 
-   function registercb(){
- 
+   function registercb(CouleurSocket, modeSolo){
+    console.log("Un truc dans register : ", CouleurSocket)
     //Ici on créer un rectangle qui remplira les changements de position 
     //(ex: Je mange un pion alors la case de ce pion mangé devient ce rectangle dans le tableau)
     var d = document.createElementNS(svgns, "rect")
@@ -216,7 +208,8 @@ const joueurUn = {
             //Condition de verification pour le changement de tour des dames
             if (couleurPion =='queen' && changeTurn == false){
                 queenProcess(startPositionCx, startPositionCy,stopPositionCx, stopPositionCy, gameBoard, couleurPion);            
-                changeTurn = true
+                changeTurn = true;
+                console.log("changeTurn 3");
             }else if (couleurPion =='queenEnnemy' && changeTurn == true){
                 queenProcess(startPositionCx, startPositionCy,stopPositionCx, stopPositionCy, gameBoard, couleurPion);
                
@@ -224,7 +217,7 @@ const joueurUn = {
             }
             
             //Condition de comportement pour les pions blanc
-            else if(couleurPion =='white' && changeTurn == false){
+            else if((couleurPion =='white' && changeTurn == false && CouleurSocket =='white') || modeSolo == true){
                 //Condition qui vérifie si le pion blanc se deplace bien sur une diagonal haute droite ou gauche
                 if(startPositionCx+1 == stopPositionCx && startPositionCy-1 == stopPositionCy && couleurPion =='white' 
                 || startPositionCx-1 == stopPositionCx && startPositionCy-1 == stopPositionCy && couleurPion =='white')
@@ -287,16 +280,21 @@ const joueurUn = {
                                     //On appel la méthode checkTurnWhite en lui passant les paramètres qui permettrons de voir si un autre coup est jouable
                                     if(checkTurnWhite(stopPositionRight, stopPositionLeft, stopPositionRightNext, stopPositionLeftNext, stopPositionRightX, stopPositionRightY, stopPositionLeftX, stopPositionLeftY ) == true){
                                         console.log('C ENCORE TON TOUR')
+                                        console.log('NIQUE')
+                                        
                                     }
                                     else{
                                         //Si le coup n'est pas jouable on passe la variable changeTurn à true, ce qui permettre à l'ennemi de pouvoir jouer
                                         console.log('TOUR DE lAUTRE')
                                         changeTurn = true
+                                  
+                                        
                                     }
                                 }
                                 else{
-                                    console.log('TOUR DE lAUTRE')
-                                    changeTurn = true
+                                    console.log('TOUR DE lAUTRE');
+                                    console.log("Après avoir joué, le tour de l'adversaire");
+                                    changeTurn = true;
                                 }
                             }
                             //Condition qui permet de detecter un ennemi en haut à gauche
@@ -374,7 +372,8 @@ const joueurUn = {
                                 joueurUn.pionStart.cx = startPositionCxPixel                                
                                 joueurUn.mange.cx = null;
                                 joueurUn.mange.cy = null;
-                                joueurUn.board = gameBoard
+                                joueurUn.board = gameBoard;
+                                console.log("Change turn de Queen");
                                 changeTurn = true
                                
                             } 
@@ -416,6 +415,7 @@ const joueurUn = {
                         joueurUn.mange.cx = null;
                         joueurUn.mange.cy = null;
                         joueurUn.board = gameBoard
+                        console.log("changeTurn 2");
                         changeTurn = true
                         }  
                 //On regarde si le pion peut devenir une dame
@@ -450,7 +450,7 @@ const joueurUn = {
                 }
             }
             //Condition de comportement pour les pions blanc
-            else if(couleurPion ='yellow' && changeTurn == true){
+            else if((couleurPion ='yellow' && changeTurn == true && CouleurSocket =='yellow') || modeSolo == true){
                 if(startPositionCx-1 == stopPositionCx && startPositionCy+1 == stopPositionCy 
                 || startPositionCx+1 == stopPositionCx && startPositionCy+1 == stopPositionCy)
                 {
@@ -671,7 +671,7 @@ const joueurUn = {
         });
         
     };
-    
+
     function log() {
         if (window.console && window.console.log)
             window.console.log('[XXX] ' + Array.prototype.join.call(arguments, ' '));

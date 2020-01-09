@@ -20,7 +20,8 @@
 
 
         <p><input type="button" value="Chercher une partie" id="lookForGame" /></p>
-        <button onclick="createRect(), registercb()" onload="" >Create svg</button> 
+        <button onclick="createRect(), registercb(CouleurSocket, false)" onload="" >Create svg</button>
+        <button onclick="createRect(), registercb(CouleurSocket, true)" onload="" >Mode Solo svg</button>  
         <div class="svg-container">
         <svg id="svg" width="1000" height="1000"  class="svg-content" ></svg>
 
@@ -136,27 +137,24 @@
 
             $('#svg').click(function()
             {
-                console.log(getJoueurUn().pionStart.cy);
                 pionStartX = getJoueurUn().pionStart.cx; pionStartY = getJoueurUn().pionStart.cy;
                 pionEndX = getJoueurUn().pionEnd.cx; pionEndY = getJoueurUn().pionEnd.cy;
-                console.log("Ma couleur : ", CouleurSocket);
-                if(CouleurSocket == "jaune")
+                if(CouleurSocket == "yellow")
                 {
-                    console.log("Les points des jaunes : ",getYellowPoint());
                     if(getYellowPoint() == "15")
                     {
                         socket.emit("JoueurGagnant");
                     }
                 }
                 
-                if(CouleurSocket == "blanc")
+                if(CouleurSocket == "white")
                 {
-                    console.log("les points des blancs : ",getWhitePoint());
                     if(getWhitePoint() == "15")
                     {
                         socket.emit("JoueurGagnant");
                     }
                 }
+                
                     
                 mangeX = getJoueurUn().mange.cx; mangeY = getJoueurUn().mange.cy;
                 boardGame = getJoueurUn().board;
@@ -165,7 +163,7 @@
                 
                 changeQueenClass = getJoueurUn().changeColorQueen;
                 
-                socket.emit('updateGame', pionStartX, pionStartY,pionEndX,pionEndY, mangeX, mangeY, getBoard(), makeQueen, changeQueenClass);
+                socket.emit('updateGame', pionStartX, pionStartY,pionEndX,pionEndY, mangeX, mangeY, getBoard(), makeQueen, changeQueenClass, getTurn());
             });
 
             $('#surrender').click(function()
@@ -175,7 +173,7 @@
 
            
 
-            socket.on('refreshGame', function(id,pionStartX, pionStartY,pionEndX,pionEndY, mangeX, mangeY, board, makeQueen, changeQueenClass){
+            socket.on('refreshGame', function(id,pionStartX, pionStartY,pionEndX,pionEndY, mangeX, mangeY, board, makeQueen, changeQueenClass, turn){
                 gameBoard = getBoard();
                
                 for(let i=0; i<30; i++ )
@@ -191,7 +189,7 @@
                         gameBoard[pionStartYint][pionStartXint] = r[0]
                         ModifiedPion.cx.baseVal.value = pionEndX;
                         ModifiedPion.cy.baseVal.value = pionEndY;
-                        turn = getTurn()
+                        console.log("La valeur recu du getTurn() : ", turn);
                         updateTurn(turn)
                         
                         if(makeQueen == true)
@@ -213,38 +211,11 @@
                 }
             })
 
-            // // $('#svg').click(function()
-            // // {
-            // //     console.log(getJoueurUn().pionStart);
-            // //     pionStop =getJoueurUn().pionEnd
-            // //     if(pionStop !=null){
-            // //     pionStopCx = getJoueurUn().pionEnd.cx.baseVal.value;
-            // //     pionStopCy = getJoueurUn().pionEnd.cy.baseVal.value;
-            // // }else{
-            // //     pionStopCx = null
-            // //     pionStopCy = null;
-            // // }
-            
-            // //     console.log(pionStopCx, pionStopCy)
-            // //     socket.emit('updateGame', pionStopCx, pionStopCy);
-            // // });
-
-            // // socket.on('refreshGame', function(id,pionStopCx, pionStopCy){
-            // //     console.log(getJoueurUn())
-            // //     console.log('PION RECUP---------------------------------')
-            // //     console.log('Cx: '+pionStopCx+' Cy: '+pionStopCy)
-            // //     if(pionStopCx!=null && pionStopCy !=null){
-
-            // //     }
-            // // }
-            // )
-
             //Tout les 100 secondes on vérifie l'état de la room de la personne
             setInterval(function() { ragequit();}, 100000);
 
             function ragequit()
             {
-                console.log("Je suis dans le ragequit");
                 socket.emit("checkRagequit");
             }
 

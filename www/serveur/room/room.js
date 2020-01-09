@@ -29,7 +29,7 @@ function socketJoinGame(socket)
             {
                 console.log("La room n'est pas encore créé");
                 socket.join("room"+i);
-                socket.emit('nouveauArticle',"blanc");
+                socket.emit('nouveauArticle',"white");
                 socket.emit('showGame');
                 var currentRoom = Object.keys(socket.rooms);
                 console.log("current room : ",currentRoom);
@@ -44,7 +44,7 @@ function socketJoinGame(socket)
                 if(socket.adapter.rooms['room'+i].length<2)
                 {
                     socket.join("room"+i);
-                    socket.emit('nouveauArticle',"jaune");
+                    socket.emit('nouveauArticle',"yellow");
                     socket.to("room"+i).emit('message',socket.id);
                     socket.emit('showGame');
                     socket.to("room"+i).emit('createSVG', socket.id);
@@ -135,11 +135,11 @@ module.exports = {
         socket.in(currentRoom).emit('modificationJeu', socket.id);
     },
 
-    refresh: function _refreshGame(socket,pionStartX, pionStartY,pionEndX,pionEndY, mangeX, mangeY, board, makeQueen, changeQueenClass)
+    refresh: function _refreshGame(socket,pionStartX, pionStartY,pionEndX,pionEndY, mangeX, mangeY, board, makeQueen, changeQueenClass, turn)
     {
         var element = game.se;
         var currentRoom = Object.keys(socket.rooms).filter(item => item!=socket.id);
-        socket.in(currentRoom).emit('refreshGame', socket.id, pionStartX, pionStartY,pionEndX,pionEndY, mangeX, mangeY, board, makeQueen, changeQueenClass);
+        socket.in(currentRoom).emit('refreshGame', socket.id, pionStartX, pionStartY,pionEndX,pionEndY, mangeX, mangeY, board, makeQueen, changeQueenClass, turn);
     },
 
     checkForLeaver: function _CheckForLeaver(socket)
