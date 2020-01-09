@@ -30,16 +30,18 @@ mongoose.connect(url, {useNewUrlParser: true }, function(err) {
 // L'id est automatiquement créé par MongoDB
 const userSchema = new mongoose.Schema({
   pseudo: { type: String, unique: true },
-  password: String
+  password: String,
+  socketID: String
 });
 
 // 3. Compiler les schémas en modèles
 const User = mongoose.model('User', userSchema);
 
-// 4. Instanciation de modèles (jeu de données d'initialisation - fixtures)
+// 4. Instanciation de modèles (ici données de test)
 const poussiere = new User ({
   pseudo: 'Poussière',
-  password: 'Poussière'
+  password: 'Poussière',
+  socketID: null
 });
 
 // 5. Enregistrer les modèles dans la base de données
