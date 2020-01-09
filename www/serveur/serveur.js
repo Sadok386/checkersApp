@@ -1,3 +1,4 @@
+'use strict';
 var io = require("socket.io");
 var user = require("./user/user.js");
 var room = require("./room/room.js");
