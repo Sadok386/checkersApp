@@ -31,7 +31,7 @@ function createCircle()
 
         if((i+j)%2 == 0 && (i < 3 || i > 6) ){
             var circles = document.createElementNS(svgns, "circle")
-                
+
                 circles.setAttribute("cx",j*70+35);
                 if(i < 3){
                 circles.setAttributeNS(null, 'fill','#EBFE0C');
@@ -49,8 +49,7 @@ function createCircle()
         }
     }
 }
-
- function createBoard(){
+function createBoard(){
     var d = document.createElementNS(svgns, "rect")
     d.setAttributeNS(null, "x", 0)
     d.setAttributeNS(null, "y", 0)

@@ -6,25 +6,31 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=no">
         <title>Checkers</title>
             <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
-        <script src="../../js/script.js"></script>
+        <script src="script.js"></script>
         <script src=”socket.io.js”></script>
+
     </head>
  
     <body>
 
 <div id="home" data-role="page">
     <div class="head" id="header" data-role="header" data-position="fixed"><span style="color: #709DCB"></span>
+      <center>  <img
+                src="checkers.png"
+                alt="logo jeu de dames"
+                height="70px"
+                width="70px"
+        /></center>
         <h1 class="ui-title text-center" style="margin-top: 20px;"><strong>Mon compte</strong></span></h1>
     </div>
 
-    <div data-role="content" data-theme="a">
+    <div data-role="content" style="background-image: url('../client/jQueryCss/jquery-mobile/images/bois.png'); padding:90px;" data-theme="a" >
         <form>
             <p>Pseudo <input type="text" class="username" name="Username"  size="50" autofocus /></p>
             <p>Password <input type="password" class="password" name="password" size="50" autofocus/></p>
             <input type="button" onclick="ConnexionUser()" value="Login"/>
         </form>
-
-        <p>Vous n'avez pas de compte ? <a href="#creerCompte">Cliquer ici pour créer un compte.</a> </p>
+        <p > <a href="#creerCompte">Cliquer ici pour créer un compte.</a> </p>
     </div>
     <div data-role="footer">
         <h4 class="ui-title text-center"><a href="#login" data-role="button" class="fas fa-user-circle" style="font-size: x-large; margin-left: 200px; color: chocolate;"></a>
@@ -34,21 +40,27 @@
 </div>
 
 
-<div id="creerCompte" data-role="page">
+<div id="creerCompte" data-role="page" >
     <div class="head" data-role="header" data-position="fixed"><span style="color: #709DCB"></span>
+        <a href="#home" style="margin-right:280px;" class="ui-btn-right" data-theme="a" data-icon="plus">Back</a>
         <h1 class="ui-title text-center" style="margin-top: 20px;"><strong>Créer un compte</strong></span></h1>
     </div>
 
-    <div data-role="content" data-theme="a">
-        <p>Création du compte</p>
-
+    <div data-role="content" data-theme="a" style="padding:120px;">
+<div data-role="fieldcontain">
         <form method="post">
-            <p>Pseudo <input type="text" class="username" name="Username" id="Username" size="50" autofocus /></p>
-            <p>Password <input type="password" class="password" name="password" id="password" size="50" autofocus /></p>
-            <input type="button" onclick="creerUser()" value="Créer un compte" id="formulaire_connexion"/>
+            <p>Pseudo <input type="text" class="username" name="Username" id="Username" size="60" autofocus /></p>
+            <p>Password <input type="password" class="password" name="password" id="password" size="60"  autofocus /></p>
+        </br>
+            </br>
+            <input type="button" onclick="creerUser()" value="Créer" id="formulaire_connexion"/>
         </form>
-
-        <p><a href="/">Cliquer ici pour revenir en arrière.</a> </p>
+    </div>
+</div>
+    <div data-role="footer">
+        <h4 class="ui-title text-center"><a href="#login" data-role="button" class="fas fa-user-circle" style="font-size: x-large; margin-left: 200px; color: chocolate;"></a>
+            <a href="#" data-role="button" class="fas fa-cog style=" style="font-size: x-large; margin-left: 20px; color: #DABD49;"></a>
+        </h4>
     </div>
 </div>
 
@@ -70,8 +82,8 @@
         </div>
     </div>
 
+    <p style="margin-left:230px;"><a href="/logout">Se déconnecter</a> </p>
     <p>Hello <span class="username"></span>! </p>
-    <p><a href="/logout">Se déconnecter</a> </p>
     <form>
         <p>Ajouter un score a la partie : <input type="text" class="score" /> </p>
         <input type="button" onclick="addParties()" value="Ajouter à la liste une Partie "/>
@@ -121,6 +133,7 @@
 
 <div id="jeu" data-role="page" >
     <div class="head" data-role="header" data-position="fixed"><span style="color: #709DCB"></span>
+        <a href="#login" style="margin-right:280px;" class="ui-btn-right" data-theme="a" data-icon="plus">Back</a>
         <h1 class="ui-title text-center" style="margin-top: 20px;"><strong> Partie </strong></span></h1>
     </div>
 
@@ -130,130 +143,189 @@
                     
     </section>
 
-    <p><input type="button" value="Chercher une partie" id="lookForGame" /></p>
-    <button onclick="createRect(), registercb()" onload="" >Create svg</button> 
-    <div class="svg-container">
-    <svg id="svg" width="1000" height="1000"  class="svg-content" ></svg>
-    </div>
-    <section style="display:none" id="zone_jeu" >
-      
-        <button id="simulation" onclick='createCircle()'> Simulation onclick</button>
+        <p><input type="button" value="Chercher une partie" id="lookForGame" /></p>
+        <button onclick="createRect(), registercb(CouleurSocket, false)" onload="" >Create svg</button>
+        <button onclick="createRect(), registercb(CouleurSocket, true)" onload="" >Jouer en mode Solo</button>
+        <div class="svg-container">
+            <svg id="svg" width="1000" height="1000"  class="svg-content" ></svg>
 
-    </section>
+            <section style="display:none" id="zone_jeu" >
 
-    <script
-src="https://code.jquery.com/jquery-3.4.1.js"
-integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
-crossorigin="anonymous"></script>
-    <script src="socket.io.js"></script>
-    <script type="text/javascript" src="plateau.js"></script>
-    <script type="text/javascript" src="score.js"></script>
-    <script type="text/javascript" src="checkTurn.js"></script>
-    <script type="text/javascript" src="jeu.js"></script>
-    <script>
-        // Connexion au port d'écoute
-        var socket = io.connect('http://localhost:8080', {
-            'reconnection': true,
-            'reconnectionDelay':500,
-            'reconnectionAttempts': 10,
-            'forceNew': false
-        });
-        //liste des sockets
-        var allClients = [];
-        //liste des rooms avec les sockets à l'intérieur?
-        var allRooms = [];
-        // Si une personne se reconnecte avec les mêmes identifiants alors on lui donne la même id de socket, du coup
-        //Il faudra faire des vérifs de sockets à droite à gauche
-        //en cas de deconnexion d'une personne on check toutes les rooms si il est présent:
-        // 1) On attend un certains moment puis on dit que l'autre à gagné
-        // 2) On dit à l'autre qu'il à gagner par forfait
-        //Si il est pas là: Baaaah c'est cool c'est plus mon problème
-        //Lorsque quelqu'un se co, on envoie un texte dans #zone_Chat
-        socket.on('nouveau_joueur', function(data) {
-            $('#zone_chat').prepend('<p> Vous êtes connecté en tant que : <em>' + data.identifiant+ '</em></p>');
-        });
-        socket.on("nouveau_Compte", function(data, message){
-            $('#zone_chat').prepend('<p>' +message+' : <em>' + data.identifiant+ '</em></p>');
-        });
-        //Message recu lorsque quelqu'un se connecte
-        socket.on('nouvel_adversaire', function(data) {
-            $('#zone_chat').prepend('<p><em>' + data.identifiant+ '</em> vient de se connecter.</p>');
-        });            
-        socket.on("nouveauArticle", function(message){
-            $('#zone_jeu').prepend('<p> Vous avez comme ip on emit: '+message+'</p>');
-        })
-        //Message recu lorsque quelqu'un se déconnecte
-        socket.on('deconnexion', function(data){
-            $('#zone_chat').prepend('<p><em>' + data+ '</em> vient de se déconnecter.</p>');
-        });
-        //Lors du clic sur la recherche de bouton on appele la fonction pour se mettre dans une room
-        $('#lookForGame').click(function () {
-            socket.emit('joinGame');
-            var suppr = document.getElementById('lookForGame');
-            suppr.parentNode.removeChild(suppr);
-        });
-        //lorsque le formulaire est remplis on l'envoie pour vérif
-        $('#formulaire_connexion').click(function(){
-            socket.emit('nouveau_joueur', {identifiant :$('#Username').val(), password:$('#password').val()});
-        });
-        socket.on('showGame',function(){
-            var suppr = document.getElementById('zone_jeu');
-            suppr.style.display="inline";
-            
-        });
-        $('#simulation').click(function()
-        {
-            socket.emit('updateGame');
-        });
-        socket.on("message", function(id){
-            $('#zone_jeu').prepend('<p> Le broadcast à la room : '+id+'</p>');
-        })
-        socket.on('modificationJeu',function(id){
-            $('#zone_jeu').prepend('Normalement sa up');
-            createCircle();
-            registercb();
-        });
-        $('#svg').click(function()
-        {
-            let CenteredX = (getFinalX() /70); let CenteredY = (getFinalY() /70);
-            CenteredX = Math.floor(CenteredX); CenteredY = Math.floor(CenteredY);
-            CenteredX = CenteredX *70 +35; CenteredY = CenteredY *70 +35;
-            let xDepart = UntrucAuPifx() * 70 + 35; let yDepart = UntrucAuPify() * 70 + 35;
-            socket.emit('updateGame', xDepart, yDepart,CenteredX,CenteredY);
-        });
-        socket.on('refreshGame', function(id,DepartX, DepartY, getX, getY){
-            for(let i=0; i<30; i++ )
+                <button id="simulation" onclick='createRect()'> Simulation onclick</button>
+                <button id="surrender"> Se rendre </button>
+            </section>
+
+        <script
+                src="https://code.jquery.com/jquery-3.4.1.js"
+                integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+                crossorigin="anonymous"></script>
+        <script src="socket.io.js"></script>
+        <script type="text/javascript" src="plateau.js"></script>
+        <script type="text/javascript" src="score.js"></script>
+        <script type="text/javascript" src="checkTurn.js"></script>
+
+        <script type="text/javascript" src="jeu.js"></script>
+        <script type="text/javascript" src="queenProcess.js"></script>
+        <script>
+        let CouleurSocket;
+            // Connexion au port d'écoute
+            var socket = io.connect('http://localhost:8080', {
+                'reconnection': true,
+                'reconnectionDelay':500,
+                'reconnectionAttempts': 10,
+                'forceNew': false
+            });
+            //liste des sockets
+            var allClients = [];
+            //liste des rooms avec les sockets à l'intérieur?
+            var allRooms = [];
+            // Si une personne se reconnecte avec les mêmes identifiants alors on lui donne la même id de socket, du coup
+            //Il faudra faire des vérifs de sockets à droite à gauche
+            //Lorsque quelqu'un se co, on envoie un texte dans #zone_Chat
+            socket.on('nouveau_joueur', function(data) {
+                $('#zone_chat').prepend('<p> Vous êtes connecté en tant que : <em>' + data.identifiant+ '</em></p>');
+            });
+            socket.on("nouveau_Compte", function(data, message){
+                $('#zone_chat').prepend('<p>' +message+' : <em>' + data.identifiant+ '</em></p>');
+            });
+            //Message recu lorsque quelqu'un se connecte
+            socket.on('nouvel_adversaire', function(data) {
+                $('#zone_chat').prepend('<p><em>' + data.identifiant+ '</em> vient de se connecter.</p>');
+            });
+            socket.on("nouveauArticle", function(message){
+                $('#zone_jeu').prepend('<p> Vous avez comme ip on emit: '+message+'</p>');
+                //On assigne à ce joueur une couleur
+                CouleurSocket = message;
+            })
+            //Message recu lorsque quelqu'un se déconnecte
+            socket.on('deconnexion', function(data){
+                $('#zone_chat').prepend('<p><em>' + data+ '</em> vient de se déconnecter.</p>');
+            });
+            //Lors du clic sur la recherche de bouton on appele la fonction pour se mettre dans une room
+            $('#lookForGame').click(function () {
+                socket.emit('joinGame');
+                var suppr = document.getElementById('lookForGame');
+                suppr.style.display="none";
+            });
+            //lorsque le formulaire est remplis on l'envoie pour vérif
+            $('#formulaire_connexion').click(function(){
+                socket.emit('nouveau_joueur', {identifiant :$('#Username').val(), password:$('#password').val()});
+            });
+            socket.on('showGame',function(){
+                var suppr = document.getElementById('zone_jeu');
+                suppr.style.display="inline";
+
+            });
+            socket.on('gameFinished',function(){
+                var suppr = document.getElementById('zone_jeu');
+                suppr.style.display="none";
+                suppr = document.getElementById('lookForGame');
+                suppr.style.display="inline";
+                suppr = document.getElementById("svg");
+                suppr.style.display="none";
+            })
+            $('#simulation').click(function()
             {
-                if(document.getElementsByTagName("circle")[i].cx.baseVal.value == DepartX && document.getElementsByTagName("circle")[i].cy.baseVal.value == DepartY)
+                socket.emit('updateGame');
+                test = socket.emit('getList');
+
+            });
+            socket.on("message", function(id){
+                $('#zone_jeu').prepend('<p> le message qui à était envoyé '+id+'</p>');
+            })
+            socket.on("messageGagnant", function(id){
+                alert(id);
+            })
+            socket.on('modificationJeu',function(id){
+                $('#zone_jeu').prepend('Normalement sa up');
+                createCircle();
+                registercb();
+            });
+            $('#svg').click(function()
+            {
+                pionStartX = getJoueurUn().pionStart.cx; pionStartY = getJoueurUn().pionStart.cy;
+                pionEndX = getJoueurUn().pionEnd.cx; pionEndY = getJoueurUn().pionEnd.cy;
+                if(CouleurSocket == "yellow")
                 {
-                    let ModifiedPion = document.getElementsByTagName("circle")[i];
-                    ModifiedPion.cx.baseVal.value = getX;
-                    ModifiedPion.cy.baseVal.value = getY;
+                    if(getYellowPoint() == "15")
+                    {
+                        socket.emit("JoueurGagnant");
+                    }
                 }
+
+                if(CouleurSocket == "white")
+                {
+                    if(getWhitePoint() == "15")
+                    {
+                        socket.emit("JoueurGagnant");
+                    }
+                }
+
+
+                mangeX = getJoueurUn().mange.cx; mangeY = getJoueurUn().mange.cy;
+                boardGame = getJoueurUn().board;
+                makeQueen = getJoueurUn().makeQueen;
+
+
+                changeQueenClass = getJoueurUn().changeColorQueen;
+
+                socket.emit('updateGame', pionStartX, pionStartY,pionEndX,pionEndY, mangeX, mangeY, getBoard(), makeQueen, changeQueenClass, getTurn());
+            });
+            $('#surrender').click(function()
+            {
+                socket.emit('Surrender');
+            });
+
+            socket.on('refreshGame', function(id,pionStartX, pionStartY,pionEndX,pionEndY, mangeX, mangeY, board, makeQueen, changeQueenClass, turn){
+                gameBoard = getBoard();
+
+                for(let i=0; i<30; i++ )
+                {
+                    if(document.getElementsByTagName("circle")[i].cx.baseVal.value == pionStartX && document.getElementsByTagName("circle")[i].cy.baseVal.value ==  pionStartY)
+                    {
+                        let ModifiedPion = document.getElementsByTagName("circle")[i];
+                        pionStartYint = Math.floor(parseInt(pionStartY)/70)
+                        pionStartXint = Math.floor(parseInt(pionStartX)/70)
+                        pionEndXint = Math.floor(parseInt(pionEndX)/70)
+                        pionEndYint = Math.floor(parseInt(pionEndY)/70)
+                        gameBoard[pionEndYint][pionEndXint] = gameBoard[pionStartYint][pionStartXint]
+                        gameBoard[pionStartYint][pionStartXint] = r[0]
+                        ModifiedPion.cx.baseVal.value = pionEndX;
+                        ModifiedPion.cy.baseVal.value = pionEndY;
+                        console.log("La valeur recu du getTurn() : ", turn);
+                        updateTurn(turn)
+
+                        if(makeQueen == true)
+                        {
+                            ModifiedPion.setAttribute("class", changeQueenClass);
+                            ModifiedPion.setAttribute("stroke", 'black');
+                            ModifiedPion.setAttribute("stroke-width", 10);
+                        }
+                    }
+                    if(document.getElementsByTagName("circle")[i].cx.baseVal.value == mangeX && document.getElementsByTagName("circle")[i].cy.baseVal.value == mangeY)
+                    {
+                        mangeYint = Math.floor(parseInt(mangeY)/70)
+                        mangeXint = Math.floor(parseInt(mangeX)/70)
+                        gameBoard[mangeYint][mangeXint] = r[0]
+                        let RemovePion = document.getElementsByTagName("circle")[i];
+                        RemovePion.style.display = 'none';
+                    }
+                }
+            })
+            //Tout les 100 secondes on vérifie l'état de la room de la personne
+            setInterval(function() { ragequit();}, 100000);
+            function ragequit()
+            {
+                socket.emit("checkRagequit");
             }
-        })
-    </script>
-    <style>
-    .svg-container {
-display: inline-block;
-position: relative;
-width: 100%;
-padding-bottom: 100%;
-vertical-align: middle;
-overflow: hidden;
-}
-.svg-content {
-display: inline-block;
-position: absolute;
-top: 0;
-left: 0;
-}</style>
+        </script>
     </div>
     <div data-role="footer">
         <h4 class="ui-title text-center"><a href="#pageUser" data-role="button" class="fas fa-user-circle" style="font-size: x-large; margin-left: 200px; color: chocolate;"></a>
             <a href="#pageSetting" data-role="button" class="fas fa-cog style=" style="font-size: x-large; margin-left: 20px; color: #DABD49;"></a>
         </h4>
     </div>
+</div>
 </div>
     </body>
     <link href="http://code.jquery.com/mobile/1.3.0/jquery.mobile-1.3.0.min.css" rel="stylesheet" type="text/css">

@@ -72,7 +72,7 @@ function addParties() {
     var score = document.getElementsByClassName("score")[0];
 
     $.ajax({
-        url: url + "/creerCompte",
+        url: url + "/add",
         method: "post",
         data: {
             score: score.value,
