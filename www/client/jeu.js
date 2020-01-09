@@ -38,7 +38,8 @@ const joueurUn = {
    
 
    function registercb(CouleurSocket, modeSolo){
-    console.log("Un truc dans register : ", CouleurSocket)
+    console.log("Un truc dans register : ", CouleurSocket);
+    console.log("La valeur de modeSolo", modeSolo);
     //Ici on créer un rectangle qui remplira les changements de position 
     //(ex: Je mange un pion alors la case de ce pion mangé devient ce rectangle dans le tableau)
     var d = document.createElementNS(svgns, "rect")
@@ -216,8 +217,10 @@ const joueurUn = {
                 changeTurn = false;
             }
             
+            //Déplacement du pion blanc
             //Condition de comportement pour les pions blanc
-            else if((couleurPion =='white' && changeTurn == false && CouleurSocket =='white') || modeSolo == true){
+            else if((couleurPion =='white' && changeTurn == false && CouleurSocket =='white') || (modeSolo == true && changeTurn == false)){
+                console.log("Je suis dans le modeSolo = true dans les comportement des blancs");
                 //Condition qui vérifie si le pion blanc se deplace bien sur une diagonal haute droite ou gauche
                 if(startPositionCx+1 == stopPositionCx && startPositionCy-1 == stopPositionCy && couleurPion =='white' 
                 || startPositionCx-1 == stopPositionCx && startPositionCy-1 == stopPositionCy && couleurPion =='white')
@@ -417,6 +420,10 @@ const joueurUn = {
                         joueurUn.board = gameBoard
                         console.log("changeTurn 2");
                         changeTurn = true
+                            if(modeSolo == true)
+                            {
+                                changeTurn = false;
+                            }
                         }  
                 //On regarde si le pion peut devenir une dame
                 checkQueenWhite();
@@ -446,11 +453,12 @@ const joueurUn = {
                             joueurUn.pionStart.cx = null;                                
                             joueurUn.mange.cx = null;
                             joueurUn.mange.cy = null;
-                    console.log("Mouvement interdit");
+                    console.log("Mouvement interdit 3 ");
                 }
             }
             //Condition de comportement pour les pions blanc
-            else if((couleurPion ='yellow' && changeTurn == true && CouleurSocket =='yellow') || modeSolo == true){
+            //l'erreur viendrais d'ici
+            else if((couleurPion ='yellow' && changeTurn == true && CouleurSocket =='yellow') || (modeSolo == true && changeTurn == true)){
                 if(startPositionCx-1 == stopPositionCx && startPositionCy+1 == stopPositionCy 
                 || startPositionCx+1 == stopPositionCx && startPositionCy+1 == stopPositionCy)
                 {
@@ -645,7 +653,7 @@ const joueurUn = {
                 else{
                     selectedElement.setAttribute("cx", startPositionCxPixel);
                     selectedElement.setAttribute("cy", startPositionCyPixel);
-                    console.log("Mouvement interdit");
+                    console.log("Mouvement interdit 1 ");
                     joueurUn.pionEnd.cx = null;
                             joueurUn.pionEnd.cy = null;
                             joueurUn.pionStart.cy = null;
@@ -657,7 +665,7 @@ const joueurUn = {
             else{
                     selectedElement.setAttribute("cx", startPositionCxPixel);
                     selectedElement.setAttribute("cy", startPositionCyPixel);
-                    console.log("Mouvement interdit");
+                    console.log("Mouvement interdit 2 ");
                     joueurUn.pionEnd.cx = null;
                             joueurUn.pionEnd.cy = null;
                             joueurUn.pionStart.cy = null;
