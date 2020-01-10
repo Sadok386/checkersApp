@@ -9,7 +9,7 @@ var http = require( "http" ),
     pathUtils = require( "path" ),
     express = require( "express" ),
     app = express(),
-    PORT = process.env.PORT || 8080,
+    PORT = process.env.PORT || 1414,
     appDir = pathUtils.resolve( __dirname, "client" );
 
 app.use( express.static( appDir ) );
