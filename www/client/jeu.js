@@ -141,8 +141,10 @@ const joueurUn = {
         //Traitement a la fin d'un clique de la souris
         }).bind('touchend mouseup',function (e) {
             console.log('Joueur 1')
-
-
+            console.log(whitePoint)
+            console.log('Joueur 2')
+            console.log(yellowPoint)
+            
             stopPositionCx = Math.floor(parseInt(selectedElement.cx.baseVal.value)/70)
             stopPositionCy = Math.floor(parseInt(selectedElement.cy.baseVal.value)/70)
 

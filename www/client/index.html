@@ -172,6 +172,8 @@
                         pionStartXint = Math.floor(parseInt(pionStartX)/70)
                         pionEndXint = Math.floor(parseInt(pionEndX)/70)
                         pionEndYint = Math.floor(parseInt(pionEndY)/70)
+                       
+                        
                         gameBoard[pionEndYint][pionEndXint] = gameBoard[pionStartYint][pionStartXint]
                         gameBoard[pionStartYint][pionStartXint] = r[0]
                         ModifiedPion.cx.baseVal.value = pionEndX;
