@@ -1,18 +1,18 @@
 var url = "http://localhost:8080";
 
 function creerUser() { // creer un utilisateur 
-     var username = document.getElementsByClassName("username");
-     var password = document.getElementsByClassName("password");
+     var username = document.getElementsByClassName("usernameCreate");
+     var password = document.getElementsByClassName("passwordCreate");
 
      $.ajax({
-         url: url + "/creerCompte",
+         url: "http://localhost:3000"  + "/createUser",
          method: "post",
          data: {
-             username: username[0].value,
+             pseudo: username[0].value,
              password: password[0].value
          }
      }).success(function(response){
-         alert(response.message);
+         alert(response.message + " " + response.user.pseudo);
      }).error(function(response) {
          alert(response.message);
      });
@@ -25,10 +25,11 @@ function ConnexionUser() {
         url: "http://localhost:3000" + "/login",
         method: "post",
         data: {
-            username: username[0].value,
+            pseudo: username[0].value,
             password: password[0].value
         }
         }).success(function(response){
+            console.log(response)
              window.location.assign("/home");
          }).error(function(response) {
              alert("Incorrect Pseudo ou mot de passe!");

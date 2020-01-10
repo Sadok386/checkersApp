@@ -35,7 +35,7 @@ module.exports = (app) => {
   // @see: Comment s'authentifier -> http://www.passportjs.org/docs/username-password/
   passport.use(new LocalStrategy({
     usernameField: 'pseudo',
-    passwordField: 'password',
+    passwordField: 'password'
   }, utils.login));
 
   /// ------

@@ -8,14 +8,24 @@ var server = io.listen(8080);
 // Init express
 const express = require('express');
 const bodyParser = require ('body-parser'); // Ce module body-parser analyse les données codées JSON
+const cors = require('cors');
 const app = express();
+
+// Le fait que le client tourne sur le port 8000 et le serveur 3000 je dois ajouter ces éléments aux headers des requêtes
+// See https://stackoverflow.com/questions/18642828/origin-origin-is-not-allowed-by-access-control-allow-origin
+let allowCrossDomain = function(req, res, next) {
+    res.header('Access-Control-Allow-Origin', "*");
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+    res.header('Access-Control-Allow-Headers', 'Content-Type');
+    next();
+}
+
+app.use(allowCrossDomain);
 
 // Parse request to json
 app.use(express.json());
 
-// Init database module
-require("./database/connection.js");
-require("./database/routes.js")(app)
+app.use(cors());
 
 /// ------------------------------
 /// Socket
@@ -62,8 +72,12 @@ server.on("connection", function(socket){
 /// Express
 /// ------------------------------
 
-app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.json());
+
+// Init database module
+require("./database/connection.js");
+require("./database/routes.js")(app)
 
 // Route de test
 app.get('/', (req, res) => {
