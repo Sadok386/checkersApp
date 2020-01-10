@@ -10,18 +10,6 @@ const express = require('express');
 const bodyParser = require ('body-parser'); // Ce module body-parser analyse les données codées JSON
 const app = express();
 
-// Add headers
-app.use(function (res) {
-
-    // Permet d'utiliser le localhost:8000 (client) car le serveur est lancé sur le port 3000
-    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8000');
-
-    // Méthodes autorisées
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-
-    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-});
-
 // Parse request to json
 app.use(express.json());
 
@@ -74,6 +62,7 @@ server.on("connection", function(socket){
 /// Express
 /// ------------------------------
 
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }))
 
 // Route de test

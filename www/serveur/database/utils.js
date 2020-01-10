@@ -44,25 +44,25 @@ module.exports = {
   /**
    * Crée et enregistre un utilisateur dans la base de données
    */
-  createUser: (req, res) => {
-    // Cas d'erreur 400
-    if(!req.body.pseudo) {
-      return res.status(400).send({
-        message: "Bad Request"
+  createUser: async (req, res) => {
+    try {
+      // Chiffrage du password
+      const passwordEncoded = bcrypt.hashSync(req.body.password);
+
+      // Instanciation du modèle
+      const user = new User({
+        pseudo: req.body.pseudo, 
+        password: passwordEncoded
       });
+
+      // Enregistre le modèle dans la base de données
+      const result = await user.save()
+      
+      // Renvoie l'objet user au client
+      res.send(result);
+    } catch (error) {
+      res.json({ message: 'Erreur: existe déjà, mauvaise requête...' })
     }
-    
-    // Chiffrage du password
-    const passwordEncoded = bcrypt.hashSync(req.body.password);
-
-    // Instanciation du modèle
-    const user = new User({
-      pseudo: req.body.pseudo, 
-      password: passwordEncoded
-    });
-
-    // Enregistre le modèle dans la base de données
-    user.save().then(() => console.log('[INFO] L\'utilisateur "' + user.pseudo + '" a été ajouté dans la base de donnée'));
   },
 
 }
