@@ -31,7 +31,7 @@ function createCircle()
 
         if((i+j)%2 == 0 && (i < 3 || i > 6) ){
             var circles = document.createElementNS(svgns, "circle")
-                
+
                 circles.setAttribute("cx",j*70+35);
                 if(i < 3){
                 circles.setAttributeNS(null, 'fill','#EBFE0C');
@@ -57,14 +57,14 @@ function createBoard(){
     d.setAttributeNS(null, 'width', '80');
     d.setAttributeNS(null, 'fill', 'orange');
     d.setAttribute("class", "dame");
-    
+
 
 var a = document.getElementById("svg");
     console.log(a.childNodes);
     boardArray = Array.prototype.slice.call(a.childNodes);
     r = boardArray.slice(0,99)
     p = boardArray.slice(100,130)
-    
+
     var gameBoard = [
     [p[0], r[1], p[1], r[3], p[2], r[5], p[3], r[7], p[4], r[9]],
     [r[11], p[5], r[13], p[6], r[15], p[7], r[17], p[8], r[19] ,p[9]],

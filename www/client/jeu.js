@@ -56,8 +56,8 @@ const joueurUn = {
 
 //CREATION DU TABLEAU DE JEU
       var a = document.getElementById("svg");
-    
-    //On récupere tout les enfants du svg 
+
+    //On récupere tout les enfants du svg
       boardArray = Array.prototype.slice.call(a.childNodes);
     //On découpe les enfants en 2 partie
 
@@ -65,7 +65,7 @@ const joueurUn = {
       r = boardArray.slice(0,99)
       //p = cercles, ici on récupère tout les cercles qui vont nous servir de pions
       p = boardArray.slice(100,130)
-            //On crée notre plateau de jeu à partir des enfants découpé au préalable         
+            //On crée notre plateau de jeu à partir des enfants découpé au préalable
             var gameBoard = [
             [p[0], r[1], p[1], r[3], p[2], r[5], p[3], r[7], p[4], r[9]],
             [r[11], p[5], r[13], p[6], r[15], p[7], r[17], p[8], r[19] ,p[9]],
@@ -77,7 +77,7 @@ const joueurUn = {
             [r[70], p[15], r[72], p[16], r[74], p[17], r[76], p[18], r[78], p[19]],
             [p[20], r[81], p[21], r[83], p[22], r[85], p[23], r[87], p[24], r[89]],
             [r[90], p[25], r[92], p[26], r[94], p[27], r[96], p[28], r[98], p[29]],
-        
+
         ]; console.log(gameBoard)
         board = gameBoard
 
@@ -115,11 +115,11 @@ const joueurUn = {
 
             startPositionCxPixel =  parseInt(selectedElement.getAttribute("cx"))
             startPositionCyPixel =   parseInt(selectedElement.getAttribute("cy"))
-        
-        //Traitement au mouvement de la souris 
-        }).bind('touchmove mousemove',function (e) {    
 
-            // Cette condition permet si l'élement existe, de le bouger           
+        //Traitement au mouvement de la souris
+        }).bind('touchmove mousemove',function (e) {
+
+            // Cette condition permet si l'élement existe, de le bouger
             if (selectedElement) {
             //Même principe que plus ici on récupère les positions courante x et y lors du mouvement de la souris
                 var dx = parseInt(selectedElement.getAttribute("cx")) + (e.clientX || e.touches[0].pageX) - currentX;
@@ -128,9 +128,9 @@ const joueurUn = {
                 currentY = e.clientY || e.touches[0].pageY;
                 selectedElement.setAttribute("cx", dx);
                 selectedElement.setAttribute("cy", dy);
-               
+
             }
-        
+
         //Traitement a la fin d'un clique de la souris
         }).bind('touchend mouseup',function (e) {
             console.log('Joueur 1')
@@ -154,24 +154,23 @@ const joueurUn = {
             finalX = Math.floor(parseInt(selectedElement.cx.baseVal.value));
             finalY = Math.floor(parseInt(selectedElement.cy.baseVal.value));
             board = gameBoard   
+
             console.log('startPositionCx : '+startPositionCx, 'startPositionCy : '+startPositionCy)
             // deactivate element after setting it into its new location
 
-            
-           
-            console.log(gameBoard)
 
-            
+
+            console.log(gameBoard)
 
 
             //Fonction permettant de crée un dame à partir des Pion blanc
             function checkQueenWhite(){
                 //On donne au variable la position d'arriver R = right L= left
-                checkQueenR = gameBoard[startPositionCy-2][startPositionCx-1] 
+                checkQueenR = gameBoard[startPositionCy-2][startPositionCx-1]
                 checkQueenL = gameBoard[startPositionCy-2][startPositionCx+3]
-                
-                //Et à partir de ces variables on check si notre pion est bien sur la derniere rangée ennemi  
-                if((checkQueenR == r[1] || checkQueenR == r[3]|| checkQueenR == r[5] || checkQueenR == r[7] || checkQueenR==r[9]) 
+
+                //Et à partir de ces variables on check si notre pion est bien sur la derniere rangée ennemi
+                if((checkQueenR == r[1] || checkQueenR == r[3]|| checkQueenR == r[5] || checkQueenR == r[7] || checkQueenR==r[9])
                 || (checkQueenL == r[1]|| checkQueenL== r[3]|| checkQueenL == r[5]|| checkQueenL==r[7] || checkQueenL==r[9])){
                     console.log('CREER DAME')
 
@@ -190,10 +189,10 @@ const joueurUn = {
             }
             //Fonction permettant de crée un dame à partir des Pion jaune
             function checkQueenYellow(){
-                checkQueenR = gameBoard[startPositionCy+2][startPositionCx-3] 
+                checkQueenR = gameBoard[startPositionCy+2][startPositionCx-3]
                 checkQueenL = gameBoard[startPositionCy+2][startPositionCx+1]
-                
-                if((checkQueenR == r[90] || checkQueenR == r[92]|| checkQueenR == r[94] || checkQueenR == r[96] || checkQueenR==r[98]) 
+
+                if((checkQueenR == r[90] || checkQueenR == r[92]|| checkQueenR == r[94] || checkQueenR == r[96] || checkQueenR==r[98])
                 || (checkQueenL == r[90]|| checkQueenL== r[92]|| checkQueenL == r[94]|| checkQueenL==r[96] || checkQueenL==r[98])){
                     selectedElement.setAttribute("class", 'queenEnnemy');
                     selectedElement.setAttribute("stroke", 'black');
@@ -209,11 +208,12 @@ const joueurUn = {
             //Condition de verification pour le changement de tour des dames
             if (couleurPion =='queen' && changeTurn == false){
                 queenProcess(startPositionCx, startPositionCy,stopPositionCx, stopPositionCy, gameBoard, couleurPion);            
+
                 changeTurn = true;
                 console.log("changeTurn 3");
             }else if (couleurPion =='queenEnnemy' && changeTurn == true){
                 queenProcess(startPositionCx, startPositionCy,stopPositionCx, stopPositionCy, gameBoard, couleurPion);
-               
+
                 changeTurn = false;
             }
             
@@ -221,21 +221,23 @@ const joueurUn = {
             //Condition de comportement pour les pions blanc
             else if((couleurPion =='white' && changeTurn == false && CouleurSocket =='white') || (modeSolo == true && changeTurn == false)){
                 console.log("Je suis dans le modeSolo = true dans les comportement des blancs");
+
                 //Condition qui vérifie si le pion blanc se deplace bien sur une diagonal haute droite ou gauche
-                if(startPositionCx+1 == stopPositionCx && startPositionCy-1 == stopPositionCy && couleurPion =='white' 
+                if(startPositionCx+1 == stopPositionCx && startPositionCy-1 == stopPositionCy && couleurPion =='white'
                 || startPositionCx-1 == stopPositionCx && startPositionCy-1 == stopPositionCy && couleurPion =='white')
                 {
                     //Conditon qui permet de detecter si la case d'arrivée est libre
-                    if(gameBoard[startPositionCy-1][startPositionCx+1] !=null && gameBoard[startPositionCy-1][startPositionCx+1].className.baseVal != 'playableCell' 
+                    if(gameBoard[startPositionCy-1][startPositionCx+1] !=null && gameBoard[startPositionCy-1][startPositionCx+1].className.baseVal != 'playableCell'
                     || gameBoard[startPositionCy-1][startPositionCx-1] !=null && gameBoard[startPositionCy-1][startPositionCx-1].className.baseVal != 'playableCell' )
                     {
                         //Condition qui permet de verifier les cases voisines sont differente de nul ainsi cela nous évite de déborder dans le tableau
-                        if(gameBoard[startPositionCy-1][startPositionCx+1] !=null 
+                        if(gameBoard[startPositionCy-1][startPositionCx+1] !=null
                         || gameBoard[startPositionCy-1][startPositionCx-1] !=null )
                         {
                             //Condition qui permet de detecter un ennemi en haut à droite
                             if(gameBoard[startPositionCy-1][startPositionCx+1]!= null 
                             && (gameBoard[startPositionCy-1][startPositionCx+1].className.baseVal =='yellow' || gameBoard[startPositionCy-1][startPositionCx+1].className.baseVal =='queenEnnemy') 
+
                             && gameBoard[startPositionCy-2][startPositionCx+2] != null
                             && gameBoard[startPositionCy-2][startPositionCx+2].className.baseVal == 'playableCell'
                             && gameBoard[stopPositionCy][stopPositionCx] == gameBoard[startPositionCy-1][startPositionCx+1])
@@ -255,8 +257,7 @@ const joueurUn = {
                                 joueurUn.pionStart.cx = startPositionCxPixel
                                 joueurUn.mange.cx = gameBoard[stopPositionCy][stopPositionCx].cx.baseVal.value;
                                 joueurUn.mange.cy = gameBoard[stopPositionCy][stopPositionCx].cy.baseVal.value;
-                                
-                                
+
                                 //Ici on supprime le pion mangé en lui appliquant un display none
                                 gameBoard[stopPositionCy][stopPositionCx].style.display = 'none';
                                 //Et on change le cercle par notre r[0]
@@ -275,7 +276,7 @@ const joueurUn = {
                                     stopPositionRight = gameBoard[stopPositionCy-2][stopPositionCx+2]
                                     stopPositionLeft = gameBoard[stopPositionCy-2][stopPositionCx]
                                     stopPositionRightX = gameBoard[stopPositionCx+3]
-                                    stopPositionRightY = gameBoard[stopPositionCy-3] 
+                                    stopPositionRightY = gameBoard[stopPositionCy-3]
                                     stopPositionRightNext = gameBoard[stopPositionCy-3][stopPositionCx+3]
                                     stopPositionLeftNext = gameBoard[stopPositionCy-3][stopPositionCx-1]
                                     stopPositionLeftX = gameBoard[stopPositionCx-1]
@@ -284,14 +285,13 @@ const joueurUn = {
                                     if(checkTurnWhite(stopPositionRight, stopPositionLeft, stopPositionRightNext, stopPositionLeftNext, stopPositionRightX, stopPositionRightY, stopPositionLeftX, stopPositionLeftY ) == true){
                                         console.log('C ENCORE TON TOUR')
                                         console.log('NIQUE')
-                                        
+
                                     }
                                     else{
                                         //Si le coup n'est pas jouable on passe la variable changeTurn à true, ce qui permettre à l'ennemi de pouvoir jouer
                                         console.log('TOUR DE lAUTRE')
                                         changeTurn = true
-                                  
-                                        
+
                                     }
                                 }
                                 else{
@@ -301,14 +301,15 @@ const joueurUn = {
                                 }
                             }
                             //Condition qui permet de detecter un ennemi en haut à gauche
+
                             else if(gameBoard[startPositionCy-1][startPositionCx-1]!= null 
                             && (gameBoard[startPositionCy-1][startPositionCx-1].className.baseVal =='yellow' || gameBoard[startPositionCy-1][startPositionCx-1].className.baseVal =='queenEnnemy')  
+
                             && gameBoard[startPositionCy-2][startPositionCx-2]!= null
                             && gameBoard[startPositionCy-2][startPositionCx-2].className.baseVal =='playableCell'
                             && gameBoard[stopPositionCy][stopPositionCx] == gameBoard[startPositionCy-1][startPositionCx-1])
                             {
-                                console.log('ZOZOZOZO')
-                                
+
                                 gameBoard[stopPositionCy-1][stopPositionCx-1]=gameBoard[startPositionCy][startPositionCx]
                                 gameBoard[startPositionCy][startPositionCx]= r[0]
 
@@ -325,9 +326,7 @@ const joueurUn = {
                                 gameBoard[stopPositionCy][stopPositionCx].style.display = 'none';
                                 gameBoard[stopPositionCy][stopPositionCx] = r[0]
                                 joueurUn.board = gameBoard
-                                
-                                
-                                
+
                                 AddScore()
                                 checkScore()
                                 console.log("Score white :"+whitePoint);
@@ -335,12 +334,12 @@ const joueurUn = {
                                     stopPositionRight = gameBoard[stopPositionCy-2][stopPositionCx]
                                     stopPositionLeft = gameBoard[stopPositionCy-2][stopPositionCx-2]
                                     stopPositionRightX = gameBoard[stopPositionCx+1]
-                                    stopPositionRightY = gameBoard[stopPositionCx-3] 
+                                    stopPositionRightY = gameBoard[stopPositionCx-3]
                                     stopPositionRightNext = gameBoard[stopPositionCy-3][stopPositionCx+1]
                                     stopPositionLeftNext = gameBoard[stopPositionCy-3][stopPositionCx-3]
                                     stopPositionLeftX = gameBoard[stopPositionCx-3]
                                     stopPositionLeftY = gameBoard[stopPositionCy-3]
-                                    
+
                                     if(checkTurnWhite(stopPositionRight, stopPositionLeft, stopPositionRightNext, stopPositionLeftNext,  stopPositionRightX, stopPositionRightY, stopPositionLeftX, stopPositionLeftY) == true ){
                                         console.log('C ENCORE TON TOUR')
                                     }
@@ -353,14 +352,14 @@ const joueurUn = {
                                     console.log('TOUR DE lAUTRE')
                                     changeTurn = true
                                 }
-                                
+
                             }
                             //Condition permettant de bouger un élement diagonalement et sauvegarder sa position
                             else if(gameBoard[stopPositionCy][stopPositionCx].className.baseVal !='white'
                             && gameBoard[stopPositionCy][stopPositionCx].className.baseVal !='queen'
-                            && gameBoard[stopPositionCy][stopPositionCx].className.baseVal !='queenEnnemy'   
+                            && gameBoard[stopPositionCy][stopPositionCx].className.baseVal !='queenEnnemy'
                             && gameBoard[stopPositionCy][stopPositionCx].className.baseVal !='yellow'){
-                                
+
                                 //Ici on change de position le pion dans notre gameBoard ainsi la position d'arrivé, stopPosition devient le pion
                                 gameBoard[stopPositionCy][stopPositionCx]=gameBoard[startPositionCy][startPositionCx]
                                 //Puis la position de départ est changer par r[0] sois le rectangle que l'on a crée au debut pour remplir les cases vides
@@ -372,59 +371,69 @@ const joueurUn = {
                                 joueurUn.pionEnd.cx = gameBoard[stopPositionCy][stopPositionCx].cx.baseVal.value;
                                 joueurUn.pionEnd.cy = gameBoard[stopPositionCy][stopPositionCx].cy.baseVal.value;
                                 joueurUn.pionStart.cy = startPositionCyPixel
+
                                 joueurUn.pionStart.cx = startPositionCxPixel                                
+
                                 joueurUn.mange.cx = null;
                                 joueurUn.mange.cy = null;
                                 joueurUn.board = gameBoard;
                                 console.log("Change turn de Queen");
                                 changeTurn = true
-                               
-                            } 
-                            //Si le mouvement est interdit alors, ici on change la position du cercle sur le svg 
-                            else{     
+
+                            }
+                            //Si le mouvement est interdit alors, ici on change la position du cercle sur le svg
+                            else{
                             selectedElement.setAttribute("cx", startPositionCx*70+35);
                             selectedElement.setAttribute("cy", startPositionCy*70+35);
                             joueurUn.pionEnd.cx = null;
                             joueurUn.pionEnd.cy = null;
                             joueurUn.pionStart.cy = null;
+
                             joueurUn.pionStart.cx = null;                                
                             joueurUn.mange.cx = null;
                             joueurUn.mange.cy = null;
                             } 
+
                         }
-                        //Si le mouvement est interdit alors, ici on change la position du cercle sur le svg 
-                        else{ 
+                        //Si le mouvement est interdit alors, ici on change la position du cercle sur le svg
+                        else{
                             selectedElement.setAttribute("cx", startPositionCx*70+35);
                             selectedElement.setAttribute("cy", startPositionCy*70+35);
                             joueurUn.pionEnd.cx = null;
                             joueurUn.pionEnd.cy = null;
                             joueurUn.pionStart.cy = null;
+
                             joueurUn.pionStart.cx = null;                                
                             joueurUn.mange.cx = null;
                             joueurUn.mange.cy = null;
                         } 
+
                     }
                     //Condition permettant de bouger un élement diagonalement et sauvegarder sa position
                     else{
                         gameBoard[stopPositionCy][stopPositionCx]=gameBoard[startPositionCy][startPositionCx]
                         gameBoard[startPositionCy][startPositionCx]= r[0]
-                        
+
                         selectedElement.setAttribute("cx", stopPositionCx*70+35);
                         selectedElement.setAttribute("cy", stopPositionCy*70+35);
                         joueurUn.pionEnd.cx = gameBoard[stopPositionCy][stopPositionCx].cx.baseVal.value;
                         joueurUn.pionEnd.cy = gameBoard[stopPositionCy][stopPositionCx].cy.baseVal.value;
                         joueurUn.pionStart.cy = startPositionCyPixel
+
                         joueurUn.pionStart.cx = startPositionCxPixel                                
+
                         joueurUn.mange.cx = null;
                         joueurUn.mange.cy = null;
                         joueurUn.board = gameBoard
                         console.log("changeTurn 2");
                         changeTurn = true
+
                             if(modeSolo == true)
                             {
                                 changeTurn = false;
                             }
                         }  
+
                 //On regarde si le pion peut devenir une dame
                 checkQueenWhite();
 
@@ -442,6 +451,7 @@ const joueurUn = {
                             joueurUn.mange.cx = null;
                             joueurUn.mange.cy = null;
                     console.log("Tour : " +changeTurn)   
+
                 }
                 //Condition si le mouvement est interdit
                 else{
@@ -450,6 +460,7 @@ const joueurUn = {
                     joueurUn.pionEnd.cx = null;
                             joueurUn.pionEnd.cy = null;
                             joueurUn.pionStart.cy = null;
+
                             joueurUn.pionStart.cx = null;                                
                             joueurUn.mange.cx = null;
                             joueurUn.mange.cy = null;
@@ -463,15 +474,16 @@ const joueurUn = {
                 || startPositionCx+1 == stopPositionCx && startPositionCy+1 == stopPositionCy)
                 {
                     //Traitement à gauche
-                    if(gameBoard[startPositionCy+1][startPositionCx-1] !=null && gameBoard[startPositionCy+1][startPositionCx-1].className.baseVal != 'playableCell' 
+                    if(gameBoard[startPositionCy+1][startPositionCx-1] !=null && gameBoard[startPositionCy+1][startPositionCx-1].className.baseVal != 'playableCell'
                     || gameBoard[startPositionCy+1][startPositionCx+1] !=null && gameBoard[startPositionCy+1][startPositionCx+1].className.baseVal != 'playableCell')
                     {
-                        if(gameBoard[startPositionCy+1][startPositionCx-1] !=null 
+                        if(gameBoard[startPositionCy+1][startPositionCx-1] !=null
                         || gameBoard[startPositionCy+1][startPositionCx+1] !=null )
                         {
                             if(gameBoard[startPositionCy+1][startPositionCx-1] != null 
                             && (gameBoard[startPositionCy+1][startPositionCx-1].className.baseVal =='white' || gameBoard[startPositionCy+1][startPositionCx-1].className.baseVal =='queen')
                             && gameBoard[startPositionCy+2][startPositionCx-2] != null 
+
                             && gameBoard[startPositionCy+2][startPositionCx-2].className.baseVal == 'playableCell'
                             && gameBoard[stopPositionCy][stopPositionCx] == gameBoard[startPositionCy+1][startPositionCx-1])
                             {
@@ -493,7 +505,6 @@ const joueurUn = {
                                 gameBoard[stopPositionCy][stopPositionCx] = r[0]
                                 joueurUn.board = gameBoard
                                 
-                                
 
                                 AddScore()
                                 checkScore()
@@ -502,12 +513,12 @@ const joueurUn = {
                                     stopPositionRight = gameBoard[stopPositionCy+2][stopPositionCx]
                                     stopPositionLeft = gameBoard[stopPositionCy+2][stopPositionCx-2]
                                     stopPositionRightX = gameBoard[stopPositionCx+1]
-                                    stopPositionRightY = gameBoard[stopPositionCy+3] 
+                                    stopPositionRightY = gameBoard[stopPositionCy+3]
                                     stopPositionRightNext = gameBoard[stopPositionCy+3][stopPositionCx+1]
                                     stopPositionLeftNext = gameBoard[stopPositionCy+3][stopPositionCx-3]
                                     stopPositionLeftX = gameBoard[stopPositionCx-3]
                                     stopPositionLeftY = gameBoard[stopPositionCy+3]
-                                    
+
                                     if(checkTurnYellow(stopPositionRight, stopPositionLeft, stopPositionRightNext, stopPositionLeftNext,  stopPositionRightX, stopPositionRightY, stopPositionLeftX, stopPositionLeftY) == true ){
                                             console.log('C ENCORE TON TOUR')
                                     }
@@ -521,9 +532,11 @@ const joueurUn = {
                                     console.log('Tour de lautre')
                                     changeTurn = false;
                                 }
-                            
+
                             }
+
                             else if(gameBoard[startPositionCy+1][startPositionCx+1] !=null 
+
                             && (gameBoard[startPositionCy+1][startPositionCx+1].className.baseVal =='white' || gameBoard[startPositionCy+1][startPositionCx+1].className.baseVal =='queen')
                             && gameBoard[startPositionCy+2][startPositionCx+2] != null
                             && gameBoard[startPositionCy+2][startPositionCx+2].className.baseVal =='playableCell'
@@ -542,12 +555,12 @@ const joueurUn = {
                                 joueurUn.mange.cx = gameBoard[stopPositionCy][stopPositionCx].cx.baseVal.value;
                                 joueurUn.mange.cy = gameBoard[stopPositionCy][stopPositionCx].cy.baseVal.value;
 
+
                                 
                                 gameBoard[stopPositionCy][stopPositionCx].style.display = 'none';
                                 gameBoard[stopPositionCy][stopPositionCx] = r[0]
                                 
                                 joueurUn.board = gameBoard
-                                
                                 
                                 AddScore()
                                 checkScore()
@@ -556,12 +569,12 @@ const joueurUn = {
                                     stopPositionRight = gameBoard[stopPositionCy+2][stopPositionCx+2]
                                     stopPositionLeft = gameBoard[stopPositionCy+2][stopPositionCx]
                                     stopPositionRightX = gameBoard[stopPositionCx+1]
-                                    stopPositionRightY = gameBoard[stopPositionCy+3] 
+                                    stopPositionRightY = gameBoard[stopPositionCy+3]
                                     stopPositionRightNext = gameBoard[stopPositionCy+3][stopPositionCx+3]
                                     stopPositionLeftNext = gameBoard[stopPositionCy+3][stopPositionCx-1]
                                     stopPositionLeftX = gameBoard[stopPositionCx-3]
                                     stopPositionLeftY = gameBoard[stopPositionCy+3]
-                                    
+
                                     if(checkTurnYellow(stopPositionRight, stopPositionLeft, stopPositionRightNext, stopPositionLeftNext,  stopPositionRightX, stopPositionRightY, stopPositionLeftX, stopPositionLeftY) == true ){
                                             console.log('C ENCORE TON TOUR')
                                     }
@@ -578,7 +591,7 @@ const joueurUn = {
                             }
                             else if(gameBoard[stopPositionCy][stopPositionCx].className.baseVal !='white'
                             && gameBoard[stopPositionCy][stopPositionCx].className.baseVal !='queen'
-                            && gameBoard[stopPositionCy][stopPositionCx].className.baseVal !='queenEnnemy'  
+                            && gameBoard[stopPositionCy][stopPositionCx].className.baseVal !='queenEnnemy'
                             && gameBoard[stopPositionCy][stopPositionCx].className.baseVal !='yellow')
                             {
                                 gameBoard[stopPositionCy][stopPositionCx]=gameBoard[startPositionCy][startPositionCx]
@@ -590,6 +603,7 @@ const joueurUn = {
                                 joueurUn.pionEnd.cy = gameBoard[stopPositionCy][stopPositionCx].cy.baseVal.value;
                                 joueurUn.pionStart.cy = startPositionCyPixel
                                 joueurUn.pionStart.cx = startPositionCxPixel                                
+
                                 joueurUn.mange.cx = null;
                                 joueurUn.mange.cy = null;
                                 joueurUn.board = gameBoard
@@ -597,15 +611,18 @@ const joueurUn = {
                                 
                             }  
                             else{ 
+
                             selectedElement.setAttribute("cx", startPositionCx*70+35);
                             selectedElement.setAttribute("cy", startPositionCy*70+35);
                             joueurUn.pionEnd.cx = null;
                             joueurUn.pionEnd.cy = null;
                             joueurUn.pionStart.cy = null;
+
                             joueurUn.pionStart.cx = null;                               
                             joueurUn.mange.cx = null;
                             joueurUn.mange.cy = null;
                             } 
+
                         }
                         else{
                             selectedElement.setAttribute("cx", startPositionCx*70+35);
@@ -617,6 +634,7 @@ const joueurUn = {
                             joueurUn.mange.cx = null;
                             joueurUn.mange.cy = null;
                         } 
+
                     }
                     else
                     {
@@ -628,12 +646,13 @@ const joueurUn = {
                         joueurUn.pionEnd.cy = gameBoard[stopPositionCy][stopPositionCx].cy.baseVal.value;
                         joueurUn.pionStart.cy = startPositionCyPixel
                         joueurUn.pionStart.cx = startPositionCxPixel                                
+
                         joueurUn.mange.cx = null;
                         joueurUn.mange.cy = null;
                         joueurUn.board = gameBoard
                         changeTurn = false;
-                    }  
-                    
+                    }
+
                     checkQueenYellow()
                     console.log("Pos+1 : "+ gameBoard[startPositionCy+1][startPositionCx+1])
                     console.log("Mouvement autoriser");
@@ -660,6 +679,7 @@ const joueurUn = {
                             joueurUn.pionStart.cx = null;                               
                             joueurUn.mange.cx = null;
                             joueurUn.mange.cy = null; 
+
                 }
             }
             else{
@@ -672,12 +692,12 @@ const joueurUn = {
                             joueurUn.pionStart.cx = null;                               
                             joueurUn.mange.cx = null;
                             joueurUn.mange.cy = null; 
+
                 }
             console.log('stopPositionCx : '+stopPositionCx, 'stopPositionCy : '+stopPositionCy)
             console.log(gameBoard[stopPositionCy][stopPositionCx]);
-            selectedElement = null;   
+            selectedElement = null;
         });
-        
     };
 
     function log() {
@@ -711,7 +731,6 @@ const joueurUn = {
     function getY()
     {
         return lastY;
-        
     };
     function getSelectedElement()
     {
@@ -732,7 +751,5 @@ const joueurUn = {
     {
         return yellowPoint;
     };
-
-    
 
  
