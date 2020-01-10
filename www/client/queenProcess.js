@@ -24,11 +24,12 @@ function queenProcess(startPositionCx, startPositionCy, stopPositionCx, stopPosi
         for(var i = 0; i < tailleMax; i++){
             for (var j = 0; j < tailleMax; j++){
                 if(i == j ){
-
+                
             //Traitement pour la diagonal haute droite
                 //On vérifie si le deplacement est bien diagonal
                 if(startPositionCx+j == stopPositionCx && startPositionCy-i == stopPositionCy){
-                //On vérifie aussi si la diagonal ne depasse pas la range max du tableau
+                //On vérifie aussi si la diagonal ne depasse pas la range max du tableau    
+
                 if(gameBoard[startPositionCy-i] != null && gameBoard[startPositionCx+j] != null)
                 {
                     //On vérifie si dans notre diagonal un ennemi est localisé et que son voisin n'est pas a coté de lui
@@ -62,8 +63,10 @@ function queenProcess(startPositionCx, startPositionCy, stopPositionCx, stopPosi
                         return;
                     }
                     //Condition permettant de bouger un élement diagonalement
-                    else if(gameBoard[stopPositionCy][stopPositionCx] == gameBoard[startPositionCy-i][startPositionCx+j]
-                    && gameBoard[stopPositionCy][stopPositionCx].className.baseVal !='white'
+
+                    else if(gameBoard[stopPositionCy][stopPositionCx] == gameBoard[startPositionCy-i][startPositionCx+j] 
+                    && gameBoard[stopPositionCy][stopPositionCx].className.baseVal !='white' 
+
                     && gameBoard[stopPositionCy][stopPositionCx].className.baseVal !='yellow')
                     {
                         console.log('DIAGGGGGGGGGGG 1')
@@ -78,7 +81,8 @@ function queenProcess(startPositionCx, startPositionCy, stopPositionCx, stopPosi
                         joueurUn.pionEnd.cx = gameBoard[stopPositionCy][stopPositionCx].cx.baseVal.value;
                         joueurUn.pionEnd.cy = gameBoard[stopPositionCy][stopPositionCx].cy.baseVal.value;
                         joueurUn.pionStart.cy = startPositionCyPixel
-                        joueurUn.pionStart.cx = startPositionCxPixel
+                        joueurUn.pionStart.cx = startPositionCxPixel                               
+
                         joueurUn.mange.cx = null;
                         joueurUn.mange.cy = null;
                         joueurUn.board = gameBoard
@@ -93,7 +97,8 @@ function queenProcess(startPositionCx, startPositionCy, stopPositionCx, stopPosi
                         joueurUn.pionEnd.cx = null;
                         joueurUn.pionEnd.cy = null;
                         joueurUn.pionStart.cy = null;
-                        joueurUn.pionStart.cx = null;
+                        joueurUn.pionStart.cx = null;                                
+
                         joueurUn.mange.cx = null;
                         joueurUn.mange.cy = null;
                         console.log("Mouvement interdit QUEEN 1");
@@ -109,10 +114,10 @@ function queenProcess(startPositionCx, startPositionCy, stopPositionCx, stopPosi
                     joueurUn.pionEnd.cx = null;
                     joueurUn.pionEnd.cy = null;
                     joueurUn.pionStart.cy = null;
-                    joueurUn.pionStart.cx = null;
+                    joueurUn.pionStart.cx = null;                                
                     joueurUn.mange.cx = null;
                     joueurUn.mange.cy = null;
-                }
+                }         
                 }
             //Traitement pour la diagonal haute gauche
                 if(startPositionCx-j == stopPositionCx && startPositionCy-i == stopPositionCy)
@@ -120,19 +125,18 @@ function queenProcess(startPositionCx, startPositionCy, stopPositionCx, stopPosi
                     if(gameBoard[startPositionCy-i]!= null && gameBoard[startPositionCx-j] !=null)
                     {
                         console.log('Je rentre ici 2')
-                        if((gameBoard[stopPositionCy][stopPositionCx].className.baseVal == queenEnnemyColor
+                        if((gameBoard[stopPositionCy][stopPositionCx].className.baseVal == queenEnnemyColor 
+
                         || gameBoard[stopPositionCy][stopPositionCx].className.baseVal == ennemyColor)
                         && gameBoard[stopPositionCy-1] != null
                         && gameBoard[stopPositionCy-1][stopPositionCx-1] != null
                         && gameBoard[stopPositionCy-1][stopPositionCx-1].className.baseVal == 'playableCell')
                         {
                             gameBoard[stopPositionCy-1][stopPositionCx-1]=gameBoard[startPositionCy][startPositionCx]
-
+                            
                             gameBoard[startPositionCy][startPositionCx]= r[0]
                             selectedElement.setAttribute("cy", (stopPositionCy-1)*70+35);
                             selectedElement.setAttribute("cx", (stopPositionCx-1)*70+35);
-
-
 
                             console.log('Mange 2')
                             joueurUn.pionEnd.cx = gameBoard[stopPositionCy-1][stopPositionCx-1].cx.baseVal.value;
@@ -150,7 +154,8 @@ function queenProcess(startPositionCx, startPositionCy, stopPositionCx, stopPosi
                             return;
                         }
                     else if(gameBoard[stopPositionCy][stopPositionCx] == gameBoard[startPositionCy-i][startPositionCx-j]
-                    && gameBoard[stopPositionCy][stopPositionCx].className.baseVal !='white'
+
+                    && gameBoard[stopPositionCy][stopPositionCx].className.baseVal !='white' 
                     && gameBoard[stopPositionCy][stopPositionCx].className.baseVal !='yellow')
                     {
                         console.log('DIAGGGGGGGGGGG 2')
@@ -162,7 +167,8 @@ function queenProcess(startPositionCx, startPositionCy, stopPositionCx, stopPosi
                         joueurUn.pionEnd.cx = gameBoard[stopPositionCy][stopPositionCx].cx.baseVal.value;
                         joueurUn.pionEnd.cy = gameBoard[stopPositionCy][stopPositionCx].cy.baseVal.value;
                         joueurUn.pionStart.cy = startPositionCyPixel
-                        joueurUn.pionStart.cx = startPositionCxPixel
+
+                        joueurUn.pionStart.cx = startPositionCxPixel                               
                         joueurUn.mange.cx = null;
                         joueurUn.mange.cy = null;
                         joueurUn.board = gameBoard
@@ -176,7 +182,8 @@ function queenProcess(startPositionCx, startPositionCy, stopPositionCx, stopPosi
                         joueurUn.pionEnd.cx = null;
                         joueurUn.pionEnd.cy = null;
                         joueurUn.pionStart.cy = null;
-                        joueurUn.pionStart.cx = null;
+                        joueurUn.pionStart.cx = null;                                
+
                         joueurUn.mange.cx = null;
                         joueurUn.mange.cy = null;
                     }
@@ -190,17 +197,20 @@ function queenProcess(startPositionCx, startPositionCy, stopPositionCx, stopPosi
                 joueurUn.pionEnd.cx = null;
                 joueurUn.pionEnd.cy = null;
                 joueurUn.pionStart.cy = null;
-                joueurUn.pionStart.cx = null;
+
+                joueurUn.pionStart.cx = null;                                
                 joueurUn.mange.cx = null;
                 joueurUn.mange.cy = null;
             }
-        //Traitement pour la diagonal bas gauche
+        //Traitement pour la diagonal bas gauche     
             if(startPositionCx-j == stopPositionCx && startPositionCy+i == stopPositionCy)
             {
                 if(gameBoard[startPositionCy+i] != null && gameBoard[startPositionCx-j] != null)
                 {
                     console.log('Je rentre ici 3')
-                    if((gameBoard[stopPositionCy][stopPositionCx].className.baseVal == queenEnnemyColor
+
+                    if((gameBoard[stopPositionCy][stopPositionCx].className.baseVal == queenEnnemyColor 
+
                     || gameBoard[stopPositionCy][stopPositionCx].className.baseVal == ennemyColor)
                     && gameBoard[stopPositionCy+1][stopPositionCx-1] != null
                     && gameBoard[stopPositionCy+1][stopPositionCx-1].className.baseVal == 'playableCell')
@@ -227,7 +237,9 @@ function queenProcess(startPositionCx, startPositionCy, stopPositionCx, stopPosi
                         return;
                     }
                     else if(gameBoard[stopPositionCy][stopPositionCx] == gameBoard[startPositionCy+i][startPositionCx-j]
-                    && gameBoard[stopPositionCy][stopPositionCx].className.baseVal !='white'
+
+                    && gameBoard[stopPositionCy][stopPositionCx].className.baseVal !='white' 
+
                     && gameBoard[stopPositionCy][stopPositionCx].className.baseVal !='yellow')
                     {
                         console.log('DIAGGGGGGGGGGG 3')
@@ -239,7 +251,9 @@ function queenProcess(startPositionCx, startPositionCy, stopPositionCx, stopPosi
                         joueurUn.pionEnd.cx = gameBoard[stopPositionCy][stopPositionCx].cx.baseVal.value;
                         joueurUn.pionEnd.cy = gameBoard[stopPositionCy][stopPositionCx].cy.baseVal.value;
                         joueurUn.pionStart.cy = startPositionCyPixel
-                        joueurUn.pionStart.cx = startPositionCxPixel
+
+                        joueurUn.pionStart.cx = startPositionCxPixel                               
+
                         joueurUn.mange.cx = null;
                         joueurUn.mange.cy = null;
                         joueurUn.board = gameBoard
@@ -252,11 +266,12 @@ function queenProcess(startPositionCx, startPositionCy, stopPositionCx, stopPosi
                         joueurUn.pionEnd.cx = null;
                         joueurUn.pionEnd.cy = null;
                         joueurUn.pionStart.cy = null;
-                        joueurUn.pionStart.cx = null;
+                        joueurUn.pionStart.cx = null;                                
                         joueurUn.mange.cx = null;
                         joueurUn.mange.cy = null;
                         console.log("Mouvement interdit QUEEN 3");
-                    }
+                    }       
+
                 }
             }
             else{
@@ -265,28 +280,30 @@ function queenProcess(startPositionCx, startPositionCy, stopPositionCx, stopPosi
                 joueurUn.pionEnd.cx = null;
                 joueurUn.pionEnd.cy = null;
                 joueurUn.pionStart.cy = null;
-                joueurUn.pionStart.cx = null;
+                joueurUn.pionStart.cx = null;                                
+
                 joueurUn.mange.cx = null;
                 joueurUn.mange.cy = null;
                 console.log("Mouvement interdit QUEEN 3 - 1");
             }
-        //Traitement pour la diagonal bas droite
+
+        //Traitement pour la diagonal bas droite      
+
             if(startPositionCx+j == stopPositionCx && startPositionCy+i == stopPositionCy){
                 if(gameBoard[startPositionCy+i] != null && gameBoard[startPositionCx+j] != null)
                 {
                     console.log('Je rentre ici 4')
-                    if((gameBoard[stopPositionCy][stopPositionCx].className.baseVal == queenEnnemyColor
+                    if((gameBoard[stopPositionCy][stopPositionCx].className.baseVal == queenEnnemyColor 
+
                     || gameBoard[stopPositionCy][stopPositionCx].className.baseVal == ennemyColor)
                     && gameBoard[stopPositionCy+1][stopPositionCx+1] != null
                     && gameBoard[stopPositionCy+1][stopPositionCx+1].className.baseVal == 'playableCell')
                     {
                         gameBoard[stopPositionCy+1][stopPositionCx+1]=gameBoard[startPositionCy][startPositionCx]
-
+                        
                         gameBoard[startPositionCy][startPositionCx]= r[0]
                         selectedElement.setAttribute("cy", (stopPositionCy+1)*70+35);
                         selectedElement.setAttribute("cx", (stopPositionCx+1)*70+35);
-
-
 
                         joueurUn.pionEnd.cx = gameBoard[stopPositionCy+1][stopPositionCx+1].cx.baseVal.value;
                         joueurUn.pionEnd.cy = gameBoard[stopPositionCy+1][stopPositionCx+1].cy.baseVal.value;
@@ -304,7 +321,7 @@ function queenProcess(startPositionCx, startPositionCy, stopPositionCx, stopPosi
                         return;
                     }
                     else if(gameBoard[stopPositionCy][stopPositionCx] == gameBoard[startPositionCy+i][startPositionCx+j]
-                    && gameBoard[stopPositionCy][stopPositionCx].className.baseVal !='white'
+                    && gameBoard[stopPositionCy][stopPositionCx].className.baseVal !='white' 
                     && gameBoard[stopPositionCy][stopPositionCx].className.baseVal !='yellow')
                     {
                         console.log('DIAGGGGGGGGGGG 4')
@@ -316,7 +333,8 @@ function queenProcess(startPositionCx, startPositionCy, stopPositionCx, stopPosi
                         joueurUn.pionEnd.cx = gameBoard[stopPositionCy][stopPositionCx].cx.baseVal.value;
                         joueurUn.pionEnd.cy = gameBoard[stopPositionCy][stopPositionCx].cy.baseVal.value;
                         joueurUn.pionStart.cy = startPositionCyPixel
-                        joueurUn.pionStart.cx = startPositionCxPixel
+                        joueurUn.pionStart.cx = startPositionCxPixel                               
+
                         joueurUn.mange.cx = null;
                         joueurUn.mange.cy = null;
                         joueurUn.board = gameBoard
@@ -329,11 +347,12 @@ function queenProcess(startPositionCx, startPositionCy, stopPositionCx, stopPosi
                         joueurUn.pionEnd.cx = null;
                         joueurUn.pionEnd.cy = null;
                         joueurUn.pionStart.cy = null;
-                        joueurUn.pionStart.cx = null;
+                        joueurUn.pionStart.cx = null;                                
                         joueurUn.mange.cx = null;
                         joueurUn.mange.cy = null;
                         console.log("Mouvement interdit QUEEN 4");
-                    }
+                    }                    
+
                 }
             }
             else{
@@ -343,10 +362,11 @@ function queenProcess(startPositionCx, startPositionCy, stopPositionCx, stopPosi
                 joueurUn.pionEnd.cx = null;
                 joueurUn.pionEnd.cy = null;
                 joueurUn.pionStart.cy = null;
-                joueurUn.pionStart.cx = null;
+                joueurUn.pionStart.cx = null;                                
                 joueurUn.mange.cx = null;
                 joueurUn.mange.cy = null;
-                }
+                }     
+
             }
         }
     }

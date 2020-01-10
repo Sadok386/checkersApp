@@ -145,15 +145,16 @@
 
         <p><input type="button" value="Chercher une partie" id="lookForGame" /></p>
         <button onclick="createRect(), registercb(CouleurSocket, false)" onload="" >Create svg</button>
+
         <button onclick="createRect(), registercb(CouleurSocket, true)" onload="" >Jouer en mode Solo</button>
         <div class="svg-container">
             <svg id="svg" width="1000" height="1000"  class="svg-content" ></svg>
 
-            <section style="display:none" id="zone_jeu" >
-
-                <button id="simulation" onclick='createRect()'> Simulation onclick</button>
-                <button id="surrender"> Se rendre </button>
-            </section>
+        <section style="display:none" id="zone_jeu" >
+          
+            <button id="simulation" onclick='createRect()'> Simulation onclick</button>
+            <button id="surrender"> Se rendre </button>
+        </section>
 
         <script
                 src="https://code.jquery.com/jquery-3.4.1.js"
@@ -163,10 +164,11 @@
         <script type="text/javascript" src="plateau.js"></script>
         <script type="text/javascript" src="score.js"></script>
         <script type="text/javascript" src="checkTurn.js"></script>
-
+        
         <script type="text/javascript" src="jeu.js"></script>
         <script type="text/javascript" src="queenProcess.js"></script>
         <script>
+
         let CouleurSocket;
             // Connexion au port d'écoute
             var socket = io.connect('http://localhost:8080', {
@@ -181,6 +183,7 @@
             var allRooms = [];
             // Si une personne se reconnecte avec les mêmes identifiants alors on lui donne la même id de socket, du coup
             //Il faudra faire des vérifs de sockets à droite à gauche
+
             //Lorsque quelqu'un se co, on envoie un texte dans #zone_Chat
             socket.on('nouveau_joueur', function(data) {
                 $('#zone_chat').prepend('<p> Vous êtes connecté en tant que : <em>' + data.identifiant+ '</em></p>');
@@ -215,7 +218,9 @@
                 var suppr = document.getElementById('zone_jeu');
                 suppr.style.display="inline";
 
+
             });
+
             socket.on('gameFinished',function(){
                 var suppr = document.getElementById('zone_jeu');
                 suppr.style.display="none";
@@ -224,15 +229,22 @@
                 suppr = document.getElementById("svg");
                 suppr.style.display="none";
             })
+
+
             $('#simulation').click(function()
             {
                 socket.emit('updateGame');
                 test = socket.emit('getList');
 
+                
+            });
+
+
             });
             socket.on("message", function(id){
                 $('#zone_jeu').prepend('<p> le message qui à était envoyé '+id+'</p>');
             })
+
             socket.on("messageGagnant", function(id){
                 alert(id);
             })
@@ -261,28 +273,32 @@
                     }
                 }
 
-
+                
+                    
                 mangeX = getJoueurUn().mange.cx; mangeY = getJoueurUn().mange.cy;
                 boardGame = getJoueurUn().board;
                 makeQueen = getJoueurUn().makeQueen;
-
-
+                
+                
                 changeQueenClass = getJoueurUn().changeColorQueen;
-
+                
                 socket.emit('updateGame', pionStartX, pionStartY,pionEndX,pionEndY, mangeX, mangeY, getBoard(), makeQueen, changeQueenClass, getTurn());
             });
+
             $('#surrender').click(function()
             {
                 socket.emit('Surrender');
             });
 
+           
             socket.on('refreshGame', function(id,pionStartX, pionStartY,pionEndX,pionEndY, mangeX, mangeY, board, makeQueen, changeQueenClass, turn){
                 gameBoard = getBoard();
-
+               
                 for(let i=0; i<30; i++ )
                 {
                     if(document.getElementsByTagName("circle")[i].cx.baseVal.value == pionStartX && document.getElementsByTagName("circle")[i].cy.baseVal.value ==  pionStartY)
-                    {
+                    {   
+
                         let ModifiedPion = document.getElementsByTagName("circle")[i];
                         pionStartYint = Math.floor(parseInt(pionStartY)/70)
                         pionStartXint = Math.floor(parseInt(pionStartX)/70)
@@ -301,7 +317,9 @@
                             ModifiedPion.setAttribute("stroke", 'black');
                             ModifiedPion.setAttribute("stroke-width", 10);
                         }
-                    }
+
+                    }    
+
                     if(document.getElementsByTagName("circle")[i].cx.baseVal.value == mangeX && document.getElementsByTagName("circle")[i].cy.baseVal.value == mangeY)
                     {
                         mangeYint = Math.floor(parseInt(mangeY)/70)
@@ -310,14 +328,18 @@
                         let RemovePion = document.getElementsByTagName("circle")[i];
                         RemovePion.style.display = 'none';
                     }
+
                 }
             })
+
             //Tout les 100 secondes on vérifie l'état de la room de la personne
             setInterval(function() { ragequit();}, 100000);
+
             function ragequit()
             {
                 socket.emit("checkRagequit");
             }
+
         </script>
     </div>
     <div data-role="footer">
