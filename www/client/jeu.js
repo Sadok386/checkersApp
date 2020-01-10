@@ -5,19 +5,11 @@ var currentX = 0;
 var currentY = 0;
 whitePoint = 0;
 yellowPoint = 0;
-<<<<<<< HEAD
-var changeTurn = false;
-let pionMoveCy
-let pionMoveCx
-const joueurUn = {
-    color:"white",
-=======
 var changeTurn = false;  
 let pionMoveCy
 let pionMoveCx
 const joueurUn = {  
     color:"white", 
->>>>>>> Fixed-bug
     pionStart: {
                 cx: null,
                 cy: null

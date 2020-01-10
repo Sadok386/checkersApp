@@ -22,7 +22,7 @@ function ConnexionUser() {
     var password = document.getElementsByClassName("password");
 
     $.ajax({
-        url: "http://localhost:3000" + "/login",
+        url: url + "/login",
         method: "post",
         data: {
             pseudo: username[0].value,
