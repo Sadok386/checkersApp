@@ -16,13 +16,21 @@ module.exports = {
   login: async (pseudo, password, done) => {
     try {
       const result = await User.findOne({ pseudo: pseudo }, function(err, user) {
+        if (err) { return done(err); }
+  
+        if (!user) {
+          console.log("L'utilisateur n'existe pas!");
+          return done(null, false);
+        }
+  
         const isPasswordCorrect = bcrypt.compareSync(password, user.password);
-        if (isPasswordCorrect) {
-          console.log("Pseudo et password correct!");
-          return done(null, user);
+        if (!isPasswordCorrect) {
+          console.log("Password incorrect!");
+          return done(null, false);
         }
         
-        
+        console.log("Pseudo et password correct!");
+        return done(null, user);
       });
     } catch (error) {
       console.log('login incorrect')
